@@ -9,7 +9,7 @@ const PizzasProvider = ({ children }) => {
 
   const getPizzas = async () => {
     try {
-      const response = await fetch("/mamma-mia/pizzas.json");
+      const response = await fetch("/proyecto-final/pizzas.json");
       const data = await response.json();
       setPizzas(data);
     } catch (error) {

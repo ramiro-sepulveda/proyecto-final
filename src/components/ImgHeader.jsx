@@ -4,7 +4,7 @@ const ImgHeader = () => {
       <header className="header-container">
         <div className="header-content">
           <img
-            src="/mamma-mia/pizza-header.jpg"
+            src="/proyecto-final/pizza-header.jpg"
             alt="Header Image"
             className="header-image"
           />

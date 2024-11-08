@@ -13,9 +13,9 @@ function App() {
         <Navigation />
         <div className="contenido">
           <Routes>
-            <Route path="/mamma-mia/" element={<HomePage />} />
-            <Route path="/mamma-mia/pizza/:name" element={<PizzaDetails />} />
-            <Route path="/mamma-mia/carrito/" element={<CarritoList />} />
+            <Route path="/proyecto-final/" element={<HomePage />} />
+            <Route path="/proyecto-final/pizza/:name" element={<PizzaDetails />} />
+            <Route path="/proyecto-final/carrito/" element={<CarritoList />} />
           </Routes>
         </div>
         <Footer />

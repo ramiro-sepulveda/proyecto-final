@@ -13,7 +13,7 @@ const Navigation = () => {
     >
       <Container className="justify-content-start">
         <Link
-          to="/mamma-mia/"
+          to="/proyecto-final/"
           className="fs-4 text-white ms-3 text-decoration-none"
         >
           <Emoji emoji="pizza" /> ¡Pizzería Mamma Mia!
@@ -21,7 +21,7 @@ const Navigation = () => {
       </Container>
       <Container className=" justify-content-end">
         <Link
-          to="/mamma-mia/carrito/"
+          to="/proyecto-final/carrito/"
           className="text-white ms-3 text-decoration-none"
         >
           <Emoji emoji="shopping-cart" /> <Carrito />
