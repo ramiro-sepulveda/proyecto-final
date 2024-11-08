@@ -16,7 +16,14 @@ const Navigation = () => {
           to="/proyecto-final/"
           className="fs-4 text-white ms-3 text-decoration-none"
         >
-          <Emoji emoji="pizza" /> ¡Pizzería Mamma Mia!
+          <Emoji emoji="pizza" /> Marketplace
+        </Link>
+      </Container>
+      <Container className=" justify-content-end">
+        <Link
+          to="/proyecto-final/galeria/"
+          className="text-white ms-3 text-decoration-none"
+        > Ver Catálogo
         </Link>
       </Container>
       <Container className=" justify-content-end">
