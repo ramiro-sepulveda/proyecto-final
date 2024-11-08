@@ -1,0 +1,174 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.app {
+ display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body {
+  background-color: #242424;
+}
+footer {
+  bottom: 0;
+  width: 100%;
+}
+.contenido {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 44px;
+}
+
+.navbar {
+  font-size: large;
+}
+
+.header-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.header-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  text-shadow: 3px 0px 2px rgba(0, 0, 0, 1), -3px 0px 2px rgba(0, 0, 0, 1),
+    0px 3px 2px rgba(0, 0, 0, 1), 0px -3px 2px rgba(0, 0, 0, 1);
+}
+
+.grid-columns {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.gallery {
+  padding: 50px 100px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.tarjeta {
+  background-color: #381001;
+  border: 8px solid #381001;
+  width: 75%;
+}
+
+.tabla-carrito {
+  width: 70%;
+}
+
+.tabla-carrito td {
+  align-self: center;
+  vertical-align: baseline;
+  font-size: 24px;
+}
+
+.precio {
+  font-weight: 500;
+  font-size: 28px;
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+@media screen and (max-width: 1500px) {
+  .header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .grid-columns {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .gallery {
+    padding: 50px 120px;
+  }
+  .tarjeta {
+    margin: 0 10px;
+    width: 95%;
+  }
+
+  .tarjeta img {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-title {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-20%, -50%);
+  }
+  .grid-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .gallery {
+    padding: 50px 100px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .navbar {
+    padding: 0;
+  }
+  .header-title {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-20%, -50%);
+  }
+
+  .tarjeta {
+    margin: 0 10px;
+    width: 95%;
+  }
+
+  .tarjeta img {
+    height: 100%;
+  }
+  .grid-columns {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .gallery {
+    padding: 50px 32px;
+  }
+}
