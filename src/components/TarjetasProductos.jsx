@@ -53,7 +53,7 @@ const TarjetasProductos = () => {
           {pizzas.map((el) => (
             <Card
               className="d-flex m-auto tarjeta"
-              text="white"
+              text="black"
               key={el.id}
               style={{ width: "100%" }}
             >
@@ -100,7 +100,7 @@ const TarjetasProductos = () => {
                   <Button
                     value={el.name}
                     style={{ width: "45%" }}
-                    variant="danger"
+                    className="cardButton"
                     onClick={() => {
                       handleAñadir(el.name, el.price, el.img);
                       console.log(carrito);

@@ -11,6 +11,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primario: #364F6B;
+  --secundario: #FFCE32;
 }
 .app {
  display: flex;
@@ -19,11 +22,12 @@
 }
 
 body {
-  background-color: #242424;
+  background-color: #b0b0b0;
 }
 footer {
   bottom: 0;
   width: 100%;
+  background-color: var(--primario);
 }
 .contenido {
   display: flex;
@@ -35,6 +39,7 @@ footer {
 
 .navbar {
   font-size: large;
+  background-color: var(--primario);
 }
 
 .header-container {
@@ -81,9 +86,13 @@ ul {
 }
 
 .tarjeta {
-  background-color: #381001;
-  border: 8px solid #381001;
+  background-color: #ffffff;
   width: 75%;
+}
+
+.cardButton{
+  background-color: var(--secundario);
+  color: black;
 }
 
 .tabla-carrito {

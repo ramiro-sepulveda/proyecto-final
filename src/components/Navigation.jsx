@@ -7,7 +7,6 @@ const Navigation = () => {
   return (
     <Navbar
       fixed="top"
-      bg="danger"
       variant="dark"
       className="navbar border-bottom border-black"
     >
