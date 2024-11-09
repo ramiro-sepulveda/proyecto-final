@@ -1,34 +1,20 @@
-import { Container, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Carrito from "./Carrito";
-import Emoji from "react-emojis";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const Navigation = () => {
-  return (
-    <Navbar
-      fixed="top"
-      bg="danger"
-      variant="dark"
-      className="navbar border-bottom border-black"
-    >
-      <Container className="justify-content-start">
-        <Link
-          to="/proyecto-final/"
-          className="fs-4 text-white ms-3 text-decoration-none"
-        >
-          <Emoji emoji="pizza" /> ¡Pizzería Mamma Mia!
-        </Link>
-      </Container>
-      <Container className=" justify-content-end">
-        <Link
-          to="/proyecto-final/carrito/"
-          className="text-white ms-3 text-decoration-none"
-        >
-          <Emoji emoji="shopping-cart" /> <Carrito />
-        </Link>
-      </Container>
-    </Navbar>
-  );
-};
+const Header = () => (
+  <Navbar bg="dark" variant="dark" expand="lg">
+    <Container>
+      <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
+      <Nav className="ml-auto">
+        <Nav.Link as={Link} to="/proyecto-final/catalog">Ver catálogo</Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/carrito/">Inicia sesión</Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/register">Regístrate</Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/carrito/">
+          <i className="bi bi-cart"></i> 
+        </Nav.Link>
+      </Nav>
+    </Container>
+  </Navbar>
+);
 
-export default Navigation;
+export default Header;
