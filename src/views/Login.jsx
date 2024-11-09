@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { Container, Row, Col } from 'react-bootstrap';
-import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/LoginForm";
 
-const Registro = () => {
+const Login = () => {
   const { usuario, setUsuario } = useContext(MarketContext);
 
   return (
@@ -14,7 +14,7 @@ const Registro = () => {
         {/* Columna izquierda para la imagen */}
         <Col className="d-flex justify-content-center align-items-center">
           <img
-            src="/proyecto-final/imgregistro.png"
+            src="/proyecto-final/imglogin.png"
             alt="Descripción de la imagen"
             className="img-fluid"
           />
@@ -22,11 +22,11 @@ const Registro = () => {
 
         {/* Columna derecha para el formulario */}
         <Col md={6} className="p-5 d-flex">
-        <RegisterForm />
+        <LoginForm />
       </Col>
     </Row>
     </Container >
   )
 };
 
-export default Registro;
+export default Login;

@@ -27,6 +27,20 @@ const Navigation = () => {
       </Container>
       <Container className=" justify-content-end">
         <Link
+          to="/proyecto-final/login/"
+          className="text-white ms-3 text-decoration-none"
+        > Inicia Sesión
+        </Link>
+      </Container>
+      <Container className=" justify-content-end">
+        <Link
+          to="/proyecto-final/registro/"
+          className="text-white ms-3 text-decoration-none"
+        > Registrate
+        </Link>
+      </Container>
+      <Container className=" justify-content-end">
+        <Link
           to="/proyecto-final/carrito/"
           className="text-white ms-3 text-decoration-none"
         >
