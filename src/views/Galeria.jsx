@@ -1,11 +1,11 @@
 // import { Card, Container } from "react-bootstrap";
-import ImgHeader from "../components/ImgHeader";
 import TarjetasProductos from "../components/TarjetasProductos";
+import SearchBar from "../components/SearchBar";
 
 const Galeria = () => {
   return (
     <>
-      <ImgHeader />
+      <SearchBar />
       <TarjetasProductos />
     </>
   );
