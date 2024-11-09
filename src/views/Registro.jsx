@@ -4,8 +4,8 @@ import { Table } from "react-bootstrap";
 import Carrito from "../components/Carrito";
 Table;
 
-const CarritoList = () => {
-  const { carrito, setCarrito } = useContext(MarketContext);
+const Registro = () => {
+  const { usuario, setUsuario } = useContext(MarketContext);
 
   function primeraMayuscula(str) {
     return str
@@ -104,4 +104,4 @@ const CarritoList = () => {
   );
 };
 
-export default CarritoList;
+export default Registro;

@@ -1,11 +1,11 @@
 import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useContext } from "react";
-import { PizzasContext } from "../context/ContextPizzas";
+import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
 
 const TarjetasProductos = () => {
-  const { pizzas, loading, carrito, setCarrito } = useContext(PizzasContext);
+  const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
   console.log(pizzas);
   console.log(loading);
 

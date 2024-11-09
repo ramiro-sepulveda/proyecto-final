@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
-import { PizzasContext } from "../context/ContextPizzas";
+import { MarketContext } from "../context/ContextMarket";
 
 const Carrito = ({ clase }) => {
-  const { carrito, setCarrito, pizzas } = useContext(PizzasContext);
+  const { carrito, setCarrito, pizzas } = useContext(MarketContext);
 
   let total = 0;
   const precioTotal = (array) => {
