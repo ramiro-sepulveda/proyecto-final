@@ -11,6 +11,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primario: #364F6B;
+  --secundario: #FFCE32;
 }
 .app {
  display: flex;
@@ -19,11 +22,12 @@
 }
 
 body {
-  background-color: #242424;
+  background-color: #b0b0b0;
 }
 footer {
   bottom: 0;
   width: 100%;
+  background-color: var(--primario);
 }
 .contenido {
   display: flex;
@@ -35,6 +39,7 @@ footer {
 
 .navbar {
   font-size: large;
+  background-color: var(--primario);
 }
 
 .header-container {
@@ -63,8 +68,8 @@ footer {
   transform: translate(-50%, -50%);
   color: white;
   font-size: 2rem;
-  text-shadow: 3px 0px 2px rgba(0, 0, 0, 1), -3px 0px 2px rgba(0, 0, 0, 1),
-    0px 3px 2px rgba(0, 0, 0, 1), 0px -3px 2px rgba(0, 0, 0, 1);
+  /* text-shadow: 3px 0px 2px rgba(0, 0, 0, 1), -3px 0px 2px rgba(0, 0, 0, 1),
+    0px 3px 2px rgba(0, 0, 0, 1), 0px -3px 2px rgba(0, 0, 0, 1); */
 }
 
 .grid-columns {
@@ -81,9 +86,13 @@ ul {
 }
 
 .tarjeta {
-  background-color: #381001;
-  border: 8px solid #381001;
+  background-color: #ffffff;
   width: 75%;
+}
+
+.cardButton{
+  background-color: var(--secundario);
+  color: black;
 }
 
 .tabla-carrito {
@@ -171,4 +180,20 @@ ul {
   .gallery {
     padding: 50px 32px;
   }
+}
+
+/* Search bar */
+.searchBar-container{
+  width: 100%;
+  height: 100px;
+  border-radius: 0 0 15px 15px;
+}
+
+.searchBar-content{
+display: flex;
+justify-content: flex-start;
+}
+
+.searchInput{
+  width: 400px;
 }
