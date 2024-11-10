@@ -24,6 +24,11 @@ const MarketProvider = ({ children }) => {
     getPizzas();
   }, []);
 
+  useEffect(() => {
+    console.log("Carrito actualizado:", carrito);
+  }, [carrito]);
+  
+
   return (
     <MarketContext.Provider value={{ pizzas, loading, carrito, setCarrito, usuario, setUsuario }}>
       {children}

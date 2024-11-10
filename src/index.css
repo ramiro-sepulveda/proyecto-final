@@ -37,7 +37,6 @@ footer {
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 44px;
 }
 
 .navbar {
