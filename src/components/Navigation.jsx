@@ -1,34 +1,77 @@
-import { Container, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Carrito from "./Carrito";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Emoji from "react-emojis";
+import { useContext, useEffect } from "react";
+import { MarketContext } from '../context/ContextMarket';
+
 
 const Navigation = () => {
-  return (
-    <Navbar
-      fixed="top"
-      bg="danger"
-      variant="dark"
-      className="navbar border-bottom border-black"
-    >
-      <Container className="justify-content-start">
-        <Link
-          to="/proyecto-final/"
-          className="fs-4 text-white ms-3 text-decoration-none"
-        >
-          <Emoji emoji="pizza" /> ¡Pizzería Mamma Mia!
-        </Link>
-      </Container>
-      <Container className=" justify-content-end">
-        <Link
-          to="/proyecto-final/carrito/"
-          className="text-white ms-3 text-decoration-none"
-        >
-          <Emoji emoji="shopping-cart" /> <Carrito />
-        </Link>
-      </Container>
-    </Navbar>
-  );
+  const { usuario, setUsuario } = useContext(MarketContext);
+
+  // Función para cambiar el estado
+  const cambiarEstado = () => {
+    setUsuario(!usuario);
+  };
+  useEffect(() => { console.log("El estado ha cambiado"); }, [setUsuario]);
+
+  if (usuario == false) {
+    return (
+      <>
+        <Navbar bg="dark" variant="dark" expand="lg">
+          <Container>
+            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
+
+            <Nav className="mr-auto">
+              <Link
+                to="#" // Si no necesitas cambiar de página, usa "#" o el valor deseado
+                className="nav-link"
+                onClick={cambiarEstado} // Cambia el estado al hacer clic
+              >
+                Cambiar a modo Privado
+              </Link>
+            </Nav>
+
+            <Nav className="ml-auto">
+              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/login/">Inicia sesión</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/registro">Regístrate</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+                <Emoji emoji="shopping-cart" />
+              </Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    )
+  }
+  else {
+    return (
+      <>
+        <Navbar bg="dark" variant="dark" expand="lg">
+          <Container>
+            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
+            <Nav>
+              <Link
+                to="#" // Si no necesitas cambiar de página, usa "#" o el valor deseado
+                className="nav-link"
+                onClick={cambiarEstado} // Cambia el estado al hacer clic
+              >
+                Cambiar a modo Publico
+              </Link>
+            </Nav>
+            <Nav className="ml-auto">
+              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/publicar/">Publicar</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/perfil">Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+                <Emoji emoji="shopping-cart" />
+              </Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    )
+  }
 };
 
 export default Navigation;

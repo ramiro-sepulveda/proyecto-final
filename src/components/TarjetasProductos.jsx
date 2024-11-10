@@ -1,11 +1,11 @@
 import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useContext } from "react";
-import { PizzasContext } from "../context/ContextPizzas";
+import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
 
 const TarjetasProductos = () => {
-  const { pizzas, loading, carrito, setCarrito } = useContext(PizzasContext);
+  const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
   console.log(pizzas);
   console.log(loading);
 
@@ -53,7 +53,7 @@ const TarjetasProductos = () => {
           {pizzas.map((el) => (
             <Card
               className="d-flex m-auto tarjeta"
-              text="white"
+              text="black"
               key={el.id}
               style={{ width: "100%" }}
             >
@@ -100,7 +100,7 @@ const TarjetasProductos = () => {
                   <Button
                     value={el.name}
                     style={{ width: "45%" }}
-                    variant="danger"
+                    className="cardButton"
                     onClick={() => {
                       handleAñadir(el.name, el.price, el.img);
                       console.log(carrito);
