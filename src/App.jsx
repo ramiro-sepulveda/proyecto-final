@@ -16,16 +16,16 @@ function App() {
     <>
       <div className="app">
         <Navigation />
-        <div className="contenido">
+        <div className="contenido" style={{ marginTop: '56px' }}>
           <Routes>
             <Route path="/proyecto-final/" element={<HomePage />} />
             <Route path="/proyecto-final/pizza/:name" element={<PizzaDetails />} />
             <Route path="/proyecto-final/carrito/" element={<CarritoList />} />
-            <Route path="/proyecto-final/perfil/" element={<PerfilUsuario/>} />
+            <Route path="/proyecto-final/perfil/" element={<PerfilUsuario />} />
             <Route path="/proyecto-final/galeria/" element={<Galeria />} />
             <Route path="/proyecto-final/registro/" element={<Registro />} />
             <Route path="/proyecto-final/login/" element={<Login />} />
-            <Route path="/proyecto-final/publicar/" element={<NewPost  />} />
+            <Route path="/proyecto-final/publicar/" element={<NewPost />} />
           </Routes>
         </div>
         <Footer />

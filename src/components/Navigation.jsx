@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Emoji from "react-emojis";
 import { useContext, useEffect } from "react";
 import { MarketContext } from '../context/ContextMarket';
+import Carrito2 from './Carrito2';
 
 
 const Navigation = () => {
@@ -17,7 +18,7 @@ const Navigation = () => {
   if (usuario == false) {
     return (
       <>
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
             <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
 
@@ -36,7 +37,7 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/proyecto-final/login/">Inicia sesión</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/registro">Regístrate</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/carrito/">
-                <Emoji emoji="shopping-cart" />
+                <Emoji emoji="shopping-cart" /><Carrito2 />
               </Nav.Link>
             </Nav>
           </Container>
@@ -47,7 +48,7 @@ const Navigation = () => {
   else {
     return (
       <>
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
             <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
             <Nav>
@@ -64,7 +65,7 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/proyecto-final/publicar/">Publicar</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/perfil">Perfil</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/carrito/">
-                <Emoji emoji="shopping-cart" />
+                <Emoji emoji="shopping-cart" /> <Carrito2 />
               </Nav.Link>
             </Nav>
           </Container>
