@@ -25,7 +25,7 @@ const MarketProvider = ({ children }) => {
   }, []);
 
   return (
-    <MarketContext.Provider value={{ pizzas, loading, carrito, setCarrito, usuario, setCarrito }}>
+    <MarketContext.Provider value={{ pizzas, loading, carrito, setCarrito, usuario, setUsuario }}>
       {children}
     </MarketContext.Provider>
   );

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 
-const Carrito = ({ clase }) => {
+const Carrito2 = ({ clase }) => {
   const { carrito, setCarrito, pizzas } = useContext(MarketContext);
 
   let total = 0;
@@ -24,4 +24,4 @@ const Carrito = ({ clase }) => {
   );
 };
 
-export default Carrito;
+export default Carrito2;

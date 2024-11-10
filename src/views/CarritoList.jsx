@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { Table } from "react-bootstrap";
-import Carrito from "../components/Carrito";
+import Carrito2 from "../components/Carrito2";
 Table;
 
 const CarritoList = () => {
@@ -41,6 +41,7 @@ const CarritoList = () => {
       );
     }
   };
+}
 
 const Carrito = () => {
   return (
