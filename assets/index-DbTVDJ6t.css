@@ -1,4 +1,4 @@
-@charset "UTF-8";/*!
+@charset "UTF-8";.main-container{display:flex;justify-content:center;align-items:center;height:calc(100vh - 56px);background-image:url();background-size:cover;color:#fff;text-align:center}.hero-section h1{font-size:4rem;font-weight:700}.search-button{font-size:1.5rem;padding:10px 20px;border-radius:50px;background-color:gold;color:#000}/*!
 * Bootstrap  v5.3.3 (https://getbootstrap.com/)
 * Copyright 2011-2024 The Bootstrap Authors
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
