@@ -1,5 +1,47 @@
+
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useContext } from "react";
+import { MarketContext } from "../context/ContextMarket";
+import { Table } from "react-bootstrap";
+import Carrito2 from "../components/Carrito2";
+Table;
+
+const CarritoList = () => {
+  const { carrito, setCarrito } = useContext(MarketContext);
+
+  function primeraMayuscula(str) {
+    return str
+      .split(" ")
+      .map((word) => {
+        if (word.length === 0) {
+          return word;
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+  }
+
+  const handleAumentar = (tipo) => {
+    setCarrito(
+      carrito.map((el) =>
+        el.tipo === tipo ? { ...el, cant: el.cant + 1 } : el
+      )
+    );
+  };
+
+  const handleDisminuir = (tipo, cant) => {
+    if (cant == 1) {
+      setCarrito(carrito.filter((el) => el.tipo !== tipo));
+    } else {
+      setCarrito(
+        carrito.map((el) =>
+          el.tipo === tipo ? { ...el, cant: el.cant - 1 } : el
+        )
+      );
+    }
+  };
+}
 
 const Carrito = () => {
   return (

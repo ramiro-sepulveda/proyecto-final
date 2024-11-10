@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 
-export const PizzasContext = createContext();
+export const MarketContext = createContext();
 
-const PizzasProvider = ({ children }) => {
+const MarketProvider = ({ children }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
+  const [usuario, setUsuario] = useState(false);
 
   const getPizzas = async () => {
     try {
@@ -20,13 +21,13 @@ const PizzasProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getPizzas() ;
+    getPizzas();
   }, []);
 
   return (
-    <PizzasContext.Provider value={{ pizzas, loading, carrito, setCarrito }}>
+    <MarketContext.Provider value={{ pizzas, loading, carrito, setCarrito, usuario, setUsuario }}>
       {children}
-    </PizzasContext.Provider>
+    </MarketContext.Provider>
   );
 };
-export default PizzasProvider;
+export default MarketProvider;
