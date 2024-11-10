@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <footer className=" bg-danger text-center w-100">
+      <footer className="text-center w-100">
         <a
           className=" text-center text-white text-decoration-none"
           href="https://github.com/ramiro-sepulveda"

@@ -4,14 +4,14 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import PizzasProvider from "./context/ContextPizzas.jsx";
+import MarketProvider from "./context/ContextMarket.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <PizzasProvider>
+    <MarketProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </PizzasProvider>
+    </MarketProvider>
   </React.StrictMode>
 );

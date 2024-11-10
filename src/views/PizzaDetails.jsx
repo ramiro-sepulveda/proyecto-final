@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
 import { useContext } from "react";
-import { PizzasContext } from "../context/ContextPizzas";
+import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
 
 const PizzaDetails = () => {
   const { name } = useParams();
-  const { pizzas, loading, carrito, setCarrito } = useContext(PizzasContext);
+  const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
   console.log(name);
   console.log(pizzas);
   console.log(loading);
