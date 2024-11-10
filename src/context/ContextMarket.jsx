@@ -6,7 +6,7 @@ const MarketProvider = ({ children }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
-  const [usuario, setUsuario] = useState([]);
+  const [usuario, setUsuario] = useState(false);
 
   const getPizzas = async () => {
     try {

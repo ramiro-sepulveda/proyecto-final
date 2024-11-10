@@ -2,7 +2,6 @@ import { Form, Button } from 'react-bootstrap';
 
 import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
-import { useNavigate } from "react-router-dom";
 
 
 const RegisterForm = () => {
