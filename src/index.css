@@ -37,7 +37,6 @@ footer {
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 44px;
 }
 
 .navbar {
@@ -254,3 +253,13 @@ ul {
 
 .white
 {color:white}
+
+.botones-detalles{
+  display: flex;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+.botones-favoritos{
+  gap: 1rem;
+}

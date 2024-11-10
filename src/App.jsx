@@ -10,6 +10,7 @@ import NewPost from "./views/NewPost";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import PerfilUsuario from "./views/PerfilUsuarrio";
+import Favoritos from "./views/Favoritos";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/proyecto-final/registro/" element={<Registro />} />
             <Route path="/proyecto-final/login/" element={<Login />} />
             <Route path="/proyecto-final/publicar/" element={<NewPost  />} />
+            <Route path="/proyecto-final/favoritos/" element={<Favoritos  />} />
           </Routes>
         </div>
         <Footer />
