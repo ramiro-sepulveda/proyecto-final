@@ -51,7 +51,9 @@ const Carrito = () => {
           <Card className="p-4" style={{ backgroundColor: "#2c3e50", borderRadius: "10px" }}>
             <h3 className="text-light text-center mb-4">Carrito</h3>
             <Card className="p-3 mb-3" style={{ backgroundColor: "#34495e", borderRadius: "10px" }}>
+
               {[...Array(4)].map((_, i) => (
+
                 <Row key={i} className="align-items-center mb-3" style={{ backgroundColor: "#ecf0f1", borderRadius: "8px", padding: "10px 5px" }}>
                   <Col xs={2} className="d-flex justify-content-center">
                     <div className="bg-secondary" style={{ width: "40px", height: "40px", borderRadius: "5px" }}></div>
