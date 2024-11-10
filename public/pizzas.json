@@ -1,50 +1,66 @@
 [
   {
-    "desc": "La pizza napolitana, de masa tierna y delgada pero bordes altos, es la versión propia de la cocina napolitana de la pizza redonda. El término pizza napoletana, por su importancia histórica o regional, se emplea en algunas zonas como sinónimo de pizza tonda.",
-    "id": "P001",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_cl.jpg?alt=media&token=6a9a33da-5c00-49d4-9080-784dcc87ec2c",
-    "ingredients": ["mozzarella", "tomates", "jamón", "orégano"],
-    "name": "napolitana",
-    "price": 5950
+    "desc": "Silla de oficina ergonómica con soporte lumbar ajustable, ideal para largas jornadas de trabajo o estudio. Material de alta calidad y diseño moderno.",
+    "id": "A001",
+    "img": "https://images.unsplash.com/photo-1688578735972-b61ec274df7b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Muebles",
+    "name": "Silla de oficina ergonómica",
+    "price": 35000
   },
   {
-    "desc": "La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular, elaborado con harina de trigo, levadura, agua y sal (a veces aceite de oliva) que comúnmente se cubre con salsa de tomate, queso y otros muchos ingredientes, y que se hornea a alta temperatura, tradicionalmente en un horno de leña.",
-    "id": "P002",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fcheese-164872_640_com.jpg?alt=media&token=18b2b821-4d0d-43f2-a1c6-8c57bc388fab",
-    "ingredients": ["mozzarella", "tomates", "jamón", "choricillo"],
-    "name": "española",
-    "price": 7250
+    "desc": "Mesa de comedor de madera maciza para 6 personas, perfecta para cualquier estilo de decoración. Resistente y duradera.",
+    "id": "A002",
+    "img": "https://images.unsplash.com/photo-1547062200-f195b1c77e30?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGRpbm5lciUyMHRhYmxlfGVufDB8MHwwfHx8MA%3D%3D",
+    "category": "Muebles",
+    "name": "Mesa de comedor de madera",
+    "price": 75000
   },
   {
-    "desc": "La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular, elaborado con harina de trigo, levadura, agua y sal (a veces aceite de oliva) que comúnmente se cubre con salsa de tomate, queso y otros muchos ingredientes, y que se hornea a alta temperatura, tradicionalmente en un horno de leña.",
-    "id": "P003",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3",
-    "ingredients": ["mozzarella", "tomates", "salame", "orégano"],
-    "name": "salame",
-    "price": 5990
+    "desc": "Notebook usado en excelente estado, procesador Intel Core i5, 8GB de RAM, 256GB SSD. Ideal para trabajo o estudio.",
+    "id": "A003",
+    "img": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Laptop usada",
+    "price": 320000
   },
   {
-    "desc": "La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular, elaborado con harina de trigo, levadura, agua y sal (a veces aceite de oliva) que comúnmente se cubre con salsa de tomate, queso y otros muchos ingredientes, y que se hornea a alta temperatura, tradicionalmente en un horno de leña.",
-    "id": "P004",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-2000595_640_c.jpg?alt=media&token=61325b6e-a1e0-441e-b3b5-7335ba13e8be",
-    "ingredients": ["mozzarella", "salame", "aceitunas", "champiñones"],
-    "name": "cuatro estaciones",
-    "price": 9590
+    "desc": "Bicicleta de montaña con suspensión delantera, frenos de disco y llantas de 27.5 pulgadas. Perfecta para terrenos irregulares.",
+    "id": "A004",
+    "img": "https://images.unsplash.com/photo-1534150034764-046bf225d3fa?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Deportes",
+    "name": "Bicicleta de montaña",
+    "price": 120000
   },
   {
-    "desc": "La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular, elaborado con harina de trigo, levadura, agua y sal (a veces aceite de oliva) que comúnmente se cubre con salsa de tomate, queso y otros muchos ingredientes, y que se hornea a alta temperatura, tradicionalmente en un horno de leña.",
-    "id": "P005",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-salame.jpg?alt=media&token=ab3d4bf8-01f2-4810-982b-bd7fb6b517b2",
-    "ingredients": ["mozzarella", "tomates cherry", "bacon", "orégano"],
-    "name": "bacon",
-    "price": 6450
+    "desc": "Cámara fotográfica profesional Canon con lente de 18-55 mm. Perfecta para capturar momentos únicos con excelente calidad.",
+    "id": "A005",
+    "img": "https://images.unsplash.com/photo-1482446078840-0c634e9eb6e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Fotografía",
+    "name": "Cámara fotográfica Canon",
+    "price": 450000
   },
   {
-    "desc": "La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular, elaborado con harina de trigo, levadura, agua y sal (a veces aceite de oliva) que comúnmente se cubre con salsa de tomate, queso y otros muchos ingredientes, y que se hornea a alta temperatura, tradicionalmente en un horno de leña.",
-    "id": "P006",
-    "img": "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-2000595_640_c.jpg?alt=media&token=61325b6e-a1e0-441e-b3b5-7335ba13e8be",
-    "ingredients": ["mozzarella", "pimientos", "pollo grillé", "orégano"],
-    "name": "pollo picante",
-    "price": 8500
+    "desc": "Smartphone usado en buen estado, con pantalla de 6.5 pulgadas, 128GB de almacenamiento, cámara de 48MP. Desbloqueado.",
+    "id": "A006",
+    "img": "https://images.unsplash.com/photo-1530563885674-66db50a1af19?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Smartphone usado",
+    "price": 150000
+  },
+  {
+    "desc": "Auriculares Bluetooth con cancelación de ruido y calidad de sonido excepcional. Perfectos para escuchar música o hacer llamadas sin interrupciones.",
+    "id": "A007",
+    "img": "https://plus.unsplash.com/premium_photo-1679513691474-73102089c117?q=80&w=2013&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Auriculares Bluetooth",
+    "price": 85000
+  },
+  {
+    "desc": "Mouse ergonómico con conexión inalámbrica, diseño cómodo y duradero, ideal para largas jornadas de trabajo o gaming.",
+    "id": "A008",
+    "img": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Mouse ergonómico",
+    "price": 25000
   }
 ]

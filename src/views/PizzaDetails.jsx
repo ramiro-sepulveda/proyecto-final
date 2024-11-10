@@ -49,7 +49,7 @@ const PizzaDetails = () => {
     const index = pizzas.findIndex((el) => el.name == name);
     return (
       <div className="pt-5">
-        <Card className="d-flex flex-lg-row m-auto tarjeta" text="white">
+        <Card className="d-flex flex-lg-row m-auto tarjeta" text="black">
           <Card.Img
             variant="top"
             src={pizzas[index].img}
@@ -61,16 +61,14 @@ const PizzaDetails = () => {
             </Card.Header>
 
             <Card.Text>{pizzas[index].desc}</Card.Text>
-            <Card.Title className="fs-4 pb-4">Ingredientes:</Card.Title>
+            <Card.Title className="fs-4 pb-4">Categoría: {primeraMayuscula(pizzas[index].category)}</Card.Title>
+          
+            {/* <ul>
+                  <li>
+                    {primeraMayuscula(pizzas[index].category)}
+                  </li>
+            </ul> */}
 
-            <ul>
-              {pizzas[index].ingredients.map((el, index) => (
-                <li key={index}>
-                  <Emoji emoji="pizza" />
-                  {primeraMayuscula(el)}
-                </li>
-              ))}
-            </ul>
             <Card.Footer className="d-lg-flex justify-content-between align-items-center">
               <div className="precio">
                 {"Precio: $" +
@@ -78,6 +76,21 @@ const PizzaDetails = () => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
+              <div className="botones-detalles">
+              <Button
+                style={{ width: "80px" }}
+                variant="warning"
+                onClick={() => {
+                  handleAñadir(
+                    pizzas[index].name,
+                    pizzas[index].price,
+                    pizzas[index].img
+                  );
+                  console.log(carrito);
+                }}
+              >
+               <Emoji emoji="red-heart" />
+              </Button>
               <Button
                 style={{ width: "140px" }}
                 variant="danger"
@@ -92,6 +105,7 @@ const PizzaDetails = () => {
               >
                <Emoji emoji="shopping-cart" /> Añadir
               </Button>
+              </div>
             </Card.Footer>
           </Card.Body>
         </Card>

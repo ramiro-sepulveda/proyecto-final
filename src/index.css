@@ -253,3 +253,13 @@ ul {
 
 .white
 {color:white}
+
+.botones-detalles{
+  display: flex;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+.botones-favoritos{
+  gap: 1rem;
+}
