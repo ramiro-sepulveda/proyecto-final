@@ -5,6 +5,7 @@ import PizzaDetails from "./views/PizzaDetails";
 import CarritoList from "./views/CarritoList";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
+import PerfilUsuario from "./views/PerfilUsuarrio";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/proyecto-final/" element={<HomePage />} />
             <Route path="/proyecto-final/pizza/:name" element={<PizzaDetails />} />
             <Route path="/proyecto-final/carrito/" element={<CarritoList />} />
+            <Route path="/proyecto-final/perfil/" element={<PerfilUsuario/>} />
           </Routes>
         </div>
         <Footer />

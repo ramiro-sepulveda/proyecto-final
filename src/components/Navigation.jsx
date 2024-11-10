@@ -7,11 +7,10 @@ const navigation = () => (
       <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
       <Nav className="ml-auto">
         <Nav.Link as={Link} to="/proyecto-final/catalog">Ver catálogo</Nav.Link>
-        <Nav.Link as={Link} to="/proyecto-final/carrito/">Inicia sesión</Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/login/">Inicia sesión</Nav.Link>
         <Nav.Link as={Link} to="/proyecto-final/register">Regístrate</Nav.Link>
-        <Nav.Link as={Link} to="/proyecto-final/carrito/">
-          <i className="bi bi-cart"></i> 
-        </Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/carrito/">carrito</Nav.Link>
+        <Nav.Link as={Link} to="/proyecto-final/perfil/">perfil</Nav.Link>
       </Nav>
     </Container>
   </Navbar>
