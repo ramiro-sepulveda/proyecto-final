@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import LoginForm from "../components/LoginForm";
 
 const Login = () => {
@@ -8,23 +8,25 @@ const Login = () => {
 
   return (
     // Imagen izquierda
-    <Container fluid>
-      {/* Fila que contiene las dos columnas */}
-      <Row className="min-vh-100 d-flex align-items-center">
-        {/* Columna izquierda para la imagen */}
-        <Col className="d-flex justify-content-center align-items-center">
+    <Container className="p-4">
+      <Card className="d-flex flex-row w-75 m-auto" style={{ backgroundColor: "#2c3e50", minHeight: "600px" }}>
+
+        <div >
           <img
             src="/proyecto-final/imglogin.png"
             alt="Descripción de la imagen"
             className="img-fluid"
+            style={{ height: "100%", minHeight: "600px" }}
           />
-        </Col>
+        </div>
 
         {/* Columna derecha para el formulario */}
-        <Col md={6} className="p-5 d-flex">
-        <LoginForm />
-      </Col>
-    </Row>
+        <div className="d-flex justify-content-center w-75">
+          <LoginForm />
+        </div>
+
+
+      </Card>
     </Container >
   )
 };

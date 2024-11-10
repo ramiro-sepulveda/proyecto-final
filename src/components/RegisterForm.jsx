@@ -8,7 +8,7 @@ const RegisterForm = () => {
   const { usuario, setUsuario } = useContext(MarketContext);
   return (
     <div className='custom-form mx-4 align-self-center'>
-      <h2 className='pb-4 text-center fs-46px'>Regístrate</h2>
+      <h2 className='white pb-4 text-center fs-46px'>Regístrate</h2>
       <Form>
         <Form.Group controlId="formBasicName">
           <Form.Control type="name" placeholder="Nombre" className='custom-input rounded-4' />
@@ -37,7 +37,7 @@ const RegisterForm = () => {
 
       </Form>
       <div className='mt-3 text-end'>
-        <Button variant="primary" type="submit" className='rounded-3'>
+        <Button variant="warning" type="submit" className='rounded-3'>
           Registrarse
         </Button>
       </div>
