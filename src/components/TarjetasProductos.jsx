@@ -1,4 +1,4 @@
-import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
@@ -6,21 +6,14 @@ import Emoji from "react-emojis";
 
 const TarjetasProductos = () => {
   const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
-  console.log(pizzas);
-  console.log(loading);
-
   const navigate = useNavigate();
+
   const irAPizza = (e) => navigate(`/proyecto-final/pizza/${e}`);
 
   function primeraMayuscula(str) {
     return str
       .split(" ")
-      .map((word) => {
-        if (word.length === 0) {
-          return word;
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      })
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   }
 
@@ -33,14 +26,10 @@ const TarjetasProductos = () => {
         )
       );
     } else {
-      const copiaCarrito = carrito;
-      copiaCarrito.push({
-        tipo: tipo,
-        precio: precio,
-        cant: 1,
-        img: img,
-      });
-      setCarrito(copiaCarrito.map((el) => el));
+      setCarrito([
+        ...carrito,
+        { tipo: tipo, precio: precio, cant: 1, img: img },
+      ]);
     }
   };
 
