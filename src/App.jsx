@@ -2,7 +2,7 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import HomePage from "./views/HomePage";
 import Galeria from "./views/Galeria";
-import PizzaDetails from "./views/PizzaDetails";
+import ProductoDetails from "./views/ProductoDetails";
 import CarritoList from "./views/CarritoList";
 import Registro from "./views/Registro";
 import Login from "./views/Login";
@@ -20,7 +20,7 @@ function App() {
         <div className="contenido" style={{ marginTop: '56px' }}>
           <Routes>
             <Route path="/proyecto-final/" element={<HomePage />} />
-            <Route path="/proyecto-final/pizza/:name" element={<PizzaDetails />} />
+            <Route path="/proyecto-final/producto/:name" element={<ProductoDetails />} />
             <Route path="/proyecto-final/carrito/" element={<CarritoList />} />
             <Route path="/proyecto-final/perfil/" element={<PerfilUsuario />} />
             <Route path="/proyecto-final/galeria/" element={<Galeria />} />

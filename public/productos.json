@@ -1,0 +1,66 @@
+[
+  {
+    "desc": "Silla de oficina ergonómica con soporte lumbar ajustable, ideal para largas jornadas de trabajo o estudio. Material de alta calidad y diseño moderno.",
+    "id": "A001",
+    "img": "https://images.unsplash.com/photo-1688578735972-b61ec274df7b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Muebles",
+    "name": "Silla de oficina ergonómica",
+    "price": 35000
+  },
+  {
+    "desc": "Mesa de comedor de madera maciza para 6 personas, perfecta para cualquier estilo de decoración. Resistente y duradera.",
+    "id": "A002",
+    "img": "https://images.unsplash.com/photo-1547062200-f195b1c77e30?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGRpbm5lciUyMHRhYmxlfGVufDB8MHwwfHx8MA%3D%3D",
+    "category": "Muebles",
+    "name": "Mesa de comedor de madera",
+    "price": 75000
+  },
+  {
+    "desc": "Notebook usado en excelente estado, procesador Intel Core i5, 8GB de RAM, 256GB SSD. Ideal para trabajo o estudio.",
+    "id": "A003",
+    "img": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Laptop usada",
+    "price": 320000
+  },
+  {
+    "desc": "Bicicleta de montaña con suspensión delantera, frenos de disco y llantas de 27.5 pulgadas. Perfecta para terrenos irregulares.",
+    "id": "A004",
+    "img": "https://images.unsplash.com/photo-1534150034764-046bf225d3fa?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Deportes",
+    "name": "Bicicleta de montaña",
+    "price": 120000
+  },
+  {
+    "desc": "Cámara fotográfica profesional Canon con lente de 18-55 mm. Perfecta para capturar momentos únicos con excelente calidad.",
+    "id": "A005",
+    "img": "https://images.unsplash.com/photo-1482446078840-0c634e9eb6e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Fotografía",
+    "name": "Cámara fotográfica Canon",
+    "price": 450000
+  },
+  {
+    "desc": "Smartphone usado en buen estado, con pantalla de 6.5 pulgadas, 128GB de almacenamiento, cámara de 48MP. Desbloqueado.",
+    "id": "A006",
+    "img": "https://images.unsplash.com/photo-1530563885674-66db50a1af19?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Smartphone usado",
+    "price": 150000
+  },
+  {
+    "desc": "Auriculares Bluetooth con cancelación de ruido y calidad de sonido excepcional. Perfectos para escuchar música o hacer llamadas sin interrupciones.",
+    "id": "A007",
+    "img": "https://plus.unsplash.com/premium_photo-1679513691474-73102089c117?q=80&w=2013&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Auriculares Bluetooth",
+    "price": 85000
+  },
+  {
+    "desc": "Mouse ergonómico con conexión inalámbrica, diseño cómodo y duradero, ideal para largas jornadas de trabajo o gaming.",
+    "id": "A008",
+    "img": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Tecnología",
+    "name": "Mouse ergonómico",
+    "price": 25000
+  }
+]

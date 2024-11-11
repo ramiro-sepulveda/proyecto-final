@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 
 const Carrito2 = ({ clase }) => {
-  const { carrito, setCarrito, pizzas } = useContext(MarketContext);
+  const { carrito, setCarrito, productos } = useContext(MarketContext);
 
   let total = 0;
   const precioTotal = (array) => {

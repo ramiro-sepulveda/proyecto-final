@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
 
 const TarjetasProductos = () => {
-  const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
+  const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
   const navigate = useNavigate();
 
-  const irAPizza = (e) => navigate(`/proyecto-final/pizza/${e}`);
+  const irAProducto = (e) => navigate(`/proyecto-final/producto/${e}`);
 
   function primeraMayuscula(str) {
     return str
@@ -39,7 +39,7 @@ const TarjetasProductos = () => {
     return (
       <>
         <div className="gallery d-grid row-gap-5 grid-columns">
-          {pizzas.map((el) => (
+          {productos.map((el) => (
             <Card
               className="d-flex m-auto tarjeta"
               text="black"
@@ -69,7 +69,7 @@ const TarjetasProductos = () => {
                     value={el.name}
                     style={{ width: "45%" }}
                     variant="secondary"
-                    onClick={(e) => irAPizza(e.currentTarget.value)}
+                    onClick={(e) => irAProducto(e.currentTarget.value)}
                   >
                     Ver Más <Emoji emoji="eyes" />
                   </Button>

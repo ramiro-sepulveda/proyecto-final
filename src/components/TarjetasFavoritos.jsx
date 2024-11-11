@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
 
 const TarjetasFavoritos = () => {
-  const { pizzas, loading, carrito, setCarrito } = useContext(MarketContext);
-  console.log(pizzas);
+  const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
+  console.log(productos);
   console.log(loading);
 
   const navigate = useNavigate();
-  const irAPizza = (e) => navigate(`/proyecto-final/pizza/${e}`);
+  const irAProducto = (e) => navigate(`/proyecto-final/producto/${e}`);
 
   function primeraMayuscula(str) {
     return str
@@ -50,14 +50,14 @@ const TarjetasFavoritos = () => {
     return (
       <>
         <div className="gallery d-grid row-gap-5 grid-columns">
-          {pizzas.map((el) => (
+          {productos.map((el) => (
               <Card
               className="d-flex m-auto tarjeta"
               text="black"
               key={el.id}
               style={{ width: "100%" }}
               >
-              <Card.Img variant="top" src={el.img} alt={"Pizza " + el.name} />
+              <Card.Img variant="top" src={el.img} alt={"Producto " + el.name} />
               <Card.Header className="fs-2 border-light">
                 {primeraMayuscula(el.name)}
               </Card.Header>
@@ -80,7 +80,7 @@ const TarjetasFavoritos = () => {
                     value={el.name}
                     style={{ width: "45%" }}
                     variant="secondary"
-                    onClick={(e) => irAPizza(e.currentTarget.value)}
+                    onClick={(e) => irAProducto(e.currentTarget.value)}
                   >
                     Ver Más <Emoji emoji="eyes" />
                   </Button>

@@ -3,16 +3,16 @@ import { createContext, useState, useEffect } from "react";
 export const MarketContext = createContext();
 
 const MarketProvider = ({ children }) => {
-  const [pizzas, setPizzas] = useState([]);
+  const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
   const [usuario, setUsuario] = useState(false);
 
-  const getPizzas = async () => {
+  const getproductos = async () => {
     try {
-      const response = await fetch("/proyecto-final/pizzas.json");
+      const response = await fetch("/proyecto-final/productos.json");
       const data = await response.json();
-      setPizzas(data);
+      setProductos(data);
     } catch (error) {
       console.log("error fetch JSON");
     } finally {
@@ -21,7 +21,7 @@ const MarketProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getPizzas();
+    getproductos();
   }, []);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const MarketProvider = ({ children }) => {
   
 
   return (
-    <MarketContext.Provider value={{ pizzas, loading, carrito, setCarrito, usuario, setUsuario }}>
+    <MarketContext.Provider value={{ productos, loading, carrito, setCarrito, usuario, setUsuario }}>
       {children}
     </MarketContext.Provider>
   );
