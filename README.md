@@ -1,7 +1,9 @@
-Proyecto Final
-
+Proyecto Final: https://ramiro-sepulveda.github.io/proyecto-final/
 
 Grupo 1:
-Ramiro Sepulveda
-Cristian Rozas
-Ignacio Duarte
+
+  Ignacio Duarte
+  
+  Cristian Rozas
+  
+  Ramiro Sepúlveda
