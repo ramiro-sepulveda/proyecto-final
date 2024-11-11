@@ -17,6 +17,7 @@ const Navigation = () => {
 
   if (usuario == false) {
     return (
+      // VISUALIZACION EN MODO PUBLICO
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
@@ -24,9 +25,9 @@ const Navigation = () => {
 
             <Nav className="mr-auto">
               <Link
-                to="#" // Si no necesitas cambiar de página, usa "#" o el valor deseado
+                to="#"
                 className="nav-link"
-                onClick={cambiarEstado} // Cambia el estado al hacer clic
+                onClick={cambiarEstado}
               >
                 Cambiar a modo Privado
               </Link>
@@ -47,15 +48,16 @@ const Navigation = () => {
   }
   else {
     return (
+      // VISUALIZACION EN MODO PRIVADO
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
             <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
             <Nav>
               <Link
-                to="#" // Si no necesitas cambiar de página, usa "#" o el valor deseado
+                to="#" 
                 className="nav-link"
-                onClick={cambiarEstado} // Cambia el estado al hacer clic
+                onClick={cambiarEstado}
               >
                 Cambiar a modo Publico
               </Link>
@@ -64,6 +66,7 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/publicar/">Publicar</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/perfil">Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/proyecto-final/favoritos/">Favoritos</Nav.Link>
               <Nav.Link as={Link} to="/proyecto-final/carrito/">
                 <Emoji emoji="shopping-cart" /> <Carrito2 />
               </Nav.Link>
