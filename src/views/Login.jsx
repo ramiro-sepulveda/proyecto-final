@@ -13,7 +13,7 @@ const Login = () => {
 
         <div >
           <img
-            src="/proyecto-final/imglogin.png"
+            src="/imglogin.png"
             alt="Descripción de la imagen"
             className="img-fluid"
             style={{ height: "100%", minHeight: "600px" }}

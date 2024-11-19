@@ -21,7 +21,7 @@ const Navigation = () => {
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
 
             <Nav className="mr-auto">
               <Link
@@ -34,10 +34,10 @@ const Navigation = () => {
             </Nav>
 
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/login/">Inicia sesión</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/registro">Regístrate</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/login/">Inicia sesión</Nav.Link>
+              <Nav.Link as={Link} to="/registro">Regístrate</Nav.Link>
+              <Nav.Link as={Link} to="/carrito/">
                 <Emoji emoji="shopping-cart" /><Carrito2 />
               </Nav.Link>
             </Nav>
@@ -52,7 +52,7 @@ const Navigation = () => {
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
             <Nav>
               <Link
                 to="#" 
@@ -63,11 +63,11 @@ const Navigation = () => {
               </Link>
             </Nav>
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/publicar/">Publicar</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/perfil">Perfil</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/favoritos/">Favoritos</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/publicar/">Publicar</Nav.Link>
+              <Nav.Link as={Link} to="/perfil">Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/favoritos/">Favoritos</Nav.Link>
+              <Nav.Link as={Link} to="/carrito/">
                 <Emoji emoji="shopping-cart" /> <Carrito2 />
               </Nav.Link>
             </Nav>

@@ -8,7 +8,7 @@ const TarjetasProductos = () => {
   const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
   const navigate = useNavigate();
 
-  const irAProducto = (e) => navigate(`/proyecto-final/producto/${e}`);
+  const irAProducto = (e) => navigate(`/producto/${e}`);
 
   function primeraMayuscula(str) {
     return str

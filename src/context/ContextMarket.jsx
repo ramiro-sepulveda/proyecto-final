@@ -10,7 +10,7 @@ const MarketProvider = ({ children }) => {
 
   const getproductos = async () => {
     try {
-      const response = await fetch("/proyecto-final/productos.json");
+      const response = await fetch("/productos.json");
       const data = await response.json();
       setProductos(data);
     } catch (error) {
