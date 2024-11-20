@@ -16,10 +16,10 @@ const Navigation = () => {
     if (token) {
       // Verificar si el token ha expirado (si el token tiene una fecha de expiración)
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      console.log(decodedToken)
       const expirationDate = decodedToken.exp * 1000; // Convertir a milisegundos
       const currentTime = Date.now();
-
+      console.log('fecha actua: ' + currentTime)
+      console.log('fecha expiracion: ' + expirationDate)
       if (currentTime > expirationDate) {
         setToken(null); // Si el token ha expirado, eliminarlo
         sessionStorage.removeItem('token');

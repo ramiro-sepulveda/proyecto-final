@@ -1,11 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import LoginForm from "../components/LoginForm";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { usuario, setUsuario } = useContext(MarketContext);
 
+  const { usuario, setUsuario, isAuthenticated } = useContext(MarketContext);
+const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Si el usuario no está logueado, redirige a login
+      navigate("/perfil");
+    }
+  }, [isAuthenticated, navigate]);
   return (
     // Imagen izquierda
     <Container className="p-4">

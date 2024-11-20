@@ -30,9 +30,9 @@ const LoginForm = () => {
       .then((data) => {
         window.alert('login realizado con éxito 😀.')
         console.log(data)
-        window.sessionStorage.setItem('token', data.token)
+        window.sessionStorage.setItem('token', 'Bearer ' + data.token)
         setIsAuthenticated(true)
-        navigate('/perfil')
+        // navigate('/perfil') No es necesario al estar en Login.jsx
       })
       .catch((error) => {
         console.error(error)
