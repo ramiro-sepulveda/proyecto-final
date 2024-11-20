@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import ENDPOINTS from "../api/endpoints";
 
 export const MarketContext = createContext();
 
@@ -10,9 +11,10 @@ const MarketProvider = ({ children }) => {
 
   const getproductos = async () => {
     try {
-      const response = await fetch("/productos.json");
+      const response = await fetch(ENDPOINTS.readGaleria);
       const data = await response.json();
-      setProductos(data);
+      setProductos(data.results);
+      console.log(data.results)
     } catch (error) {
       console.log("error fetch JSON");
     } finally {
@@ -27,7 +29,7 @@ const MarketProvider = ({ children }) => {
   useEffect(() => {
     console.log("Carrito actualizado:", carrito);
   }, [carrito]);
-  
+
 
   return (
     <MarketContext.Provider value={{ productos, loading, carrito, setCarrito, usuario, setUsuario }}>
