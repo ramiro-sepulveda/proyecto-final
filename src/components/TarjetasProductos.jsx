@@ -8,7 +8,7 @@ const TarjetasProductos = () => {
   const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
   const navigate = useNavigate();
 
-  const irAProducto = (e) => navigate(`/proyecto-final/producto/${e}`);
+  const irAProducto = (e) => navigate(`/producto/${e}`);
 
   function primeraMayuscula(str) {
     return str
@@ -32,6 +32,7 @@ const TarjetasProductos = () => {
       ]);
     }
   };
+  
 
   if (loading) {
     return <div>cargando</div>;
@@ -46,27 +47,27 @@ const TarjetasProductos = () => {
               key={el.id}
               style={{ width: "100%" }}
             >
-              <Card.Img variant="top" src={el.img} alt={el.name} />
+              <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} />
               <Card.Header className="fs-2 border-light">
-                {primeraMayuscula(el.name)}
+                {primeraMayuscula(el.titulo)}
               </Card.Header>
               <Card.Body>
                 <Card.Title>Categoría</Card.Title>
 
                 <ul>
-                  <li>
+                  {/* <li>
                     {primeraMayuscula(el.category)}
-                  </li>
+                  </li> */}
                 </ul>
 
                 <div className="precio">
                   {"$ " +
-                    el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                    el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </div>
 
                 <div className="botones d-flex justify-content-around">
                   <Button
-                    value={el.name}
+                    value={el.titulo}
                     style={{ width: "45%" }}
                     variant="secondary"
                     onClick={(e) => irAProducto(e.currentTarget.value)}
@@ -74,11 +75,11 @@ const TarjetasProductos = () => {
                     Ver Más <Emoji emoji="eyes" />
                   </Button>
                   <Button
-                    value={el.name}
+                    value={el.titulo}
                     style={{ width: "45%" }}
                     className="cardButton"
                     onClick={() => {
-                      handleAñadir(el.name, el.price, el.img);
+                      handleAñadir(el.titulo, el.precio, el.img1_portada);
                       console.log(carrito);
                     }}
                   >

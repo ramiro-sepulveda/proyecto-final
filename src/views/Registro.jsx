@@ -14,7 +14,7 @@ const Registro = () => {
 
         <div >
           <img
-            src="/proyecto-final/imgregistro.png"
+            src="/imgregistro.png"
             alt="Descripción de la imagen"
             className="img-fluid"
             style={{ height: "100%", minHeight: "600px" }}

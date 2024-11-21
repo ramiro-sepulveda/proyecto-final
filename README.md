@@ -1,4 +1,4 @@
-Proyecto Final: https://ramiro-sepulveda.github.io/proyecto-final/
+Proyecto Final: https://ramiro-sepulveda.github.io/
 
 Grupo 1:
 

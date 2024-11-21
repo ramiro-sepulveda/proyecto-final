@@ -10,7 +10,7 @@ const TarjetasFavoritos = () => {
   console.log(loading);
 
   const navigate = useNavigate();
-  const irAProducto = (e) => navigate(`/proyecto-final/producto/${e}`);
+  const irAProducto = (e) => navigate(`/producto/${e}`);
 
   function primeraMayuscula(str) {
     return str

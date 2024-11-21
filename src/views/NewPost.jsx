@@ -44,7 +44,7 @@ const NewPost = () => {
                   backgroundColor: 'white'
                 }}>
                   <img
-                    src="/proyecto-final/imageholder.png"
+                    src="/imageholder.png"
                     alt="Descripción de la imagen"
                     className="img-fluid" />
                 </div>
@@ -54,7 +54,7 @@ const NewPost = () => {
                   backgroundColor: 'white'
                 }}>
                   <img
-                    src="/proyecto-final/imageholder.png"
+                    src="/imageholder.png"
                     alt="Descripción de la imagen"
                     className="img-fluid" />
                 </div>
@@ -64,7 +64,7 @@ const NewPost = () => {
                   backgroundColor: 'white'
                 }}>
                   <img
-                    src="/proyecto-final/imageholder.png"
+                    src="/imageholder.png"
                     alt="Descripción de la imagen"
                     className="img-fluid" />
                 </div>
@@ -74,7 +74,7 @@ const NewPost = () => {
                   backgroundColor: 'white'
                 }}>
                   <img
-                    src="/proyecto-final/imageholder.png"
+                    src="/imageholder.png"
                     alt="Descripción de la imagen"
                     className="img-fluid" />
                 </div>

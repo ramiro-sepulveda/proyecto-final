@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Emoji from "react-emojis";
 import { useContext, useEffect } from "react";
@@ -7,7 +7,32 @@ import Carrito2 from './Carrito2';
 
 
 const Navigation = () => {
-  const { usuario, setUsuario } = useContext(MarketContext);
+  const { usuario, setUsuario, token, setToken, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
+  setToken(sessionStorage.getItem('token'))
+  console.log(token)
+  useEffect(() => {
+    // Verificar si el token está vigente
+
+    if (token) {
+      // Verificar si el token ha expirado (si el token tiene una fecha de expiración)
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const expirationDate = decodedToken.exp * 1000; // Convertir a milisegundos
+      const currentTime = Date.now();
+      console.log('fecha actua: ' + currentTime)
+      console.log('fecha expiracion: ' + expirationDate)
+      if (currentTime > expirationDate) {
+        setToken(null); // Si el token ha expirado, eliminarlo
+        sessionStorage.removeItem('token');
+        setIsAuthenticated(false);
+      } else {
+        setIsAuthenticated(true); // Si el token es válido, mantener la sesión activa
+      }
+    } else {
+      setIsAuthenticated(false); // Si no hay token, no está autenticado
+    }
+  }
+    , [token, isAuthenticated]);
+
 
   // Función para cambiar el estado
   const cambiarEstado = () => {
@@ -15,29 +40,19 @@ const Navigation = () => {
   };
   useEffect(() => { console.log("El estado ha cambiado"); }, [setUsuario]);
 
-  if (usuario == false) {
+  if (!isAuthenticated) {
     return (
       // VISUALIZACION EN MODO PUBLICO
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
-
-            <Nav className="mr-auto">
-              <Link
-                to="#"
-                className="nav-link"
-                onClick={cambiarEstado}
-              >
-                Cambiar a modo Privado
-              </Link>
-            </Nav>
+            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
 
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/login/">Inicia sesión</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/registro">Regístrate</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/login/">Inicia sesión</Nav.Link>
+              <Nav.Link as={Link} to="/registro">Regístrate</Nav.Link>
+              <Nav.Link as={Link} to="/carrito/">
                 <Emoji emoji="shopping-cart" /><Carrito2 />
               </Nav.Link>
             </Nav>
@@ -52,24 +67,17 @@ const Navigation = () => {
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/proyecto-final/">MarketPlace</Navbar.Brand>
-            <Nav>
-              <Link
-                to="#" 
-                className="nav-link"
-                onClick={cambiarEstado}
-              >
-                Cambiar a modo Publico
-              </Link>
-            </Nav>
+            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
+
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/proyecto-final/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/publicar/">Publicar</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/perfil">Perfil</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/favoritos/">Favoritos</Nav.Link>
-              <Nav.Link as={Link} to="/proyecto-final/carrito/">
+              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/publicar/">Publicar</Nav.Link>
+              <Nav.Link as={Link} to="/perfil">Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/favoritos/">Favoritos</Nav.Link>
+              <Nav.Link as={Link} to="/carrito/">
                 <Emoji emoji="shopping-cart" /> <Carrito2 />
               </Nav.Link>
+              <Nav.Link as={Link} to="/" onClick={logout}>LogOut</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
