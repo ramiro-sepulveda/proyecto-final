@@ -26,9 +26,6 @@ const MarketProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  useEffect(() => {
-    getproductos();
-  }, []);
 
   useEffect(() => {
     console.log("Carrito actualizado:", carrito);
