@@ -13,6 +13,7 @@ import PerfilUsuario from "./views/PerfilUsuarrio";
 import Favoritos from "./views/Favoritos";
 
 function App() {
+  
   return (
     <>
       <div className="app">
@@ -26,8 +27,8 @@ function App() {
             <Route path="/galeria/" element={<Galeria />} />
             <Route path="/registro/" element={<Registro />} />
             <Route path="/login/" element={<Login />} />
-            <Route path="/publicar/" element={<NewPost  />} />
-            <Route path="/favoritos/" element={<Favoritos  />} />
+            <Route path="/publicar/" element={<NewPost />} />
+            <Route path="/favoritos/" element={<Favoritos />} />
           </Routes>
         </div>
         <Footer />

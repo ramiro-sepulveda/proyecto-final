@@ -13,22 +13,7 @@ const MarketProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token')); // Traer el token de localStorage
 
-
-  const getproductos = async () => {
-    try {
-      const response = await fetch(ENDPOINTS.readGaleria);
-      const data = await response.json();
-      setProductos(data.results);
-      console.log(data.results)
-    } catch (error) {
-      console.log("error fetch JSON");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-
-
+ 
   const login = (newToken) => {
     setToken(newToken);
     sessionStorage.setItem('token', newToken); // Guardar el token en localStorage
