@@ -3,6 +3,7 @@ import TarjetasProductos from "../components/TarjetasProductos";
 import SearchBar from "../components/SearchBar";
 
 const Galeria = () => {
+
   return (
     <>
       <SearchBar />

@@ -8,11 +8,11 @@ import Carrito2 from './Carrito2';
 
 const Navigation = () => {
   const { usuario, setUsuario, token, setToken, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
-  setToken(sessionStorage.getItem('token'))
+
   console.log(token)
   useEffect(() => {
     // Verificar si el token está vigente
-
+    setToken(sessionStorage.getItem('token'))
     if (token) {
       // Verificar si el token ha expirado (si el token tiene una fecha de expiración)
       const decodedToken = JSON.parse(atob(token.split('.')[1]));

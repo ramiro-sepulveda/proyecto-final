@@ -1,14 +1,29 @@
 import { Button, Card } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
+import { apiPublicaciones } from "../api/apiPublicaciones";
 
 const TarjetasProductos = () => {
-  const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
+  const { productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (e) => navigate(`/producto/${e}`);
+
+  useEffect(() => {
+    apiPublicaciones.getProductos()
+      .then((data) => {
+        setProductos(data.results)
+        console.log(productos)
+        setLoading(false)
+
+      })
+      .catch((error) => {
+        console.error(error)
+        window.alert(`${error.message} 🙁.`)
+      })
+  }, []);
 
   function primeraMayuscula(str) {
     return str
@@ -32,7 +47,7 @@ const TarjetasProductos = () => {
       ]);
     }
   };
-  
+
 
   if (loading) {
     return <div>cargando</div>;
@@ -44,7 +59,7 @@ const TarjetasProductos = () => {
             <Card
               className="d-flex m-auto tarjeta"
               text="black"
-              key={el.id}
+              key={el.publicacion_id}
               style={{ width: "100%" }}
             >
               <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} />
