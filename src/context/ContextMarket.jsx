@@ -13,7 +13,7 @@ const MarketProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token')); // Traer el token de localStorage
 
- 
+
   const login = (newToken) => {
     setToken(newToken);
     sessionStorage.setItem('token', newToken); // Guardar el token en localStorage
@@ -26,14 +26,13 @@ const MarketProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-
   useEffect(() => {
     console.log("Carrito actualizado:", carrito);
   }, [carrito]);
 
 
   return (
-    <MarketContext.Provider value={{ token, setToken, setIsAuthenticated, isAuthenticated, login, logout, registro, setRegistro, productos, loading, carrito, setCarrito, usuario, setUsuario }}>
+    <MarketContext.Provider value={{ setProductos, token, setToken, setIsAuthenticated, isAuthenticated, login, logout, registro, setRegistro, productos, loading, carrito, setCarrito, usuario, setUsuario, setLoading }}>
       {children}
     </MarketContext.Provider>
   );

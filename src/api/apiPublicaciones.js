@@ -1,19 +1,18 @@
 import ENDPOINTS from "./endpoints";
-import { useContext } from "react";
-import { MarketContext } from "../context/ContextMarket";
 
-const getproductos = async () => {
-    const { setProductos } = useContext(MarketContext);
+
+const getProductos = async () => {
 
     try {
+
         const response = await fetch(ENDPOINTS.readGaleria);
         const data = await response.json();
-        setProductos(data.results);
         console.log(data.results)
+        return data
     } catch (error) {
         console.log("error fetch JSON");
 
     };
 }
 
-export const apiPublicaciones = { getproductos }
+export const apiPublicaciones = { getProductos }
