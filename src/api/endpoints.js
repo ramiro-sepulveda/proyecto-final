@@ -4,9 +4,10 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const ENDPOINTS = {
     //Publicaciones
     readGaleria: `${BASE_URL}/galeria`,
-    createProducto: `${BASE_URL}/productos`,
-    updateProducto: (id) => `${BASE_URL}/productos/${id}`,
-    deleteProducto: (id) => `${BASE_URL}/productos/${id}`,
+    agregarPublicacion: `${BASE_URL}/publicaciones`,
+    detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
+    publicacionesUsuarios: (id) => `${BASE_URL}/usuarios/perfil/${id}`,
+    eliminarPublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
 
     // Carrito
 
