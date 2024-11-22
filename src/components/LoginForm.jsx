@@ -2,7 +2,7 @@ import { Form, Button } from 'react-bootstrap';
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, } from 'react-router-dom';
 import { MarketContext } from "../context/ContextMarket";
-import { API } from '../api/api';
+import { apiUsuarios } from '../api/apiUsuarios';
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -26,7 +26,7 @@ const LoginForm = () => {
     }
 
     console.log(login)
-    API.loginUsuario(login)
+    apiUsuarios.loginUsuario(login)
       .then((data) => {
         window.alert('login realizado con éxito 😀.')
         console.log(data)

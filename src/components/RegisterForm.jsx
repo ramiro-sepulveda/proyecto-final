@@ -4,7 +4,7 @@ import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { API } from '../api/api';
+import { apiUsuarios } from '../api/apiUsuarios';
 
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -18,7 +18,7 @@ const RegisterForm = () => {
     password: "",
 
   })
-  const { usuario, setUsuario, regitro, setRegistro } = useContext(MarketContext);
+  const { usuario, setUsuario, regitro, setRegistro, setIsAuthenticated } = useContext(MarketContext);
   const handleUser = (event) => setFormData({ ...formData, [event.target.name]: event.target.value })
 
   const handleForm = (event) => {
@@ -41,10 +41,11 @@ const RegisterForm = () => {
     }
 
     console.log(usuario)
-    API.crearUsuario(usuario)
-      .then(() => {
+    apiUsuarios.crearUsuario(usuario)
+      .then((data) => {
         window.alert('Usuario registrado con éxito 😀.')
-        window.sessionStorage.setItem('token', data)
+        window.sessionStorage.setItem('token', 'Bearer ' + data.token)
+        setIsAuthenticated(true)
         // navigate('/login')
       })
       .catch((error) => {

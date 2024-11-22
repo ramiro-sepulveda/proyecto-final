@@ -13,6 +13,7 @@ const ENDPOINTS = {
     // Gestion de Usuarios
     loginUsuario: `${BASE_URL}/login`,
     crearUsuario: `${BASE_URL}/registro`,
+    updateUsuario: `${BASE_URL}/tokenUsuario`,
 };
 
 export default ENDPOINTS;
