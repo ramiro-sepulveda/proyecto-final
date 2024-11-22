@@ -13,13 +13,13 @@ const ENDPOINTS = {
     // Gestion de Usuarios
     loginUsuario: `${BASE_URL}/login`,
     crearUsuario: `${BASE_URL}/registro`,
-    updateUsuario: `${BASE_URL}/tokenUsuario`,
+    tokenUsuario: `${BASE_URL}/usuario/perfil`,
 };
 
 export default ENDPOINTS;
 
 // //Publicaciones
-// router.get("/galeria", publicacionController.readGaleria); // Desplegar Galeria 
+// router.get("/galeria", publicacionController.readGaleria); // Desplegar Galeria
 // router.post("/publicaciones", publicacionController.agregarPublicacion); // Agregar Publicacion
 // router.get("/publicaciones/:id", publicacionController.detallePublicacion); //Obtener detalle de una publicacion
 // router.get("/usuarios/perfil/:id", publicacionController.publicacionesUsuarios); //Obtener todas las publicaciones de un usuario

@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-.env
+*.env
 dist
 dist-ssr
 *.local
@@ -26,3 +26,4 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+.env

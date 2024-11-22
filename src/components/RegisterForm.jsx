@@ -1,9 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
 import { useContext, useState } from "react";
 import { MarketContext } from "../context/ContextMarket";
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { apiUsuarios } from '../api/apiUsuarios';
 
 
@@ -16,6 +13,7 @@ const RegisterForm = () => {
     email: "",
     telefono: "",
     password: "",
+    password2: "",
 
   })
   const { usuario, setUsuario, regitro, setRegistro, setIsAuthenticated } = useContext(MarketContext);
@@ -30,11 +28,15 @@ const RegisterForm = () => {
       !usuario.apellido.trim() ||
       !usuario.email.trim() ||
       !usuario.telefono.trim() ||
-      !usuario.password.trim()
+      !usuario.password.trim() ||
+      !usuario.password2.trim()
     ) {
       return window.alert('Todos los campos son obligatorias.');
     }
 
+    if (usuario.password !== usuario.password2) {
+      return window.alert('Las contraseñas no coinciden!')
+    }
 
     if (!emailRegex.test(usuario.email)) {
       return window.alert('El formato del email no es correcto!')
@@ -46,7 +48,7 @@ const RegisterForm = () => {
         window.alert('Usuario registrado con éxito 😀.')
         window.sessionStorage.setItem('token', 'Bearer ' + data.token)
         setIsAuthenticated(true)
-        // navigate('/login')
+
       })
       .catch((error) => {
         console.error(error)
@@ -109,7 +111,7 @@ const RegisterForm = () => {
         <Form.Group controlId="formBasicPassword2">
           <Form.Control onChange={handleUser}
             type='password'
-            name='img_perfil'
+            name='password2'
             className='custom-input rounded-4'
             placeholder='Repita su Contraseña' />
         </Form.Group>
