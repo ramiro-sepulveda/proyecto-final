@@ -16,13 +16,13 @@ const MarketProvider = ({ children }) => {
 
   const login = (newToken) => {
     setToken(newToken);
-    sessionStorage.setItem('token', newToken); // Guardar el token en localStorage
+    localStorage.setItem('token', 'Bearer ' + newToken); // Guardar el token en localStorage
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     setToken(null);
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
   };
 

@@ -7,14 +7,8 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
 
   const { usuario, setUsuario, isAuthenticated } = useContext(MarketContext);
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      // Si el usuario no está logueado, redirige a login
-      navigate("/perfil");
-    }
-  }, [isAuthenticated, navigate]);
   return (
     // Imagen izquierda
     <Container className="p-4">

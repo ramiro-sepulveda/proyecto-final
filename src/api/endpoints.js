@@ -14,6 +14,7 @@ const ENDPOINTS = {
     loginUsuario: `${BASE_URL}/login`,
     crearUsuario: `${BASE_URL}/registro`,
     tokenUsuario: `${BASE_URL}/usuario/perfil`,
+    updateUsuario: `${BASE_URL}/usuario/update_perfil`,
 };
 
 export default ENDPOINTS;

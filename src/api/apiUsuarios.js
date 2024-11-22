@@ -67,16 +67,39 @@ const loginUsuario = async (login) => {
         throw error;
     }
 };
-
-const updateUsuario = async (token) => {
+const tokenUsuario = async (token) => {
     try {
         const response = await fetch(ENDPOINTS.tokenUsuario, {
-            method: "POST",
+
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `${token}`, // Incluye el token en el header
+                "Authorization": `${token}`, // Incluye el token en el header
+            }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData?.message || `Error en la solicitud: ${errorData.error}`);
+        }
+        const data = await response.json()
+        console.log(data)
+        return data; // Si la respuesta es exitosa, devolver los datos
+    } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+
+        throw error; // Lanzar el error para manejarlo en el lugar donde se llama la función
+    }
+};
+
+const updateUsuario = async (usuario) => {
+    try {
+        const response = await fetch(ENDPOINTS.updateUsuario, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
             },
-            body: JSON.stringify(),
+            body: JSON.stringify(usuario),
         }); console.log(response)
 
         if (response.status == 404) {
@@ -97,9 +120,9 @@ const updateUsuario = async (token) => {
     } catch (error) {
         // Manejar errores de red u otros
         console.log(error)
-        console.error("Error al realizar el POST:", error.message);
+        console.error("Error al realizar la actualizacion:", error.message);
         // Lanzar el error para manejarlo desde el front
         throw error;
     }
 };
-export const apiUsuarios = { crearUsuario, loginUsuario, updateUsuario }
+export const apiUsuarios = { crearUsuario, loginUsuario, tokenUsuario, updateUsuario }
