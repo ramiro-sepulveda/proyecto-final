@@ -4,41 +4,27 @@ import Emoji from "react-emojis";
 import { useContext, useEffect } from "react";
 import { MarketContext } from '../context/ContextMarket';
 import Carrito2 from './Carrito2';
+import { apiUsuarios } from '../api/apiUsuarios';
 
 
 const Navigation = () => {
   const { usuario, setUsuario, token, setToken, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
 
-  console.log(token)
   useEffect(() => {
-    // Verificar si el token está vigente
-    setToken(sessionStorage.getItem('token'))
     if (token) {
-      // Verificar si el token ha expirado (si el token tiene una fecha de expiración)
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      const expirationDate = decodedToken.exp * 1000; // Convertir a milisegundos
-      const currentTime = Date.now();
-      console.log('fecha actua: ' + currentTime)
-      console.log('fecha expiracion: ' + expirationDate)
-      if (currentTime > expirationDate) {
-        setToken(null); // Si el token ha expirado, eliminarlo
-        sessionStorage.removeItem('token');
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true); // Si el token es válido, mantener la sesión activa
-      }
-    } else {
-      setIsAuthenticated(false); // Si no hay token, no está autenticado
+      apiUsuarios.tokenUsuario(token)
+        .then((data) => {
+          setIsAuthenticated(true),
+            setUsuario(data[0])
+        }
+        )
+        .catch((error) => {
+          setIsAuthenticated(false)
+        })
     }
   }
     , [token, isAuthenticated]);
 
-
-  // Función para cambiar el estado
-  const cambiarEstado = () => {
-    setUsuario(!usuario);
-  };
-  useEffect(() => { console.log("El estado ha cambiado"); }, [setUsuario]);
 
   if (!isAuthenticated) {
     return (

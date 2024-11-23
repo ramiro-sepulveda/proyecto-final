@@ -14,12 +14,15 @@ const ENDPOINTS = {
     // Gestion de Usuarios
     loginUsuario: `${BASE_URL}/login`,
     crearUsuario: `${BASE_URL}/registro`,
+    tokenUsuario: `${BASE_URL}/usuario/perfil`,
+    updateUsuario: `${BASE_URL}/usuario/update_perfil`,
+    borrarUsuario: (id) => `${BASE_URL}/usuario/borrar/${id}`,
 };
 
 export default ENDPOINTS;
 
 // //Publicaciones
-// router.get("/galeria", publicacionController.readGaleria); // Desplegar Galeria 
+// router.get("/galeria", publicacionController.readGaleria); // Desplegar Galeria
 // router.post("/publicaciones", publicacionController.agregarPublicacion); // Agregar Publicacion
 // router.get("/publicaciones/:id", publicacionController.detallePublicacion); //Obtener detalle de una publicacion
 // router.get("/usuarios/perfil/:id", publicacionController.publicacionesUsuarios); //Obtener todas las publicaciones de un usuario
@@ -30,13 +33,6 @@ export default ENDPOINTS;
 // router.get('/carrito/:usuario_id', carritoController.obtenerProductos); //Obtener carrito de usuario
 // router.put('/carrito', carritoController.actualizarCantidad); // Modificar cantidad de producto en Carrito
 // router.delete('/carrito', carritoController.eliminarProducto); // Eliminar producto de Carrito
-
-// //Gestión de usuarios
-// router.post("/login", usuarioController.loginUsuario); // Inicio de sesión + TOKEN
-// router.post("/registro", usuarioController.crearUsuario) // Registro de usuario + TOKEN
-// router.get("/usuario/perfil", validarToken, usuarioController.tokenUsuario) // Perfil de usuario validando TOKEN
-// router.put("/usuario/update_perfil", validarToken, usuarioController.updateUsuario) // Actualizacion info de Usuario
-// router.delete("/usuario/borrar/:id", validarToken, usuarioController.borrarUsuario) // Borrar Usuario
 
 // //Imágenes
 // router.post("/publicaciones/imagenes", validarToken, imagenesController.agregarImagenes) // Agregar imagenes a Publicacion

@@ -2,37 +2,43 @@ import { Form, Button } from 'react-bootstrap';
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, } from 'react-router-dom';
 import { MarketContext } from "../context/ContextMarket";
-import { API } from '../api/api';
+import { apiUsuarios } from '../api/apiUsuarios';
 
 const LoginForm = () => {
   const navigate = useNavigate()
-  const { usuario, setUsuario, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
+  const { usuario, setUsuario, setIsAuthenticated, isAuthenticated, login, logout } = useContext(MarketContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
 
-  const handleUser = (event) => setFormData({ ...formData, [event.target.name]: event.target.value })
+  const handleUser = (event) => {
+    if (event.target.name === "email") {
+      setFormData({ ...formData, [event.target.name]: event.target.value.toLowerCase() })
+    }
+    else {
+      setFormData({ ...formData, [event.target.name]: event.target.value })
+    }
+  }
 
   const handleForm = (event) => {
     event.preventDefault()
-    const login = formData
+    const loginInfo = formData
 
     if (
-      !login.email.trim() ||
-      !login.password.trim()
+      !loginInfo.email.trim() ||
+      !loginInfo.password.trim()
     ) {
       return window.alert('Todos los campos son obligatorias.');
     }
 
-    console.log(login)
-    API.loginUsuario(login)
+    apiUsuarios.loginUsuario(loginInfo)
       .then((data) => {
         window.alert('login realizado con éxito 😀.')
-        console.log(data)
-        window.sessionStorage.setItem('token', 'Bearer ' + data.token)
-        setIsAuthenticated(true)
-        // navigate('/perfil') No es necesario al estar en Login.jsx
+        login(data.token)
+        setUsuario(data.user)
+
+        navigate('/perfil')
       })
       .catch((error) => {
         console.error(error)

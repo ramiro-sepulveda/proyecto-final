@@ -1,25 +1,33 @@
 import { Form, Button } from 'react-bootstrap';
 import { useContext, useState } from "react";
 import { MarketContext } from "../context/ContextMarket";
+import { apiUsuarios } from '../api/apiUsuarios';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { API } from '../api/api';
+
 
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
     email: "",
     telefono: "",
     password: "",
+    password2: "",
 
   })
-  const { usuario, setUsuario, regitro, setRegistro } = useContext(MarketContext);
-  const handleUser = (event) => setFormData({ ...formData, [event.target.name]: event.target.value })
+  const { usuario, setUsuario, regitro, setRegistro, setIsAuthenticated } = useContext(MarketContext);
+  const handleUser = (event) => {
+    if (event.target.name === "email") {
+      setFormData({ ...formData, [event.target.name]: event.target.value.toLowerCase() })
+    }
+    else {
+      setFormData({ ...formData, [event.target.name]: event.target.value })
+    }
+  }
 
   const handleForm = (event) => {
     event.preventDefault()
@@ -30,22 +38,29 @@ const RegisterForm = () => {
       !usuario.apellido.trim() ||
       !usuario.email.trim() ||
       !usuario.telefono.trim() ||
-      !usuario.password.trim()
+      !usuario.password.trim() ||
+      !usuario.password2.trim()
     ) {
       return window.alert('Todos los campos son obligatorias.');
     }
 
+    if (usuario.password !== usuario.password2) {
+      return window.alert('Las contraseñas no coinciden!')
+    }
 
     if (!emailRegex.test(usuario.email)) {
       return window.alert('El formato del email no es correcto!')
     }
 
     console.log(usuario)
-    API.crearUsuario(usuario)
-      .then(() => {
+    apiUsuarios.crearUsuario(usuario)
+      .then((data) => {
         window.alert('Usuario registrado con éxito 😀.')
-        window.sessionStorage.setItem('token', data)
-        // navigate('/login')
+        localStorage.setItem('token', 'Bearer ' + data.token)
+        setIsAuthenticated(true)
+        setUsuario(data.user)
+        navigate('/perfil')
+
       })
       .catch((error) => {
         console.error(error)
@@ -108,7 +123,7 @@ const RegisterForm = () => {
         <Form.Group controlId="formBasicPassword2">
           <Form.Control onChange={handleUser}
             type='password'
-            name='img_perfil'
+            name='password2'
             className='custom-input rounded-4'
             placeholder='Repita su Contraseña' />
         </Form.Group>
