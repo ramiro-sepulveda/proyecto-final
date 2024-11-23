@@ -5,9 +5,10 @@ import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
 
 const ProductoDetails = () => {
-  const { name } = useParams();
+  const titulo = useParams().name;
   const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
-  console.log(name);
+
+  console.log(titulo);
   console.log(productos);
   console.log(loading);
 
@@ -42,69 +43,69 @@ const ProductoDetails = () => {
       setCarrito(copiaCarrito.map((el) => el));
     }
   };
-
+  console.log(productos)
   if (loading) {
     return <div>cargando</div>;
   } else {
-    const index = productos.findIndex((el) => el.name == name);
+    const index = productos.findIndex((el) => el.titulo == titulo);
     return (
-      <div className="pt-5">
-        <Card className="d-flex flex-lg-row m-auto tarjeta" text="black">
-          <Card.Img className="w-50"
+      <div classtitulo="pt-5">
+        <Card classtitulo="d-flex flex-lg-row m-auto tarjeta" text="black">
+          <Card.Img classtitulo="w-50"
             variant="top"
-            src={productos[index].img}
-            alt={"Producto " + primeraMayuscula(name)}
+            src={productos[index].img1_portada}
+            alt={"Producto " + primeraMayuscula(titulo)}
           />
-          <Card.Body className="py-0">
-            <Card.Header className="fs-1 pb-4 border-light">
-              {primeraMayuscula(name)}
+          <Card.Body classtitulo="py-0">
+            <Card.Header classtitulo="fs-1 pb-4 border-light">
+              {primeraMayuscula(titulo)}
             </Card.Header>
 
-            <Card.Text>{productos[index].desc}</Card.Text>
-            <Card.Title className="fs-4 pb-4">Categoría: {primeraMayuscula(productos[index].category)}</Card.Title>
-          
+            <Card.Text>{productos[index].descripcion}</Card.Text>
+            {/* <Card.Title classtitulo="fs-4 pb-4">Categoría: {primeraMayuscula(productos[index].category)}</Card.Title> */}
+
             {/* <ul>
                   <li>
                     {primeraMayuscula(productos[index].category)}
                   </li>
             </ul> */}
 
-            <Card.Footer className="d-lg-flex justify-content-between align-items-center">
-              <div className="precio">
+            <Card.Footer classtitulo="d-lg-flex justify-content-between align-items-center">
+              <div classtitulo="precio">
                 {"Precio: $" +
-                  productos[index].price
+                  productos[index].precio
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
-              <div className="botones-detalles">
-              <Button
-                style={{ width: "80px" }}
-                variant="warning"
-                onClick={() => {
-                  handleAñadir(
-                    productos[index].name,
-                    productos[index].price,
-                    productos[index].img
-                  );
-                  console.log(carrito);
-                }}
-              >
-               <Emoji emoji="red-heart" />
-              </Button>
-              <Button
-                style={{ width: "140px" }}
-                variant="danger"
-                onClick={() => {
-                  handleAñadir(
-                    productos[index].name,
-                    productos[index].price,
-                    productos[index].img
-                  );
-                  console.log(carrito);
-                }}
-              >
-               <Emoji emoji="shopping-cart" /> Añadir
-              </Button>
+              <div classtitulo="botones-detalles">
+                <Button
+                  style={{ width: "80px" }}
+                  variant="warning"
+                  onClick={() => {
+                    handleAñadir(
+                      productos[index].titulo,
+                      productos[index].precio,
+                      productos[index].img1_portada
+                    );
+                    console.log(carrito);
+                  }}
+                >
+                  <Emoji emoji="red-heart" />
+                </Button>
+                <Button
+                  style={{ width: "140px" }}
+                  variant="danger"
+                  onClick={() => {
+                    handleAñadir(
+                      productos[index].titulo,
+                      productos[index].precio,
+                      productos[index].img1_portada
+                    );
+                    console.log(carrito);
+                  }}
+                >
+                  <Emoji emoji="shopping-cart" /> Añadir
+                </Button>
               </div>
             </Card.Footer>
           </Card.Body>
