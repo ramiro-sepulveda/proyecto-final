@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from "react";
-import ENDPOINTS from "../api/endpoints";
+import { useNavigate } from "react-router-dom";
+
 
 export const MarketContext = createContext();
 
 const MarketProvider = ({ children }) => {
-
+  const navigate = useNavigate()
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
@@ -24,6 +25,7 @@ const MarketProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    navigate('/')
   };
 
   useEffect(() => {

@@ -1,13 +1,8 @@
-import { useContext, useEffect } from "react";
-import { MarketContext } from "../context/ContextMarket";
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 import LoginForm from "../components/LoginForm";
-import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-
-  const { usuario, setUsuario, isAuthenticated } = useContext(MarketContext);
-  const navigate = useNavigate()
 
   return (
     // Imagen izquierda

@@ -108,9 +108,10 @@ const updateUsuario = async (usuario) => {
 
         if (!response.ok) {
             const errorData = await response.json();
+            console.log(errorData)
             console.log(errorData.error)
             throw new Error(
-                errorData?.error || `Error en la solicitud: ${response.status}`
+                `Error en la solicitud: ${response.status}, telefono ya existe`
             );
         }
         // Procesar la respuesta si fue exitosa
@@ -125,4 +126,40 @@ const updateUsuario = async (usuario) => {
         throw error;
     }
 };
-export const apiUsuarios = { crearUsuario, loginUsuario, tokenUsuario, updateUsuario }
+
+const borrarUsuario = async (id) => {
+    try {
+        const response = await fetch(ENDPOINTS.borrarUsuario(id), {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
+            },
+           
+        }); console.log(response)
+
+        if (response.status == 404) {
+            throw new Error(`Error en la solicitud: ${response.status} no ha sido posible conectarse al servidor`)
+        }
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.log(errorData)
+            console.log(errorData.error)
+            throw new Error(
+                `Error en la solicitud: ${response.status}, no tiene permiso para realizar esta accion`
+            );
+        }
+        // Procesar la respuesta si fue exitosa
+        const data = await response.json();
+        console.log("Solicitud exitosa:", data);
+        return data;
+    } catch (error) {
+        // Manejar errores de red u otros
+        console.log(error)
+        console.error("Error al realizar la actualizacion:", error.message);
+        // Lanzar el error para manejarlo desde el front
+        throw error;
+    }
+};
+export const apiUsuarios = { crearUsuario, loginUsuario, tokenUsuario, updateUsuario, borrarUsuario }

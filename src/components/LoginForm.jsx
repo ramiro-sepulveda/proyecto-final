@@ -39,7 +39,7 @@ const LoginForm = () => {
         console.log(data)
         login(data.token)
         setUsuario(data.user)
-        // navigate('/perfil') No es necesario al estar en Login.jsx
+        navigate('/perfil') 
       })
       .catch((error) => {
         console.error(error)

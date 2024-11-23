@@ -8,10 +8,10 @@ import MarketProvider from "./context/ContextMarket.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MarketProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <MarketProvider>
         <App />
-      </BrowserRouter>
-    </MarketProvider>
+      </MarketProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

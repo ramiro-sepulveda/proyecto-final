@@ -2,11 +2,14 @@ import { Form, Button } from 'react-bootstrap';
 import { useContext, useState } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { apiUsuarios } from '../api/apiUsuarios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -17,7 +20,14 @@ const RegisterForm = () => {
 
   })
   const { usuario, setUsuario, regitro, setRegistro, setIsAuthenticated } = useContext(MarketContext);
-  const handleUser = (event) => setFormData({ ...formData, [event.target.name]: event.target.value })
+  const handleUser = (event) => {
+    if (event.target.name === "email") {
+      setFormData({ ...formData, [event.target.name]: event.target.value.toLowerCase() })
+    }
+    else {
+      setFormData({ ...formData, [event.target.name]: event.target.value })
+    }
+  }
 
   const handleForm = (event) => {
     event.preventDefault()
@@ -46,8 +56,10 @@ const RegisterForm = () => {
     apiUsuarios.crearUsuario(usuario)
       .then((data) => {
         window.alert('Usuario registrado con éxito 😀.')
-        window.sessionStorage.setItem('token', 'Bearer ' + data.token)
+        localStorage.setItem('token', 'Bearer ' + data.token)
         setIsAuthenticated(true)
+        setUsuario(data.user)
+        navigate('/perfil')
 
       })
       .catch((error) => {

@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useState, useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { apiUsuarios } from "../api/apiUsuarios";
@@ -7,9 +7,14 @@ import Emoji from "react-emojis";
 
 const Perfil = () => {
     const [editar, setEditar] = useState(false)
-    const { usuario, setUsuario } = useContext(MarketContext)
+    const { usuario, setUsuario, logout } = useContext(MarketContext)
     const [formData, setFormData] = useState({})
-    console.log(formData)
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
     const primeraMayuscula = (str) => {
         return str
             .split(" ")
@@ -39,6 +44,22 @@ const Perfil = () => {
                 window.alert(`${error.message} 🙁.`)
             })
     }
+
+    const handleEliminarCuenta = () => {
+        apiUsuarios.borrarUsuario(usuario.id)
+            .then(() => {
+                console.log("Cuenta eliminada");
+                handleClose()
+                window.alert(`Tu cuenta ha sido eliminada.`)
+                logout()
+            })
+            .catch((error) => {
+                console.error(error)
+                window.alert(`${error.message} 🙁.`)
+            })
+
+
+    };
 
     useEffect(() => {
         setFormData(usuario)
@@ -71,11 +92,11 @@ const Perfil = () => {
                                         </button>
                                         <Form className='pt-5 w-100'>
                                             <Form.Control
-                                                placeholder="Imagen de Perfil"
+                                                placeholder="URL Imagen de Perfil"
                                                 className="text-dark text-center mb-3"
                                                 type="text"
-                                                name="imgPerfil"
-                                                value={formData.imgPerfil}
+                                                name="img_perfil"
+                                                value={formData.img_perfil}
                                                 onChange={handleChange} />
 
                                             <Form.Control
@@ -103,6 +124,25 @@ const Perfil = () => {
                                                 onChange={handleChange} />
 
                                         </Form>
+                                        <Button variant="danger" className="p-1 mb-3" style={{ fontSize: "0.9rem" }} onClick={handleShow}>
+                                            Eliminar Cuenta
+                                        </Button>
+                                        <Modal show={show} onHide={handleClose} centered>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Confirmar eliminación</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="secondary" onClick={handleClose}>
+                                                    Cancelar
+                                                </Button>
+                                                <Button variant="danger" onClick={handleEliminarCuenta}>
+                                                    Confirmar
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </>) : (<>
                                         <button
                                             style={{
@@ -119,11 +159,20 @@ const Perfil = () => {
                                             <Emoji emoji="pencil" />
                                         </button>
                                         <div className="bg-light rounded-circle d-flex align-items-center justify-content-center mb-3" style={{ width: "150px", height: "150px" }}>
-                                            <img src={usuario.imgPerfil} />
+                                            <img src={usuario.img_perfil ? usuario.img_perfil : "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"} alt="Imagen de perfil"
+                                                style={{
+                                                    color: "transparent",
+                                                    width: "100%", // Ocupa todo el ancho del contenedor
+                                                    height: "100%", // Ocupa todo el alto del contenedor
+                                                    objectFit: "cover", // Ajusta la imagen para cubrir el contenedor
+                                                    borderRadius: "50%", // Hace que la imagen también sea circular
+                                                }} />
                                         </div>
                                         <p className="text-dark text-center mb-3">  {primeraMayuscula(`${usuario.nombre} ${usuario.apellido}`)}</p>
+                                        <Emoji emoji='e-mail' />
                                         <p className="text-dark text-center mb-3">{usuario.email}</p>
-                                        <p className="text-dark text-center mb-3"></p></>)
+                                        <Emoji emoji='telephone-receiver' />
+                                        <p className="text-dark text-center mb-3">{usuario.telefono}</p></>)
                                     }
 
                                 </Card>

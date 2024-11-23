@@ -18,6 +18,7 @@ const Navigation = () => {
       apiUsuarios.tokenUsuario(token)
         .then((data) => {
           setIsAuthenticated(true),
+          console.log(`info: ${data[0]}`)
             setUsuario(data[0])
         }
         )
