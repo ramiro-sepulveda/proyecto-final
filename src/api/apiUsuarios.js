@@ -42,15 +42,13 @@ const loginUsuario = async (login) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(login),
-        }); console.log(response)
+        });
 
         if (response.status == 404) {
             throw new Error(`Error en la solicitud: ${response.status} no ha sido posible conectarse al servidor`)
         }
-
         if (!response.ok) {
             const errorData = await response.json();
-            console.log(errorData.error)
             throw new Error(
                 errorData?.error || `Error en la solicitud: ${response.status}`
             );
@@ -61,7 +59,6 @@ const loginUsuario = async (login) => {
         return data;
     } catch (error) {
         // Manejar errores de red u otros
-        console.log(error)
         console.error("Error al realizar el POST:", error.message);
         // Lanzar el error para manejarlo desde el front
         throw error;
@@ -85,7 +82,7 @@ const tokenUsuario = async (token) => {
         console.log(data)
         return data; // Si la respuesta es exitosa, devolver los datos
     } catch (error) {
-        console.error("Error en la solicitud:", error.message);
+        console.error(error.message);
 
         throw error; // Lanzar el error para manejarlo en el lugar donde se llama la función
     }
@@ -135,7 +132,7 @@ const borrarUsuario = async (id) => {
                 "Content-Type": "application/json",
                 "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
             },
-           
+
         }); console.log(response)
 
         if (response.status == 404) {

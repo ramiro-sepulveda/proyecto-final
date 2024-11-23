@@ -63,6 +63,8 @@ const Perfil = () => {
 
     useEffect(() => {
         setFormData(usuario)
+        console.log('info formData')
+        console.log(formData)
 
     }, [editar]);
 
@@ -80,7 +82,7 @@ const Perfil = () => {
                                             style={{
                                                 position: "absolute",
                                                 top: "10px",
-                                                right: "10px",
+                                                right: "40px",
                                                 background: "transparent",
                                                 border: "none",
                                                 cursor: "pointer",
@@ -90,6 +92,21 @@ const Perfil = () => {
                                         >
                                             <Emoji emoji="floppy-disk" />
                                         </button>
+                                        <button
+                                            style={{
+                                                position: "absolute",
+                                                top: "10px",
+                                                right: "10px",
+                                                background: "transparent",
+                                                border: "none",
+                                                cursor: "pointer",
+                                                fontSize: "20px",
+                                            }}
+                                            onClick={() => setEditar(false)}
+                                        >
+                                            <Emoji emoji="cross-mark" />
+                                        </button>
+
                                         <Form className='pt-5 w-100'>
                                             <Form.Control
                                                 placeholder="URL Imagen de Perfil"

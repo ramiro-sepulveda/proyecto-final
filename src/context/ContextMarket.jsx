@@ -16,8 +16,8 @@ const MarketProvider = ({ children }) => {
 
 
   const login = (newToken) => {
-    setToken(newToken);
     localStorage.setItem('token', 'Bearer ' + newToken); // Guardar el token en localStorage
+    setToken(localStorage.getItem('token'));
     setIsAuthenticated(true);
   };
 

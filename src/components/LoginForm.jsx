@@ -32,14 +32,13 @@ const LoginForm = () => {
       return window.alert('Todos los campos son obligatorias.');
     }
 
-    console.log(loginInfo)
     apiUsuarios.loginUsuario(loginInfo)
       .then((data) => {
         window.alert('login realizado con éxito 😀.')
-        console.log(data)
         login(data.token)
         setUsuario(data.user)
-        navigate('/perfil') 
+
+        navigate('/perfil')
       })
       .catch((error) => {
         console.error(error)

@@ -10,15 +10,11 @@ import { apiUsuarios } from '../api/apiUsuarios';
 const Navigation = () => {
   const { usuario, setUsuario, token, setToken, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
 
-  console.log(token)
   useEffect(() => {
     if (token) {
-
-      setToken(localStorage.getItem('token'))
       apiUsuarios.tokenUsuario(token)
         .then((data) => {
           setIsAuthenticated(true),
-          console.log(`info: ${data[0]}`)
             setUsuario(data[0])
         }
         )
