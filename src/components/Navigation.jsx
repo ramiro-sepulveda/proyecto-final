@@ -38,9 +38,12 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
               <Nav.Link as={Link} to="/login/">Inicia sesión</Nav.Link>
               <Nav.Link as={Link} to="/registro">Regístrate</Nav.Link>
-              <Nav.Link as={Link} to="/carrito/">
-                <Emoji emoji="shopping-cart" /><Carrito2 />
-              </Nav.Link>
+              {usuario && (
+                <Nav.Link as={Link} to="/carrito/">
+                  <Emoji emoji="shopping-cart" />
+                  <Carrito2 />
+                </Nav.Link>
+              )}
             </Nav>
           </Container>
         </Navbar>
