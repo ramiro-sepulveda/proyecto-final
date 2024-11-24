@@ -47,11 +47,7 @@ const TarjetasProductos = () => {
   };
 
   const handleAñadirFavorito = (producto) => {
-    if (!Array.isArray(favoritos)) {
-      console.error("Favoritos no está inicializado correctamente");
-      return;
-    }
-  
+    console.log(favoritos);
     const existe = favoritos.some((fav) => fav.id === producto.id);
   
     if (existe) {
@@ -110,7 +106,7 @@ const TarjetasProductos = () => {
                   className="cardButton"
                   onClick={() => handleAñadirFavorito(el)} // Agregar a favoritos
                 >
-                  <Emoji emoji="heart" />
+                  <Emoji emoji="red-heart" />
                 </Button>
               </div>
             </Card.Body>

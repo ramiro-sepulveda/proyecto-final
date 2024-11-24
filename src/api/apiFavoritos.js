@@ -3,7 +3,9 @@ import { useContext } from "react";
 import { MarketContext } from "../context/ContextMarket";
 
 // Obtener los productos favoritos de un usuario
+
 const obtenerFavoritos = async (usuarioId) => {
+    const {setFavoritos, favoritos} = useContext(MarketContext);
     try {
       const response = await fetch(`${ENDPOINTS.obtenerFavoritos}/${usuarioId}`);
       const data = await response.json();

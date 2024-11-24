@@ -9,7 +9,7 @@ const MarketProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
-  const [favoritos, setFavoritos] = useState({});// Nuevo estado para favoritos
+  const [favoritos, setFavoritos] = useState([]);// Nuevo estado para favoritos
   const [usuario, setUsuario] = useState(false); // Usuario completo
   const [registro, setRegistro] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,10 +32,15 @@ const MarketProvider = ({ children }) => {
     const fetchFavoritos = async () => {
       try {
         if (usuario?.id) {  // Verifica si el usuario tiene un ID válido
-          const favoritos = await apiFavoritos.obtenerFavoritos(usuario.id); // Pasa el usuarioId correcto
-          setFavoritos(favoritos);
-        }
-      } catch (error) {
+          const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
+          if (favoritos2) {
+            setFavoritos(favoritos2);
+          } 
+          else {
+            console.log("hola");// Pasa el usuarioId correcto
+          
+        };
+      }} catch (error) {
         console.error("Error al obtener los favoritos:", error);
       }
     };
