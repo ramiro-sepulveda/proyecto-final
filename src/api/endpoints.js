@@ -4,12 +4,16 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const ENDPOINTS = {
     //Publicaciones
     readGaleria: `${BASE_URL}/galeria`,
-    createProducto: `${BASE_URL}/productos`,
-    updateProducto: (id) => `${BASE_URL}/productos/${id}`,
-    deleteProducto: (id) => `${BASE_URL}/productos/${id}`,
+    agregarPublicacion: `${BASE_URL}/publicaciones`,
     detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
+    publicacionesUsuarios: (id) => `${BASE_URL}/usuarios/perfil/${id}`,
+    eliminarPublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
 
     // Carrito
+    obtenerProductos: (id) => `${BASE_URL}/carrito/${id}`,
+    agregarProducto: `${BASE_URL}/carrito`,
+    actualizarCantidad: `${BASE_URL}/carrito`,
+    eliminarProducto: `${BASE_URL}/carrito`,
 
     // Gestion de Usuarios
     loginUsuario: `${BASE_URL}/login`,
@@ -29,9 +33,9 @@ export default ENDPOINTS;
 // router.delete("/publicaciones/:id", publicacionController.eliminarPublicacion); //Eliminar una publicacion
 
 // //Carrito
-// router.post('/carrito', carritoController.agregarProducto); // Agregar producto a carrito
-// router.get('/carrito/:usuario_id', carritoController.obtenerProductos); //Obtener carrito de usuario
-// router.put('/carrito', carritoController.actualizarCantidad); // Modificar cantidad de producto en Carrito
+// router.post('/carrito', carritoController.agregarProducto); // Agregar producto a carrito                      lista
+// router.get('/carrito/:usuario_id', carritoController.obtenerProductos); //Obtener carrito de usuario           lista creo
+// router.put('/carrito', carritoController.actualizarCantidad); // Modificar cantidad de producto en Carrito     
 // router.delete('/carrito', carritoController.eliminarProducto); // Eliminar producto de Carrito
 
 // //Imágenes
