@@ -117,7 +117,6 @@ const updateUsuario = async (usuario) => {
         return data;
     } catch (error) {
         // Manejar errores de red u otros
-        console.log(error)
         console.error("Error al realizar la actualizacion:", error.message);
         // Lanzar el error para manejarlo desde el front
         throw error;

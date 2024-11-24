@@ -6,7 +6,7 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
+  const { categorias, productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (e) => navigate(`/producto/${e}`);
@@ -15,7 +15,6 @@ const TarjetasProductos = () => {
     apiPublicaciones.getProductos()
       .then((data) => {
         setProductos(data.results)
-        console.log(productos)
         setLoading(false)
 
       })
@@ -70,9 +69,9 @@ const TarjetasProductos = () => {
                 <Card.Title>Categoría</Card.Title>
 
                 <ul>
-                  {/* <li>
-                    {primeraMayuscula(el.category)}
-                  </li> */}
+                  <li>
+                    {primeraMayuscula(categorias.find(categoria => categoria.id === el.categoria_id).nombre)}
+                  </li>
                 </ul>
 
                 <div className="precio">
@@ -82,7 +81,7 @@ const TarjetasProductos = () => {
 
                 <div className="botones d-flex justify-content-around">
                   <Button
-                    value={el.titulo}
+                    value={`${el.publicacion_id}-${el.titulo}`}
                     style={{ width: "45%" }}
                     variant="secondary"
                     onClick={(e) => irAProducto(e.currentTarget.value)}

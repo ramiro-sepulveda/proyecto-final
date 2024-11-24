@@ -1,16 +1,35 @@
 import { useParams } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
+import { apiPublicaciones } from "../api/apiPublicaciones";
 
 const ProductoDetails = () => {
-  const titulo = useParams().name;
-  const { productos, loading, carrito, setCarrito } = useContext(MarketContext);
+  const { carrito, setCarrito } = useContext(MarketContext);
+  const idPublicacion = parseInt(useParams().name.split('-')[0], 10);
+  const [producto, setProducto] = useState()
+  const [loading, setloading] = useState(true)
 
-  console.log(titulo);
-  console.log(productos);
-  console.log(loading);
+  useEffect(() => {
+    console.log(producto)
+    apiPublicaciones.detallePublicacion(idPublicacion)
+      .then((data) => {
+        console.log(data)
+        setProducto(data)
+        console.log(producto)
+        setloading(false)
+
+      })
+      .catch((error) => {
+        console.error(error)
+        window.alert(`${error.message} 🙁.`)
+      })
+  }, []);
+
+  // console.log(producto.titulo);
+  // console.log(producto);
+  // console.log(loading);
 
   function primeraMayuscula(str) {
     return str
@@ -43,37 +62,36 @@ const ProductoDetails = () => {
       setCarrito(copiaCarrito.map((el) => el));
     }
   };
-  console.log(productos)
+
   if (loading) {
     return <div>cargando</div>;
   } else {
-    const index = productos.findIndex((el) => el.titulo == titulo);
     return (
       <div classtitulo="pt-5">
         <Card classtitulo="d-flex flex-lg-row m-auto tarjeta" text="black">
           <Card.Img classtitulo="w-50"
             variant="top"
-            src={productos[index].img1_portada}
-            alt={"Producto " + primeraMayuscula(titulo)}
+            src={producto.img1_portada}
+            alt={"Producto " + primeraMayuscula(producto.titulo)}
           />
           <Card.Body classtitulo="py-0">
             <Card.Header classtitulo="fs-1 pb-4 border-light">
-              {primeraMayuscula(titulo)}
+              {primeraMayuscula(producto.titulo)}
             </Card.Header>
 
-            <Card.Text>{productos[index].descripcion}</Card.Text>
-            {/* <Card.Title classtitulo="fs-4 pb-4">Categoría: {primeraMayuscula(productos[index].category)}</Card.Title> */}
+            <Card.Text>{producto.descripcion}</Card.Text>
+            {/* <Card.Title classtitulo="fs-4 pb-4">Categoría: {primeraMayuscula(producto.category)}</Card.Title> */}
 
             {/* <ul>
                   <li>
-                    {primeraMayuscula(productos[index].category)}
+                    {primeraMayuscula(producto.category)}
                   </li>
             </ul> */}
 
             <Card.Footer classtitulo="d-lg-flex justify-content-between align-items-center">
               <div classtitulo="precio">
                 {"Precio: $" +
-                  productos[index].precio
+                  producto.precio
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
@@ -83,9 +101,9 @@ const ProductoDetails = () => {
                   variant="warning"
                   onClick={() => {
                     handleAñadir(
-                      productos[index].titulo,
-                      productos[index].precio,
-                      productos[index].img1_portada
+                      producto.titulo,
+                      producto.precio,
+                      producto.img1_portada
                     );
                     console.log(carrito);
                   }}
@@ -97,9 +115,9 @@ const ProductoDetails = () => {
                   variant="danger"
                   onClick={() => {
                     handleAñadir(
-                      productos[index].titulo,
-                      productos[index].precio,
-                      productos[index].img1_portada
+                      producto.titulo,
+                      producto.precio,
+                      producto.img1_portada
                     );
                     console.log(carrito);
                   }}
@@ -113,6 +131,7 @@ const ProductoDetails = () => {
       </div>
     );
   }
-};
+}
+
 
 export default ProductoDetails;
