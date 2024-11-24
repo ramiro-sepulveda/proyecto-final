@@ -9,7 +9,7 @@ import Login from "./views/Login";
 import NewPost from "./views/NewPost";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
-import PerfilUsuario from "./views/PerfilUsuarrio";
+import PerfilUsuario from "./views/PerfilUsuario";
 import Favoritos from "./views/Favoritos";
 import RutasProtegidas from "./views/RutasProtegidas";
 import RutasObsoletas from "./views/RutasObsoletas";
@@ -25,21 +25,21 @@ function App() {
             {/* Rutas públicas */}
             <Route path="/" element={<HomePage />} />
             <Route path="/publicaciones/:id" element={<ProductoDetails />} />
-            <Route path="/carrito/" element={<CarritoList />} />
+            <Route path="/carrito" element={<CarritoList />} />
 
-            <Route path="/galeria/" element={<Galeria />} />
+            <Route path="/galeria" element={<Galeria />} />
 
             {/* Rutas privadas, protegidas por el token */}
             <Route element={<RutasProtegidas />}>
-              <Route path="/perfil/" element={<PerfilUsuario />} />
-              <Route path="/publicar/" element={<NewPost />} />
-              <Route path="/favoritos/" element={<Favoritos />} />
+              <Route path="/usuarios/perfil/:id" element={<PerfilUsuario />} />
+              <Route path="/publicar" element={<NewPost />} />
+              <Route path="/favoritos" element={<Favoritos />} />
             </Route>
 
             {/* Rutas públicas obsoletas con token */}
             <Route element={<RutasObsoletas />}>
-              <Route path="/registro/" element={<Registro />} />
-              <Route path="/login/" element={<Login />} />
+              <Route path="/registro" element={<Registro />} />
+              <Route path="/login" element={<Login />} />
             </Route>
           </Routes>
         </div>

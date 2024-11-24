@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { apiPublicaciones } from '../api/apiPublicaciones';
 import { useState } from 'react';
 
+
 const NewPost = () => {
 
   // Estado para manejar los valores del formulario
@@ -54,14 +55,16 @@ const NewPost = () => {
             <Col md={6} className="px-5">
               <Form.Group controlId="formBasicName" className="d-flex flex-column align-items-center gap-5">
                 <Form.Control 
-                type="tittle" 
+                type="title" 
+                name="titulo"
                 placeholder="Título" 
                 className='custom-input rounded-4'
                 value={formData.titulo}
                 onChange={handleChange} 
                 />
                 <Form.Control 
-                type="price" 
+                type="price"
+                name='precio' 
                 placeholder="Precio" 
                 className='custom-input rounded-4' 
                 value={formData.precio}
@@ -105,8 +108,12 @@ const NewPost = () => {
             <Col md={6} className="px-5">
               <h3 className='white pb-4 text-center'>Imágenes del producto</h3>
               <div className="d-flex justify-content-center gap-3">
+              <Form.Group controlId="formFileMultiple" className="mb-3">
+                <Form.Label className='text-white'>Selecciona las imágenes:</Form.Label>
+                <Form.Control type="file" multiple />
+              </Form.Group>
 
-                <div style={{
+                {/* <div style={{
                   borderRadius: '4px',
                   backgroundColor: 'white'
                 }}>
@@ -144,13 +151,8 @@ const NewPost = () => {
                     src="/imageholder.png"
                     alt="Descripción de la imagen"
                     className="img-fluid" />
-                </div>
+                </div> */}
 
-              </div>
-              <div className='mt-3 text-end'>
-                <Button variant="primary" className='rounded-3'>
-                  Añadir foto
-                </Button>
               </div>
             </Col>
 

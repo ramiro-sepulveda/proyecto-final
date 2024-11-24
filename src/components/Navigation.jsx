@@ -36,10 +36,10 @@ const Navigation = () => {
 
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/login/">Inicia sesión</Nav.Link>
+              <Nav.Link as={Link} to="/login">Inicia sesión</Nav.Link>
               <Nav.Link as={Link} to="/registro">Regístrate</Nav.Link>
               {usuario && (
-                <Nav.Link as={Link} to="/carrito/">
+                <Nav.Link as={Link} to="/carrito">
                   <Emoji emoji="shopping-cart" />
                   <Carrito2 />
                 </Nav.Link>
@@ -60,10 +60,10 @@ const Navigation = () => {
 
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/publicar/">Publicar</Nav.Link>
-              <Nav.Link as={Link} to="/perfil">Perfil</Nav.Link>
-              <Nav.Link as={Link} to="/favoritos/">Favoritos</Nav.Link>
-              <Nav.Link as={Link} to="/carrito/">
+              <Nav.Link as={Link} to="/publicar">Publicar</Nav.Link>
+              <Nav.Link as={Link} to={`/usuarios/perfil/${usuario.id}`}>Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
+              <Nav.Link as={Link} to="/carrito">
                 <Emoji emoji="shopping-cart" /> <Carrito2 />
               </Nav.Link>
               <Nav.Link as={Link} to="/" onClick={logout}>LogOut</Nav.Link>
