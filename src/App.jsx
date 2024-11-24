@@ -24,7 +24,7 @@ function App() {
           <Routes>
             {/* Rutas públicas */}
             <Route path="/" element={<HomePage />} />
-            <Route path="/producto/:name" element={<ProductoDetails />} />
+            <Route path="/publicaciones/:id" element={<ProductoDetails />} />
             <Route path="/carrito/" element={<CarritoList />} />
 
             <Route path="/galeria/" element={<Galeria />} />

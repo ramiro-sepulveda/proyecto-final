@@ -48,7 +48,7 @@ const NewPost = () => {
     <Container className='p-4 w-100 align-self-center align-items-center d-flex flex-column'>
       <Card className="d-flex flex-column w-75 m-auto" style={{ backgroundColor: "#2c3e50", minHeight: "600px" }}>
         <h2 className='white py-4 text-center fs-46px'>Nueva Publicación</h2>
-        <Form className="w-100">
+        <Form className="w-100" onSubmit={handleSubmit}>
 
           <Row className="d-flex align-items-center">
             <Col md={6} className="px-5">

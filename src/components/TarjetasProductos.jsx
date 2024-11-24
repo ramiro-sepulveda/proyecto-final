@@ -9,7 +9,7 @@ const TarjetasProductos = () => {
   const { productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
   const navigate = useNavigate();
 
-  const irAProducto = (e) => navigate(`/producto/${e}`);
+  const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
   useEffect(() => {
     apiPublicaciones.getProductos()
@@ -82,7 +82,7 @@ const TarjetasProductos = () => {
 
                 <div className="botones d-flex justify-content-around">
                   <Button
-                    value={el.titulo}
+                    value={el.publicacion_id}
                     style={{ width: "45%" }}
                     variant="secondary"
                     onClick={(e) => irAProducto(e.currentTarget.value)}
