@@ -7,6 +7,7 @@ const ENDPOINTS = {
     createProducto: `${BASE_URL}/productos`,
     updateProducto: (id) => `${BASE_URL}/productos/${id}`,
     deleteProducto: (id) => `${BASE_URL}/productos/${id}`,
+    detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
 
     // Carrito
 
