@@ -4,7 +4,7 @@ import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
-import { apiFavoritos } from "../api/apifavoritos";
+import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
  // Asegúrate de tener la API para las publicaciones
 
