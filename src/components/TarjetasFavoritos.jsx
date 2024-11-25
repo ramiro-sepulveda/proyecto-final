@@ -53,21 +53,21 @@ const TarjetasFavoritos = () => {
             key={el.id}
             style={{ width: "100%" }}
           >
-            {el.img && <Card.Img variant="top" src={el.img} alt={`Producto ${el.name}`} />}
+            {el.img1_portada && <Card.Img variant="top" src={el.img1_portada} alt={`Producto ${el.titulo}`} />}
             <Card.Header className="fs-2 border-light">
-              {primeraMayuscula(el.name || "Producto desconocido")}
+              {primeraMayuscula(el.titulo || "Producto desconocido")}
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría:</Card.Title>
               <ul>
-                <li>{primeraMayuscula(el.category || "Sin categoría")}</li>
+                <li>{primeraMayuscula(el.categoria_id || "Sin categoría")}</li>
               </ul>
               <div className="precio">
-                {"$ " + (el.price ? el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : "Precio no disponible")}
+                {"$ " + (el.precio ? el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : "Precio no disponible")}
               </div>
               <div className="botones-favoritos d-flex justify-content-around">
                 <Button
-                  value={el.name}
+                  value={el.titulo}
                   style={{ width: "45%" }}
                   variant="secondary"
                   onClick={(e) => irAProducto(e.currentTarget.value)}
@@ -75,22 +75,22 @@ const TarjetasFavoritos = () => {
                   Ver Más <Emoji emoji="eyes" />
                 </Button>
                 <Button
-                  value={el.name}
+                  value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton"
                   onClick={() => {
-                    handleAñadir(el.name, el.price, el.img);
+                    handleAñadir(el.titulo, el.precio, el.img1_portada);
                     console.log(carrito);
                   }}
                 >
                   Añadir <Emoji emoji="shopping-cart" />
                 </Button>
                 <Button
-                  value={el.name}
+                  value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton bg-danger"
                   // Aquí podrías implementar la funcionalidad de eliminar de favoritos
-                  onClick={() => console.log(`Eliminar favorito: ${el.name}`)}
+                  onClick={() => console.log(`Eliminar favorito: ${el.titulo}`)}
                 >
                   Eliminar <Emoji emoji="wastebasket" />
                 </Button>

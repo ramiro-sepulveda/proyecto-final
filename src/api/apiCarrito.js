@@ -1,13 +1,9 @@
 import ENDPOINTS from "./endpoints";
-import { useContext } from "react";
-import { MarketContext } from "../context/ContextMarket";
-
 const obtenerProductos = async (usuarioId) => {
     try {
         const response = await fetch(`${ENDPOINTS.obtenerProductos}/${usuarioId}`);
         const data = await response.json();
-        // Suponiendo que tienes un método para actualizar el carrito en el estado del frontend
-        setCarrito(data); // Esto depende de cómo manejes tu estado (context, redux, etc.)
+        setCarrito(data);
         return data;
     } catch (error) {
         console.error("Error al obtener el carrito:", error);
@@ -22,10 +18,11 @@ const agregarProducto = async (productoId, usuarioId) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ producto_id: productoId, usuario_id: usuarioId })
+            body: JSON.stringify({ publicacion_id: productoId, usuario_id: usuarioId })
         });
         const data = await response.json();
         console.log("Producto añadido al carrito:", data);
+        return data
     } catch (error) {
         console.log("Error al añadir el producto al carrito:", error);
     }
@@ -38,7 +35,7 @@ const actualizarCantidad = async (productoId, usuarioId, nuevaCantidad)=>{
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ producto_id: productoId, usuario_id: usuarioId, cantidad: nuevaCantidad })
+            body: JSON.stringify({ publicacion_id: productoId, usuario_id: usuarioId, cantidad: nuevaCantidad })
         })
         const data = await response.json();
         console.log("cantidad carrito: ",data);
@@ -54,7 +51,7 @@ const eliminarProducto = async (productoId, usuarioId) =>{
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ producto_id: productoId, usuario_id: usuarioId })
+            body: JSON.stringify({ publicacion_id: productoId, usuario_id: usuarioId })
         });
         const data = await response.json();
         console.log("producto eliminado del carrito:",data);

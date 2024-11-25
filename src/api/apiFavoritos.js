@@ -1,31 +1,27 @@
 import ENDPOINTS from "./endpoints";
-import { useContext } from "react";
-import { MarketContext } from "../context/ContextMarket";
-
 // Obtener los productos favoritos de un usuario
 
 const obtenerFavoritos = async (usuarioId) => {
-    const {setFavoritos, favoritos} = useContext(MarketContext);
     try {
-      const response = await fetch(`${ENDPOINTS.obtenerFavoritos}/${usuarioId}`);
+      const response = await fetch(ENDPOINTS.obtenerFavoritos(usuarioId));
       const data = await response.json();
       console.log(data); // Verifica aquí si los datos están bien estructurados
-      setFavoritos(data);
       return data;
     } catch (error) {
       console.error("Error al obtener los favoritos:", error);
     }
   };
 // Agregar un producto a favoritos
-const agregarFavorito = async (productoId, usuarioId) => {
+const agregarFavorito = async (usuarioId, productoId) => {
     try {
         const response = await fetch(ENDPOINTS.agregarFavorito, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ producto_id: productoId, usuario_id: usuarioId })
+            body: JSON.stringify({ usuario_id: usuarioId , publicacion_id: productoId})
         });
+        console.log(response);
         const data = await response.json();
         console.log("Producto añadido a favoritos:", data);
         return data;

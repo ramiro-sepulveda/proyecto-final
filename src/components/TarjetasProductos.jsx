@@ -3,10 +3,13 @@ import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
-import { apiPublicaciones } from "../api/apiPublicaciones"; // Asegúrate de tener la API para las publicaciones
+import { apiPublicaciones } from "../api/apiPublicaciones";
+import { apiFavoritos } from "../api/apifavoritos";
+import { apiCarrito } from "../api/apiCarrito";
+ // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos } = useContext(MarketContext);
+  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos,usuario } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (e) => navigate(`/producto/${e}`);
@@ -30,7 +33,7 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (tipo, precio, img) => {
+  const handleAñadir = (tipo, precio, img, publicacionid) => {
     const existe = carrito.some((el) => el.tipo === tipo);
     if (existe) {
       setCarrito(
@@ -39,6 +42,7 @@ const TarjetasProductos = () => {
         )
       );
     } else {
+      apiCarrito.agregarProducto(publicacionid,usuario.id);
       setCarrito([
         ...carrito,
         { tipo: tipo, precio: precio, cant: 1, img: img },
@@ -46,17 +50,19 @@ const TarjetasProductos = () => {
     }
   };
 
-  const handleAñadirFavorito = (producto) => {
+  const handleAñadirFavorito = (publicacionid) => {
     console.log(favoritos);
-    const existe = favoritos.some((fav) => fav.id === producto.id);
+    console.log(publicacionid);
+    console.log(usuario.id);
+
   
-    if (existe) {
-      console.log("El producto ya está en favoritos");
-    } else {
-      setFavoritos([...favoritos, producto]);
-      console.log("Producto añadido a favoritos:", producto);
-    }
-  };
+    // if (existe) {
+    //   console.log("El producto ya está en favoritos");
+    // } else {
+      // setFavoritos([...favoritos, producto]);
+      apiFavoritos.agregarFavorito( usuario.id, publicacionid);
+      console.log("Producto añadido a favoritos:");
+    };
 
   if (loading) {
     return <div>cargando</div>;
@@ -104,7 +110,7 @@ const TarjetasProductos = () => {
                   value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton"
-                  onClick={() => handleAñadirFavorito(el)} // Agregar a favoritos
+                  onClick={() => handleAñadirFavorito(el.publicacion_id)} 
                 >
                   <Emoji emoji="red-heart" />
                 </Button>
