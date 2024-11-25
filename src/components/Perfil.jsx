@@ -4,6 +4,9 @@ import { MarketContext } from "../context/ContextMarket";
 import { apiUsuarios } from "../api/apiUsuarios";
 import { Form } from "react-bootstrap";
 import Emoji from "react-emojis";
+import { apiPublicaciones } from "../api/apiPublicaciones";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Perfil = () => {
     const [editar, setEditar] = useState(false)
@@ -13,6 +16,17 @@ const Perfil = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [publicaciones, setPublicaciones] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+    const {id} = useParams();
+    console.log("ID del usuario desde useParams:", id);
+
+
+
 
 
     const primeraMayuscula = (str) => {
@@ -67,6 +81,32 @@ const Perfil = () => {
         console.log(formData)
 
     }, [editar]);
+
+    useEffect(() => {
+        console.log("id del usuario: ", id)
+        const obtenerPublicaciones = async () => {
+            try {
+                const publicacionesData = await apiPublicaciones.publicacionesUsuarios(id); // Usamos el id desde la URL
+                setPublicaciones(publicacionesData);
+                setLoading(false);
+            } catch (error) {
+                setError("No se pudieron cargar las publicaciones.");
+                setLoading(false);
+            }
+        };
+
+        if (id) {
+            obtenerPublicaciones();
+        } else {
+            console.log("No se ha proporcionado un id de usuario válido.");
+            setLoading(false);
+        }
+    }, [id]);  // Dependemos de 'id' de la URL
+
+    // Función para redirigir al formulario de nueva publicación
+    const handleRedireccionar = () => {
+        navigate("/publicar"); // Redirige a la ruta /publicar
+    };
 
     return (
         <Container fluid className="p-4">
@@ -185,7 +225,7 @@ const Perfil = () => {
                                                     borderRadius: "50%", // Hace que la imagen también sea circular
                                                 }} />
                                         </div>
-                                        <p className="text-dark text-center mb-3">  {primeraMayuscula(`${usuario.nombre} ${usuario.apellido}`)}</p>
+                                        <p className="text-dark text-center mb-3">  {`${usuario.nombre} ${usuario.apellido}`}</p>
                                         <Emoji emoji='e-mail' />
                                         <p className="text-dark text-center mb-3">{usuario.email}</p>
                                         <Emoji emoji='telephone-receiver' />
@@ -198,30 +238,33 @@ const Perfil = () => {
                             <Col md={8}>
                                 <Card className="p-3" style={{ backgroundColor: "#ffffff", minHeight: "400px" }}>
                                     <h5 className="text-dark">Mis publicaciones</h5>
-                                    <Button variant="link" className="text-secondary p-0 mb-3" style={{ fontSize: "0.9rem" }}>
+                                    <Button variant="link" className="text-secondary p-0 mb-3" style={{ fontSize: "0.9rem" }} onClick={handleRedireccionar}>
                                         Añadir nuevo +
                                     </Button>
 
-                                    {[...Array(6)].map((_, i) => (
-                                        <Row key={i} className="mb-2 align-items-center">
-                                            <Col xs={2} className="d-flex justify-content-center">
-                                                <div className="bg-secondary" style={{ width: "40px", height: "40px" }}></div>
-                                            </Col>
-                                            <Col xs={8}>
-                                                <p className="mb-0">Título</p>
-                                            </Col>
-                                            <Col xs={2} className="text-end">
-                                                <p className="mb-0">$15.000</p>
-                                            </Col>
-                                        </Row>
-                                    ))}
+                                    {loading && <p>Cargando publicaciones...</p>}
+{!loading && error && <p>{error}</p>}
+{!loading && !error && publicaciones.length === 0 && <p>No tienes publicaciones aún.</p>}
+{!loading && !error && publicaciones.map((publicacion, i) => (
+    <Row key={i} className="mb-2 align-items-center">
+        <Col xs={2} className="d-flex justify-content-center">
+            <div className="bg-secondary" style={{ width: "40px", height: "40px" }}></div>
+        </Col>
+        <Col xs={8}>
+            <p className="mb-0">{publicacion.titulo}</p>
+        </Col>
+        <Col xs={2} className="text-end">
+            <p className="mb-0">${publicacion.precio}</p>
+        </Col>
+    </Row>
+))}
                                 </Card>
                             </Col>
                         </Row>
                     </Card>
                 </Col>
             </Row>
-        </Container >
+        </Container>
     );
 }
 
