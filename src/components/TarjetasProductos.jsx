@@ -12,7 +12,7 @@ const TarjetasProductos = () => {
   const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos,usuario } = useContext(MarketContext);
   const navigate = useNavigate();
 
-  const irAProducto = (e) => navigate(`/producto/${e}`);
+  const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
   useEffect(() => {
     apiPublicaciones.getProductos()
@@ -87,6 +87,7 @@ const TarjetasProductos = () => {
                 {"$ " + el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
 
+
               <div className="botones d-flex justify-content-around">
                 <Button
                   value={el.titulo}
@@ -119,6 +120,7 @@ const TarjetasProductos = () => {
           </Card>
         ))}
       </div>
+
     );
   }
 };
