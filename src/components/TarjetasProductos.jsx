@@ -8,13 +8,24 @@ import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos, usuario } = useContext(MarketContext);
+  const {
+    productos,
+    setLoading,
+    loading,
+    carrito,
+    setCarrito,
+    favoritos,
+    setFavoritos,
+    setProductos,
+    usuario,
+  } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
   useEffect(() => {
-    apiPublicaciones.getProductos()
+    apiPublicaciones
+      .getProductos()
       .then((data) => {
         setProductos(data.results);
         setLoading(false);
@@ -33,27 +44,42 @@ const TarjetasProductos = () => {
   }
 
   const handleAñadir = (tipo, precio, img, publicacionid) => {
-    apiCarrito.obtenerProductos(usuario.id)
-    .then((data)=> setCarrito(data));
+    if (!usuario) {
+      console.log("hola");
+    }
+
+    console.log(usuario.id);
+    console.log(carrito);
     const existe = carrito.some((el) => el.publicacion_id === publicacionid);
     console.log(existe);
 
-
     if (existe) {
-      setCarrito(
-        carrito.map((el) =>
-          el.publicacion_id === publicacionid ? { ...el, cant: el.cant + 1 } : el
-        )
+      const cantProducto = carrito.find(
+        (el) =>
+          el.usuario_id === usuario.id && el.publicacion_id === publicacionid
       );
-
-      apiCarrito.actualizarCantidad(usuario.id, publicacionid, cant);//actualizar mejor
-    } else {
-      apiCarrito.agregarProducto(usuario.id, publicacionid)
-        .then((data) => {
-          if (data) {
-            console.log("Producto añadido al carrito:", data);
-            setCarrito([...carrito, { tipo, precio, cant: 1, img, publicacion_id: publicacionid }]);
+      console.log(cantProducto.cantidad);
+      apiCarrito.actualizarCantidad(cantProducto).then((data) => {
+        const nuevoCarrito = carrito.map((producto) => {
+          if (producto.id === publicacionid) {
+            // Si encontramos el producto, aumentamos la cantidad en 1
+            return { ...producto, cantidad: producto.cantidad + 1 };
           }
+          // Si no es el producto que buscamos, lo dejamos igual
+          return producto;
+        });
+        console.log(nuevoCarrito);
+        setCarrito(nuevoCarrito);
+      });
+      //actualizar mejor
+    } else {
+      console.log(usuario.id, publicacionid);
+      apiCarrito
+        .agregarProducto(usuario.id, publicacionid)
+        .then((data) => {
+          console.log("Producto añadido al carrito:", data);
+          setCarrito([...carrito, { ...data, precio: precio }]);
+          console.log(carrito);
         })
         .catch((error) => {
           console.error("Error al añadir el producto al carrito:", error);
@@ -86,7 +112,8 @@ const TarjetasProductos = () => {
               <Card.Title>Categoría</Card.Title>
 
               <div className="precio">
-                {"$ " + el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                {"$ " +
+                  el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
 
               <div className="botones d-flex justify-content-around">
@@ -103,7 +130,12 @@ const TarjetasProductos = () => {
                   style={{ width: "45%" }}
                   className="cardButton"
                   onClick={() => {
-                    handleAñadir(el.titulo, el.precio, el.img1_portada, el.publicacion_id);
+                    handleAñadir(
+                      el.titulo,
+                      el.precio,
+                      el.img1_portada,
+                      el.publicacion_id
+                    );
                   }}
                 >
                   Añadir <Emoji emoji="shopping-cart" />
