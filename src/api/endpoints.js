@@ -21,6 +21,10 @@ const ENDPOINTS = {
     tokenUsuario: `${BASE_URL}/usuario/perfil`,
     updateUsuario: `${BASE_URL}/usuario/update_perfil`,
     borrarUsuario: (id) => `${BASE_URL}/usuario/borrar/${id}`,
+
+    obtenerFavoritos: (id) => `${BASE_URL}/favoritos/${id}`,
+    agregarFavorito: `${BASE_URL}/favoritos`,
+    eliminarFavorito: `${BASE_URL}/favoritos`,
 };
 
 export default ENDPOINTS;

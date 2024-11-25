@@ -1,35 +1,22 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { apiFavoritos } from '../api/apifavoritos'; // Ajusta la ruta según la ubicación de tu archivo apifavoritos.jsx
 
 export const MarketContext = createContext();
 
 const MarketProvider = ({ children }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [carrito, setCarrito] = useState([]);
-  const [usuario, setUsuario] = useState(false);
+  const [favoritos, setFavoritos] = useState([]);// Nuevo estado para favoritos
+  const [usuario, setUsuario] = useState(false); // Usuario completo
   const [registro, setRegistro] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem('token')); // Traer el token de localStorage
-  const [categorias, setCategorias] = useState()
-
-  const getCategorias = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/categorias`);
-      const data = await response.json();
-      console.log(data)
-      return data
-    } catch (error) {
-      console.error("error fetch JSON", error);
-
-    };
-  }
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   const login = (newToken) => {
-    localStorage.setItem('token', 'Bearer ' + newToken); // Guardar el token en localStorage
+    localStorage.setItem('token', 'Bearer ' + newToken);
     setToken(localStorage.getItem('token'));
     setIsAuthenticated(true);
   };
@@ -38,22 +25,42 @@ const MarketProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    navigate('/')
+    navigate('/');
   };
 
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      try {
+        if (usuario?.id) {  // Verifica si el usuario tiene un ID válido
+          const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
+          if (favoritos2) {
+            setFavoritos(favoritos2);
+          } 
+          else {
+            console.log("hola");// Pasa el usuarioId correcto
+          
+        };
+      }} catch (error) {
+        console.error("Error al obtener los favoritos:", error);
+      }
+    };
+
+    fetchFavoritos(); // Llamamos a la función para obtener los favoritos
+  }, [usuario]); // El `useEffect` se disparará cuando `usuario` cambie
 
   useEffect(() => {
-    getCategorias()
-      .then((data) => setCategorias(data))
-      .catch((error) => console.error(error))
-    console.log("Carrito actualizado:", carrito);
-  }, [carrito]);
+    console.log("Favoritos actualizados:", favoritos);
+  }, [favoritos]);
 
   return (
-    <MarketContext.Provider value={{ categorias, setProductos, token, setToken, setIsAuthenticated, isAuthenticated, login, logout, registro, setRegistro, productos, loading, carrito, setCarrito, usuario, setUsuario, setLoading }}>
+    <MarketContext.Provider value={{
+      setProductos, token, setToken, setIsAuthenticated, isAuthenticated, login, logout,
+      registro, setRegistro, productos, loading, carrito, setCarrito, favoritos, setFavoritos, 
+      usuario, setUsuario, setLoading
+    }}>
       {children}
     </MarketContext.Provider>
   );
-}
+};
 
 export default MarketProvider;
