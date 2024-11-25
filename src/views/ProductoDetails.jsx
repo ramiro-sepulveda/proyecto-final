@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
+import { apiPublicaciones } from "../api/apiPublicaciones";
 
 const ProductoDetails = () => {
   const { id } = useParams();
@@ -12,7 +13,6 @@ const ProductoDetails = () => {
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
 
   const primeraMayuscula = (str) =>
     str

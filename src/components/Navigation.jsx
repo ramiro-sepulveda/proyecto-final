@@ -20,6 +20,7 @@ const Navigation = () => {
         )
         .catch((error) => {
           setIsAuthenticated(false)
+          localStorage.removeItem('token')
         })
     }
   }

@@ -6,7 +6,7 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
+  const { categorias, productos, setLoading, loading, carrito, setCarrito, setProductos } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
@@ -15,7 +15,6 @@ const TarjetasProductos = () => {
     apiPublicaciones.getProductos()
       .then((data) => {
         setProductos(data.results)
-        console.log(productos)
         setLoading(false)
 
       })
@@ -70,9 +69,9 @@ const TarjetasProductos = () => {
                 <Card.Title>Categoría</Card.Title>
 
                 <ul>
-                  {/* <li>
-                    {primeraMayuscula(el.category)}
-                  </li> */}
+                  <li>
+                    {primeraMayuscula(categorias.find(categoria => categoria.id === el.categoria_id).nombre)}
+                  </li>
                 </ul>
 
                 <div className="precio">
