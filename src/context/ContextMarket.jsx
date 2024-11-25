@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFavoritos } from "../api/apiFavoritos"; // Ajusta la ruta según la ubicación de tu archivo apiFavoritos.jsx
+import ENDPOINTS from "../api/endpoints";
 
 export const MarketContext = createContext();
 
@@ -14,6 +15,7 @@ const MarketProvider = ({ children }) => {
   const [registro, setRegistro] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [categorias, setCategorias] = useState([]);
 
   const login = (newToken) => {
     localStorage.setItem("token", "Bearer " + newToken);
@@ -52,6 +54,21 @@ const MarketProvider = ({ children }) => {
     console.log("Favoritos actualizados:", favoritos);
   }, [favoritos]);
 
+  useEffect(() => {
+    const dataCategorias = async () => {
+      try {
+        const response = await fetch(ENDPOINTS.getCategorias);
+        const data = await response.json();
+        console.log(data.results);
+        return data;
+      } catch (error) {
+        console.log("error fetch JSON");
+      }
+    };
+    setCategorias(dataCategorias);
+    console.log(categorias);
+  }, [usuario]);
+
   return (
     <MarketContext.Provider
       value={{
@@ -73,6 +90,7 @@ const MarketProvider = ({ children }) => {
         usuario,
         setUsuario,
         setLoading,
+        categorias,
       }}
     >
       {children}

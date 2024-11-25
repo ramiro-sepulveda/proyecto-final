@@ -1,30 +1,33 @@
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const ENDPOINTS = {
-    //Publicaciones
-    readGaleria: `${BASE_URL}/galeria`,
-    agregarPublicacion: `${BASE_URL}/publicaciones`,
-    detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
-    publicacionesUsuarios: (id) => `${BASE_URL}/usuarios/perfil/${id}`,
-    eliminarPublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
+  //Publicaciones
+  readGaleria: `${BASE_URL}/galeria`,
+  agregarPublicacion: `${BASE_URL}/publicaciones`,
+  detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
+  publicacionesUsuarios: (id) => `${BASE_URL}/usuarios/perfil/${id}`,
+  eliminarPublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
 
-    // Carrito
-    obtenerProductos: (id) => `${BASE_URL}/carrito/${id}`,
-    agregarProducto: `${BASE_URL}/carrito`,
-    actualizarCantidad: `${BASE_URL}/carrito`,
-    eliminarProducto: `${BASE_URL}/carrito`,
+  // Carrito
+  obtenerProductos: (id) => `${BASE_URL}/carrito/${id}`,
+  agregarProducto: `${BASE_URL}/carrito`,
+  actualizarCantidad: `${BASE_URL}/carrito`,
+  eliminarProducto: `${BASE_URL}/carrito`,
 
-    // Gestion de Usuarios
-    loginUsuario: `${BASE_URL}/login`,
-    crearUsuario: `${BASE_URL}/registro`,
-    tokenUsuario: `${BASE_URL}/usuario/perfil`,
-    updateUsuario: `${BASE_URL}/usuario/update_perfil`,
-    borrarUsuario: (id) => `${BASE_URL}/usuario/borrar/${id}`,
+  // Gestion de Usuarios
+  loginUsuario: `${BASE_URL}/login`,
+  crearUsuario: `${BASE_URL}/registro`,
+  tokenUsuario: `${BASE_URL}/usuario/perfil`,
+  updateUsuario: `${BASE_URL}/usuario/update_perfil`,
+  borrarUsuario: (id) => `${BASE_URL}/usuario/borrar/${id}`,
 
-    obtenerFavoritos: (id) => `${BASE_URL}/favoritos/${id}`,
-    agregarFavorito: `${BASE_URL}/favoritos`,
-    eliminarFavorito: `${BASE_URL}/favoritos`,
+  // Favoritos
+  obtenerFavoritos: (id) => `${BASE_URL}/favoritos/${id}`,
+  agregarFavorito: `${BASE_URL}/favoritos`,
+  eliminarFavorito: `${BASE_URL}/favoritos`,
+
+  // Categorias
+  getCategorias: `${BASE_URL}/categorias`,
 };
 
 export default ENDPOINTS;
@@ -39,7 +42,7 @@ export default ENDPOINTS;
 // //Carrito
 // router.post('/carrito', carritoController.agregarProducto); // Agregar producto a carrito                      lista
 // router.get('/carrito/:usuario_id', carritoController.obtenerProductos); //Obtener carrito de usuario           lista creo
-// router.put('/carrito', carritoController.actualizarCantidad); // Modificar cantidad de producto en Carrito     
+// router.put('/carrito', carritoController.actualizarCantidad); // Modificar cantidad de producto en Carrito
 // router.delete('/carrito', carritoController.eliminarProducto); // Eliminar producto de Carrito
 
 // //Imágenes
