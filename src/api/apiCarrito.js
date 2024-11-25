@@ -11,26 +11,32 @@ const obtenerProductos = async (usuarioId) => {
 };
 
 
-const agregarProducto = async (productoId, usuarioId) => {
+const agregarProducto = async (usuarioId, publicacionid) => {
     try {
         const response = await fetch(ENDPOINTS.agregarProducto, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ publicacion_id: productoId, usuario_id: usuarioId })
+            body: JSON.stringify({ publicacion_id: publicacionid, usuario_id: usuarioId, cantidad: 1 })
         });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
         const data = await response.json();
         console.log("Producto añadido al carrito:", data);
-        return data
+        return data;
     } catch (error) {
-        console.log("Error al añadir el producto al carrito:", error);
+        console.error("Error al añadir el producto al carrito:", error.message);
     }
 };
 
+
 const actualizarCantidad = async (productoId, usuarioId, nuevaCantidad)=>{
     try {
-        const response = await fetch(ENDPOINTS.actualizarCantidad, {
+        const response = await fetch(ENDPOINTS.actualizarCantidadCarrito, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

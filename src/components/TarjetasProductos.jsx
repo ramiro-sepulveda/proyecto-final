@@ -6,10 +6,9 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
- // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos,usuario } = useContext(MarketContext);
+  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos, usuario } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
@@ -34,35 +33,38 @@ const TarjetasProductos = () => {
   }
 
   const handleAñadir = (tipo, precio, img, publicacionid) => {
-    const existe = carrito.some((el) => el.tipo === tipo);
+    apiCarrito.obtenerProductos(usuario.id)
+    .then((data)=> setCarrito(data));
+    const existe = carrito.some((el) => el.publicacion_id === publicacionid);
+    console.log(existe);
+
+
     if (existe) {
       setCarrito(
         carrito.map((el) =>
-          el.tipo === tipo ? { ...el, cant: el.cant + 1 } : el
+          el.publicacion_id === publicacionid ? { ...el, cant: el.cant + 1 } : el
         )
       );
+
+      apiCarrito.actualizarCantidad(usuario.id, publicacionid, cant);//actualizar mejor
     } else {
-      apiCarrito.agregarProducto(publicacionid,usuario.id);
-      setCarrito([
-        ...carrito,
-        { tipo: tipo, precio: precio, cant: 1, img: img },
-      ]);
+      apiCarrito.agregarProducto(usuario.id, publicacionid)
+        .then((data) => {
+          if (data) {
+            console.log("Producto añadido al carrito:", data);
+            setCarrito([...carrito, { tipo, precio, cant: 1, img, publicacion_id: publicacionid }]);
+          }
+        })
+        .catch((error) => {
+          console.error("Error al añadir el producto al carrito:", error);
+        });
     }
   };
 
   const handleAñadirFavorito = (publicacionid) => {
-    console.log(favoritos);
-    console.log(publicacionid);
-    console.log(usuario.id);
-
-  
-    // if (existe) {
-    //   console.log("El producto ya está en favoritos");
-    // } else {
-      // setFavoritos([...favoritos, producto]);
-      apiFavoritos.agregarFavorito( usuario.id, publicacionid);
-      console.log("Producto añadido a favoritos:");
-    };
+    apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    console.log("Producto añadido a favoritos:");
+  };
 
   if (loading) {
     return <div>cargando</div>;
@@ -87,7 +89,6 @@ const TarjetasProductos = () => {
                 {"$ " + el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
 
-
               <div className="botones d-flex justify-content-around">
                 <Button
                   value={el.titulo}
@@ -102,7 +103,7 @@ const TarjetasProductos = () => {
                   style={{ width: "45%" }}
                   className="cardButton"
                   onClick={() => {
-                    handleAñadir(el.titulo, el.precio, el.img1_portada);
+                    handleAñadir(el.titulo, el.precio, el.img1_portada, el.publicacion_id);
                   }}
                 >
                   Añadir <Emoji emoji="shopping-cart" />
@@ -111,7 +112,7 @@ const TarjetasProductos = () => {
                   value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton"
-                  onClick={() => handleAñadirFavorito(el.publicacion_id)} 
+                  onClick={() => handleAñadirFavorito(el.publicacion_id)}
                 >
                   <Emoji emoji="red-heart" />
                 </Button>
@@ -120,7 +121,6 @@ const TarjetasProductos = () => {
           </Card>
         ))}
       </div>
-
     );
   }
 };
