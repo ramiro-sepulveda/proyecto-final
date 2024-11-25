@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFavoritos } from '../api/apifavoritos'; // Ajusta la ruta según la ubicación de tu archivo apifavoritos.jsx
+import { apiFavoritos } from '../api/apiFavoritos'; // Ajusta la ruta según la ubicación de tu archivo apifavoritos.jsx
 
-export const MarketContext = createContext();
+const MarketContext = createContext();
 
 const MarketProvider = ({ children }) => {
   const navigate = useNavigate();
