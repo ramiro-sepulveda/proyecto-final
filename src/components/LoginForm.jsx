@@ -38,7 +38,7 @@ const LoginForm = () => {
         login(data.token)
         setUsuario(data.user)
 
-        navigate('/perfil')
+        navigate(`/usuarios/perfil/${usuario.id}`)
       })
       .catch((error) => {
         console.error(error)

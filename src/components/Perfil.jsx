@@ -25,10 +25,6 @@ const Perfil = () => {
     const {id} = useParams();
     console.log("ID del usuario desde useParams:", id);
 
-
-
-
-
     const primeraMayuscula = (str) => {
         return str
             .split(" ")

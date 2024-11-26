@@ -28,6 +28,11 @@ const ENDPOINTS = {
 
   // Categorias
   getCategorias: `${BASE_URL}/categorias`,
+
+  // Imagenes
+  agregarImagenes: `${BASE_URL}/publicaciones/imagenes`,
+  actualizarImagenes: (id) => `${BASE_URL}/publicaciones/imagenes/${id}`,
+  borrarImagenes: (id) => `${BASE_URL}/publicaciones/borrar_imagenes/${id}`,
 };
 
 export default ENDPOINTS;
