@@ -2,12 +2,13 @@ import { useParams } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { apiPublicaciones } from "../api/apiPublicaciones";
+import { apiFavoritos } from "../api/apiFavoritos";
 import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
 
 const ProductoDetails = () => {
   const { id } = useParams();
-  const { carrito, setCarrito } = useContext(MarketContext);
+  const { carrito, setCarrito, usuario, favoritos } = useContext(MarketContext);
 
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,20 @@ const ProductoDetails = () => {
     
         fetchDetalle();
     }, [id]);
+
+    const handleAñadirFavorito = (publicacionid) => {
+      console.log(favoritos);
+      console.log(publicacionid);
+      console.log(usuario.id);
+  
+    
+      // if (existe) {
+      //   console.log("El producto ya está en favoritos");
+      // } else {
+        // setFavoritos([...favoritos, producto]);
+        apiFavoritos.agregarFavorito( usuario.id, publicacionid);
+        console.log("Producto añadido a favoritos:");
+      };
 
 
   const handleAñadir = (tipo, precio, img) => {
@@ -91,13 +106,7 @@ const ProductoDetails = () => {
               <Button
                 style={{ width: "80px" }}
                 variant="warning"
-                onClick={() =>
-                  handleAñadir(
-                    producto.titulo,
-                    producto.precio,
-                    producto.img1_portada
-                  )
-                }
+                onClick={() => handleAñadirFavorito(producto.publicacion_id)}
               >
                 <Emoji emoji="red-heart" />
               </Button>
