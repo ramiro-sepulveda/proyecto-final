@@ -9,7 +9,7 @@ import { apiCarrito } from "../api/apiCarrito";
  // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setFavoritos, setProductos,usuario } = useContext(MarketContext);
+  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setProductos,usuario } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
@@ -90,7 +90,7 @@ const TarjetasProductos = () => {
 
               <div className="botones d-flex justify-content-around">
                 <Button
-                  value={el.titulo}
+                  value={el.publicacion_id}
                   style={{ width: "45%" }}
                   variant="secondary"
                   onClick={(e) => irAProducto(e.currentTarget.value)}
