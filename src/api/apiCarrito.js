@@ -10,7 +10,7 @@ const obtenerProductos = async (usuarioId) => {
   }
 };
 
-const agregarProducto = async (usuarioId, publicacionid) => {
+const agregarProducto = async (usuarioId, publicacionId) => {
   try {
     const response = await fetch(ENDPOINTS.agregarProducto, {
       method: "POST",
@@ -18,8 +18,8 @@ const agregarProducto = async (usuarioId, publicacionid) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        publicacion_id: publicacionid,
         usuario_id: usuarioId,
+        publicacion_id: publicacionId,
         cantidad: 1,
       }),
     });
@@ -30,31 +30,33 @@ const agregarProducto = async (usuarioId, publicacionid) => {
 
     const data = await response.json();
     console.log("Producto añadido al carrito:", data);
-    return data;
+    return data; 
   } catch (error) {
     console.error("Error al añadir el producto al carrito:", error.message);
+    throw error;
   }
 };
 
-const actualizarCantidad = async (cantidadProducto) => {
+const actualizarCantidad = async ({ usuario_id, publicacion_id, cantidad }) => {
   try {
     const response = await fetch(ENDPOINTS.actualizarCantidad, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...cantidadProducto,
-        cantidad: cantidadProducto.cantidad + 1,
-      }),
+      body: JSON.stringify({ usuario_id, publicacion_id, cantidad }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
     const data = await response.json();
-    console.log("cantidad carrito: ", data);
+    console.log("Cantidad actualizada:", data);
+    return data;
   } catch (error) {
-    console.log(
-      "Error al actualizar la cantidad del producto en el carrito:",
-      error
-    );
+    console.error("Error al actualizar cantidad:", error.message);
+    throw error;
   }
 };
 

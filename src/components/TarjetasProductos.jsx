@@ -43,50 +43,54 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (tipo, precio, img, publicacionid) => {
+  const handleAñadir = (titulo, precio, img, publicacionId) => {
     if (!usuario) {
-      console.log("hola");
+      console.error("Usuario no autenticado");
+      return;
     }
-
-    console.log(usuario.id);
-    console.log(carrito);
-    const existe = carrito.some((el) => el.publicacion_id === publicacionid);
-    console.log(existe);
-
+  
+    const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+  
     if (existe) {
-      const cantProducto = carrito.find(
-        (el) =>
-          el.usuario_id === usuario.id && el.publicacion_id === publicacionid
-      );
-      console.log(cantProducto.cantidad);
-      apiCarrito.actualizarCantidad(cantProducto).then((data) => {
-        const nuevoCarrito = carrito.map((producto) => {
-          if (producto.id === publicacionid) {
-            // Si encontramos el producto, aumentamos la cantidad en 1
-            return { ...producto, cantidad: producto.cantidad + 1 };
-          }
-          // Si no es el producto que buscamos, lo dejamos igual
-          return producto;
-        });
-        console.log(nuevoCarrito);
-        setCarrito(nuevoCarrito);
-      });
-      //actualizar mejor
-    } else {
-      console.log(usuario.id, publicacionid);
+      const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+  
+      if (!cantProducto) {
+        console.error("Producto no encontrado en el carrito");
+        return;
+      }
+  
+      const cantidadActualizada = {
+        usuario_id: usuario.id,
+        publicacion_id: cantProducto.publicacion_id,
+        cantidad: cantProducto.cantidad + 1,
+      };
+  
       apiCarrito
-        .agregarProducto(usuario.id, publicacionid)
+        .actualizarCantidad(cantidadActualizada)
         .then((data) => {
-          console.log("Producto añadido al carrito:", data);
-          setCarrito([...carrito, { ...data, precio: precio }]);
-          console.log(carrito);
+          const nuevoCarrito = carrito.map((producto) =>
+            producto.publicacion_id === cantProducto.publicacion_id
+              ? { ...producto, cantidad: data.cantidad }
+              : producto
+          );
+          setCarrito(nuevoCarrito);
+        })
+        .catch((error) => {
+          console.error("Error al actualizar la cantidad:", error);
+        });
+    } else {
+      apiCarrito
+        .agregarProducto(usuario.id, publicacionId)
+        .then((data) => {
+          setCarrito([...carrito, { ...data, precio }]);
         })
         .catch((error) => {
           console.error("Error al añadir el producto al carrito:", error);
         });
     }
   };
-
+  
+  
   const handleAñadirFavorito = (publicacionid) => {
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
     console.log("Producto añadido a favoritos:");
