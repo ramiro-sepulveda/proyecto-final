@@ -270,10 +270,8 @@ ul {
   background-color: rgb(0, 0, 0);
 }
 
-.carousel img,
-.carousel-item-start,
-.carousel-item .carousel-item-next {
-  width: 100%;
+.carousel {
+  width: 30%;
   height: 400px;
   object-fit: cover;
 
