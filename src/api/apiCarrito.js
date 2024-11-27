@@ -72,12 +72,20 @@ const eliminarProducto = async (productoId, usuarioId) => {
         usuario_id: usuarioId,
       }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
     const data = await response.json();
-    console.log("producto eliminado del carrito:", data);
-  } catch {
-    console.log("Error al eliminar el producto del carrito:", error);
+    console.log("Producto eliminado del carrito:", data);
+    return data; // Devuelve la respuesta si necesitas usarla
+  } catch (error) {
+    console.error("Error al eliminar el producto del carrito:", error.message);
+    throw error;
   }
 };
+
 
 export const apiCarrito = {
   obtenerProductos,

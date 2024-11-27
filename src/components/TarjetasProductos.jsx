@@ -75,6 +75,12 @@ const TarjetasProductos = () => {
           );
           setCarrito(nuevoCarrito);
         })
+        .then(() => {
+          // Sincronizar con el servidor después de actualizar
+          apiCarrito.obtenerProductos(usuario.id).then((data) => {
+            setCarrito(Array.isArray(data) ? data : []);
+          });
+        })
         .catch((error) => {
           console.error("Error al actualizar la cantidad:", error);
         });
@@ -83,6 +89,12 @@ const TarjetasProductos = () => {
         .agregarProducto(usuario.id, publicacionId)
         .then((data) => {
           setCarrito([...carrito, { ...data, precio }]);
+        })
+        .then(() => {
+          // Sincronizar con el servidor después de agregar un producto
+          apiCarrito.obtenerProductos(usuario.id).then((data) => {
+            setCarrito(Array.isArray(data) ? data : []);
+          });
         })
         .catch((error) => {
           console.error("Error al añadir el producto al carrito:", error);
