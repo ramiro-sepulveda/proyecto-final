@@ -24,7 +24,7 @@ const TarjetasProductos = () => {
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
-
+  console.log(productos);
   useEffect(() => {
     apiPublicaciones
       .getProductos()
@@ -110,7 +110,7 @@ const TarjetasProductos = () => {
 
               <div className="botones d-flex justify-content-around">
                 <Button
-                  value={el.titulo}
+                  value={el.publicacion_id}
                   style={{ width: "45%" }}
                   variant="secondary"
                   onClick={(e) => irAProducto(e.currentTarget.value)}

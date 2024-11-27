@@ -20,14 +20,14 @@ const NewPost = () => {
     img1_portada: "",
     img2: "",
     img3: "",
-    img4: "",
+    img4: ""
   });
 
   const [isInputVisible, setInputVisible] = useState({
     img1_portada: false,
     img2: false,
     img3: false,
-    img4: false,
+    img4: false
   }); // Control del popup
 
   const handlePlaceholderClick = (e) => {
@@ -60,22 +60,27 @@ const NewPost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evita que la página se recargue
     console.log(formData);
+    if (!formData.img1_portada || !formData.titulo || !formData.descripcion || !formData.precio || !formData.categoria_id) {
 
-    try {
-      const response1 = await apiPublicaciones.agregarPublicacion(formData);
-      console.log([response1][0].publicacion);
-
-      // Actualizamos formData con la id de la publicación
-      setFormData({
-        ...formData,
-        publicacion_id: [response1][0].publicacion.id,
-      });
-      console.log(formData);
-    } catch (error) {
-      console.error("Error al crear la publicación:", error.message);
-      alert("Error al crear la publicación");
+      window.alert(`Todos los campos son obligatorios.`)
     }
-  };
+    else {
+      try {
+        const response1 = await apiPublicaciones.agregarPublicacion(formData);
+        console.log([response1][0].publicacion);
+
+        // Actualizamos formData con la id de la publicación
+        setFormData({
+          ...formData,
+          publicacion_id: [response1][0].publicacion.id,
+        });
+        console.log(formData);
+      } catch (error) {
+        console.error("Error al crear la publicación:", error.message);
+        alert("Error al crear la publicación");
+      }
+    };
+  }
 
   useEffect(() => {
     if (formData.publicacion_id) {
@@ -83,6 +88,18 @@ const NewPost = () => {
       apiImagenes.agregarImagenes(formData).then(() => {
         console.log("Publicación creada exitosamente");
         alert("Publicación creada exitosamente");
+        setFormData({
+          id_vendedor: "",
+          publicacion_id: "",
+          titulo: "",
+          precio: "",
+          categoria_id: "",
+          descripcion: "",
+          img1_portada: "",
+          img2: "",
+          img3: "",
+          img4: ""
+        })
       });
     }
   }, [formData]);
