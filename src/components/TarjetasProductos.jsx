@@ -33,7 +33,9 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (titulo, precio, img, publicacionId) => {
+  const handleAñadir = (titulo, precio, img1_portada, publicacionId) => {
+    console.log("Imagen del producto:", img1_portada);
+  
     if (!usuario) {
       console.error("Usuario no autenticado");
       return;
@@ -66,7 +68,6 @@ const TarjetasProductos = () => {
           setCarrito(nuevoCarrito);
         })
         .then(() => {
-          // Sincronizar con el servidor después de actualizar
           apiCarrito.obtenerProductos(usuario.id).then((data) => {
             setCarrito(Array.isArray(data) ? data : []);
           });
@@ -78,10 +79,9 @@ const TarjetasProductos = () => {
       apiCarrito
         .agregarProducto(usuario.id, publicacionId)
         .then((data) => {
-          setCarrito([...carrito, { ...data, precio }]);
+          setCarrito([...carrito, { ...data, img1_portada, precio }]); // Asegúrate de incluir img1_portada
         })
         .then(() => {
-          // Sincronizar con el servidor después de agregar un producto
           apiCarrito.obtenerProductos(usuario.id).then((data) => {
             setCarrito(Array.isArray(data) ? data : []);
           });
@@ -91,6 +91,7 @@ const TarjetasProductos = () => {
         });
     }
   };
+  
   
   
   const handleAñadirFavorito = (publicacionid) => {
