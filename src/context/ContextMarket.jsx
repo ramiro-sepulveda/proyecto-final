@@ -27,45 +27,51 @@ const MarketProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUsuario("")
     navigate("/");
+    console.log("Logout")
   };
 
-  useEffect(() => {
-    const fetchFavoritos = async () => {
-      try {
-        if (usuario?.id) {
-          // Verifica si el usuario tiene un ID válido
-          const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
-          if (favoritos2) {
-            setFavoritos(favoritos2);
-          } else {
-            console.log("hola"); // Pasa el usuarioId correcto
-          }
+  const fetchFavoritos = async () => {
+    try {
+      console.log(usuario)
+      if (usuario) {
+        // Verifica si el usuario tiene un ID válido
+        const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
+        if (favoritos !== favoritos2) {
+          setFavoritos(favoritos2);
+          console.log("Favoritos actualizados:", favoritos);
+        } else {
+          console.log("Favoritos esta al dia"); // Pasa el usuarioId correcto
         }
-      } catch (error) {
-        console.error("Error al obtener los favoritos:", error);
       }
-    };
+      else {
+        console.log("No hay ningun usuario logeado");
+      }
+    } catch (error) {
+      console.error("Error al obtener los favoritos:", error);
+    }
+  };
 
-    fetchFavoritos(); // Llamamos a la función para obtener los favoritos
-  }, [usuario]); // El `useEffect` se disparará cuando `usuario` cambie
 
   useEffect(() => {
-    console.log("Favoritos actualizados:", favoritos);
-  }, [favoritos]);
+    fetchFavoritos()
+  }, [usuario, loading]);
 
   useEffect(() => {
     const dataCategorias = async () => {
       try {
         const response = await fetch(ENDPOINTS.getCategorias);
         const data = await response.json();
-        console.log(data.results);
+        console.log(data);
         return data;
       } catch (error) {
         console.log("error fetch JSON");
       }
     };
-    setCategorias(dataCategorias);
+    dataCategorias().then((data) => {
+      setCategorias(data);
+    });
     console.log(categorias);
   }, [usuario]);
 

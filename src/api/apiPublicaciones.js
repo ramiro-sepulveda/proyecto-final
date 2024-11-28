@@ -34,6 +34,7 @@ const agregarPublicacion = async (publicacion) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
             },
             body: JSON.stringify(publicacion),
         });
@@ -84,6 +85,10 @@ const eliminarPublicacion = async (id) => {
     try {
         const response = await fetch(ENDPOINTS.eliminarPublicacion(id), {
             method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
+            }
         });
         if (!response.ok) {
             const errorData = await response.json();
@@ -99,11 +104,12 @@ const eliminarPublicacion = async (id) => {
     }
 };
 
-export const apiPublicaciones = { 
-    getProductos, 
+export const apiPublicaciones = {
+    getProductos,
     readGaleria,
     agregarPublicacion,
     detallePublicacion,
     publicacionesUsuarios,
-    eliminarPublicacion, }
+    eliminarPublicacion,
+}
 

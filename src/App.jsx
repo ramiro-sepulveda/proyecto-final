@@ -13,9 +13,10 @@ import PerfilUsuario from "./views/PerfilUsuario";
 import Favoritos from "./views/Favoritos";
 import RutasProtegidas from "./views/RutasProtegidas";
 import RutasObsoletas from "./views/RutasObsoletas";
+import VerificadorToken from "./components/VerificadorToken";
 
 function App() {
-
+  VerificadorToken();
   return (
     <>
       <div className="app">

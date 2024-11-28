@@ -272,10 +272,35 @@ ul {
 
 .carousel {
   width: 30%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
 
 }
+
+
+.contenedor_perfil {
+height: 300px;
+overflow: auto;
+}
+
+/* * Para Webkit (Chrome, Safari, Edge) */ */
+.contenedor_perfil::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.contenedor_perfil::-webkit-scrollbar-thumb {
+  background-color: white; /* Color de la barra de desplazamiento */
+  border-radius: 4px; /* Esquinas redondeadas */
+}
+
+.contenedor_perfil::-webkit-scrollbar-track {
+  background: transparent; /* Fondo transparente para la pista */
+}
+
+/* Firefox */
+.contenedor_perfil {
+  scrollbar-width: thin;  /* Barra delgada */
+  scrollbar-color: #052c65 transparent; /* Color de la barra y la pista */}
 
 /* TarjetasProductos */
 .tarjeta {

@@ -6,6 +6,7 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
+
 // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
@@ -17,16 +18,13 @@ const TarjetasProductos = () => {
     loading,
     carrito,
     setCarrito,
-    favoritos,
-    setFavoritos,
     setProductos,
     usuario,
   } = useContext(MarketContext);
 
   const navigate = useNavigate();
-
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
-  console.log(productos);
+
   useEffect(() => {
     apiPublicaciones
       .getProductos()
@@ -38,7 +36,7 @@ const TarjetasProductos = () => {
         console.error(error);
         window.alert(`${error.message} 🙁.`);
       });
-  }, [setProductos, setLoading]);
+  }, [setProductos, loading]);
 
   function primeraMayuscula(str) {
     return str
@@ -47,33 +45,78 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (tipo, precio, img, publicacionid) => {
-    const existe = carrito.some((el) => el.tipo === tipo);
-    if (existe) {
-      setCarrito(
-        carrito.map((el) =>
-          el.tipo === tipo ? { ...el, cant: el.cant + 1 } : el
-        )
-      );
-    } else {
-      apiCarrito.agregarProducto(publicacionid, usuario.id);
-      setCarrito([
-        ...carrito,
-        { tipo: tipo, precio: precio, cant: 1, img: img },
-      ]);
+  const handleAñadir = (titulo, precio, img, publicacionId) => {
+    if (!usuario) {
+      if (carrito.find((el) => el.publicacion_id === publicacionId)) {
+        setCarrito(
+          carrito.map((producto) =>
+            producto.publicacion_id === publicacionId
+              ? { ...producto, cantidad: producto.cantidad + 1 }
+              : producto
+          ))
+        console.log(carrito)
+      }
+      else {
+        setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
+        return;
+      }
+    }
+
+    else {
+      const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+      if (existe) {
+        const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+
+        if (!cantProducto) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        }
+
+        const cantidadActualizada = {
+          usuario_id: usuario.id,
+          publicacion_id: cantProducto.publicacion_id,
+          cantidad: cantProducto.cantidad + 1,
+        };
+
+        apiCarrito
+          .actualizarCantidad(cantidadActualizada)
+          .then((data) => {
+            const nuevoCarrito = carrito.map((producto) =>
+              producto.publicacion_id === cantProducto.publicacion_id
+                ? { ...producto, cantidad: data.cantidad }
+                : producto
+            );
+            setCarrito(nuevoCarrito);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de actualizar
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al actualizar la cantidad:", error);
+          });
+      } else {
+        apiCarrito
+          .agregarProducto(usuario.id, publicacionId)
+          .then((data) => {
+            setCarrito([...carrito, { ...data, precio }]);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de agregar un producto
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al añadir el producto al carrito:", error);
+          });
+      }
     }
   };
 
   const handleAñadirFavorito = (publicacionid) => {
-    console.log(favoritos);
-    console.log(publicacionid);
-    console.log(usuario.id);
-    console.log(categorias);
-
-    // if (existe) {
-    //   console.log("El producto ya está en favoritos");
-    // } else {
-    // setFavoritos([...favoritos, producto]);
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
     console.log("Producto añadido a favoritos:");
   };
@@ -90,13 +133,13 @@ const TarjetasProductos = () => {
             key={el.publicacion_id}
             style={{ width: "100%" }}
           >
-            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} />
-            <Card.Header className="fs-2 border-light">
+            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} style={{ height: "300px", objectFit: "contain" }} />
+            <Card.Header style={{ height: "80px" }} className="fs-4 border-light">
               {primeraMayuscula(el.titulo)}
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría</Card.Title>
-              {/* <ul>
+              <ul>
                 <li>
                   {primeraMayuscula(
                     categorias.find(
@@ -104,7 +147,7 @@ const TarjetasProductos = () => {
                     ).nombre
                   )}
                 </li>
-              </ul> */}
+              </ul>
               <div className="precio">
                 {"$ " +
                   el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
@@ -124,7 +167,12 @@ const TarjetasProductos = () => {
                   style={{ width: "45%" }}
                   className="cardButton"
                   onClick={() => {
-                    handleAñadir(el.titulo, el.precio, el.img1_portada);
+                    handleAñadir(
+                      el.titulo,
+                      el.precio,
+                      el.img1_portada,
+                      el.publicacion_id
+                    );
                   }}
                 >
                   Añadir <Emoji emoji="shopping-cart" />
