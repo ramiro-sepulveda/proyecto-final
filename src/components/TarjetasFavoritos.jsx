@@ -18,6 +18,8 @@ const TarjetasFavoritos = () => {
     setCarrito,
     setLoading,
     categorias,
+    setUpdate,
+    update,
   } = useContext(MarketContext);
   console.log(favoritos);
   const navigate = useNavigate();
@@ -108,7 +110,7 @@ const TarjetasFavoritos = () => {
       setFavoritos((prevFavoritos) =>
         prevFavoritos.filter((fav) => fav.id !== id)
       ); // Actualizar el estado de publicaciones
-      setLoading(true)
+      setUpdate(!update)
     } catch (error) {
       alert("Error al eliminar la publicación. Inténtalo nuevamente.");
       console.error("Error al eliminar la publicación:", error.message);
@@ -128,91 +130,94 @@ const TarjetasFavoritos = () => {
   }
 
   console.log(favoritos)
-
-  return (
-    <div className="gallery d-grid row-gap-5 grid-columns">
-      {favoritos && favoritos.length > 0 ? (
-        favoritos.map((el) => (
-          <Card
-            className="d-flex m-auto tarjeta"
-            text="black"
-            key={el.favorito_id}
-            style={{ width: "100%" }}
-          >
-            {el.img1_portada && (
-              <Card.Img
-                variant="top"
-                src={el.img1_portada}
-                alt={`Producto ${el.titulo}`}
-                style={{ height: "300px", objectFit: "contain" }}
-              />
-            )}
-            <Card.Header
-              style={{ height: "80px" }}
-              className="fs-4 border-light"
+  if (loading) {
+    return <div>cargando</div>;
+  } else {
+    return (
+      <div className="gallery d-grid row-gap-5 grid-columns">
+        {favoritos && favoritos.length > 0 ? (
+          favoritos.map((el) => (
+            <Card
+              className="d-flex m-auto tarjeta"
+              text="black"
+              key={el.favorito_id}
+              style={{ width: "100%" }}
             >
-              {primeraMayuscula(el.titulo || "Producto desconocido")}
-            </Card.Header>
-            <Card.Body>
-              <Card.Title>Categoría:</Card.Title>
-              <ul>
-                <li>
-                  {primeraMayuscula(
-                    categorias.find(
-                      (categoria) => categoria.id === el.categoria_id
-                    ).nombre || "Sin categoría"
-                  )}
-                </li>
-              </ul>
-              <div className="precio">
-                {"$ " +
-                  (el.precio
-                    ? el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                    : "Precio no disponible")}
-              </div>
-              <div className="botones-favoritos d-flex justify-content-around">
-                <Button
-                  value={el.titulo}
-                  style={{ width: "45%" }}
-                  variant="secondary"
-                  onClick={(e) => irAProducto(e.currentTarget.value)}
-                >
-                  Ver Más <Emoji emoji="eyes" />
-                </Button>
-                <Button
-                  value={el.titulo}
-                  style={{ width: "45%" }}
-                  className="cardButton"
-                  onClick={() => {
-                    handleAñadir(el.titulo,
-                      el.precio,
-                      el.img1_portada,
-                      el.publicacion_id);
-                    console.log(carrito);
-                  }}
-                >
-                  Añadir <Emoji emoji="shopping-cart" />
-                </Button>
-                <Button
-                  value={el.titulo}
-                  style={{ width: "45%" }}
-                  className="cardButton bg-danger"
-                  onClick={() => {
-                    handleEliminarFavorito(el.favorito_id);
-                    console.log(`Eliminar favorito: ${el.titulo}`);
-                  }}
-                >
-                  Eliminar <Emoji emoji="wastebasket" />
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        ))
-      ) : (
-        <div>No hay productos favoritos para mostrar.</div>
-      )}
-    </div>
-  );
-};
+              {el.img1_portada && (
+                <Card.Img
+                  variant="top"
+                  src={el.img1_portada}
+                  alt={`Producto ${el.titulo}`}
+                  style={{ height: "300px", objectFit: "contain" }}
+                />
+              )}
+              <Card.Header
+                style={{ height: "80px" }}
+                className="fs-4 border-light"
+              >
+                {primeraMayuscula(el.titulo || "Producto desconocido")}
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>Categoría:</Card.Title>
+                <ul>
+                  <li>
+                    {primeraMayuscula(
+                      categorias.find(
+                        (categoria) => categoria.id === el.categoria_id
+                      ).nombre || "Sin categoría"
+                    )}
+                  </li>
+                </ul>
+                <div className="precio">
+                  {"$ " +
+                    (el.precio
+                      ? el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                      : "Precio no disponible")}
+                </div>
+                <div className="botones-favoritos d-flex justify-content-around">
+                  <Button
+                    value={el.titulo}
+                    style={{ width: "45%" }}
+                    variant="secondary"
+                    onClick={(e) => irAProducto(e.currentTarget.value)}
+                  >
+                    Ver Más <Emoji emoji="eyes" />
+                  </Button>
+                  <Button
+                    value={el.titulo}
+                    style={{ width: "45%" }}
+                    className="cardButton"
+                    onClick={() => {
+                      handleAñadir(el.titulo,
+                        el.precio,
+                        el.img1_portada,
+                        el.publicacion_id);
+                      console.log(carrito);
+                    }}
+                  >
+                    Añadir <Emoji emoji="shopping-cart" />
+                  </Button>
+                  <Button
+                    value={el.titulo}
+                    style={{ width: "45%" }}
+                    className="cardButton bg-danger"
+                    onClick={() => {
+                      handleEliminarFavorito(el.favorito_id);
+                      console.log(`Eliminar favorito: ${el.titulo}`);
+                    }}
+                  >
+                    Eliminar <Emoji emoji="wastebasket" />
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          ))
+        ) : (
+          <div>No hay productos favoritos para mostrar.</div>
+        )}
+      </div>
+    );
+  };
+}
 
 export default TarjetasFavoritos;
