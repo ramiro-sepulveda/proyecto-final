@@ -65,7 +65,15 @@ const Navigation = () => {
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+            <img
+              src="solotecno.png"
+              alt="MarketPlace Logo"
+              style={{
+                height: "40px",
+              }}
+            />
+            </Navbar.Brand>
 
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
