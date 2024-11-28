@@ -59,13 +59,15 @@ const MarketProvider = ({ children }) => {
       try {
         const response = await fetch(ENDPOINTS.getCategorias);
         const data = await response.json();
-        console.log(data.results);
+        console.log(data);
         return data;
       } catch (error) {
         console.log("error fetch JSON");
       }
     };
-    setCategorias(dataCategorias);
+    dataCategorias().then((data) => {
+      setCategorias(data);
+    });
     console.log(categorias);
   }, [usuario]);
 

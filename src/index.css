@@ -272,7 +272,7 @@ ul {
 
 .carousel {
   width: 30%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
 
 }

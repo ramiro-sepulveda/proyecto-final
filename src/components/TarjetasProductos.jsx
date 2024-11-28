@@ -22,7 +22,7 @@ const TarjetasProductos = () => {
     usuario,
   } = useContext(MarketContext);
   const navigate = useNavigate();
-
+  console.log(categorias);
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
   console.log(productos);
   useEffect(() => {
@@ -66,7 +66,7 @@ const TarjetasProductos = () => {
     console.log(favoritos);
     console.log(publicacionid);
     console.log(usuario.id);
-    console.log(categorias);
+   
 
     // if (existe) {
     //   console.log("El producto ya está en favoritos");
@@ -88,13 +88,13 @@ const TarjetasProductos = () => {
             key={el.publicacion_id}
             style={{ width: "100%" }}
           >
-            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} />
-            <Card.Header className="fs-2 border-light">
+            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo}  style={{ height: "300px", objectFit:"contain" }}/>
+            <Card.Header style={{ height: "80px" }} className="fs-4 border-light">
               {primeraMayuscula(el.titulo)}
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría</Card.Title>
-              {/* <ul>
+              <ul>
                 <li>
                   {primeraMayuscula(
                     categorias.find(
@@ -102,7 +102,7 @@ const TarjetasProductos = () => {
                     ).nombre
                   )}
                 </li>
-              </ul> */}
+              </ul>
               <div className="precio">
                 {"$ " +
                   el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
