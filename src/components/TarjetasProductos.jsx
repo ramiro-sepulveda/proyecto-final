@@ -9,6 +9,7 @@ import { apiCarrito } from "../api/apiCarrito";
 // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
+
   const {
     categorias,
     productos,
@@ -21,6 +22,7 @@ const TarjetasProductos = () => {
     setProductos,
     usuario,
   } = useContext(MarketContext);
+
   const navigate = useNavigate();
   console.log(categorias);
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);

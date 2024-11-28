@@ -80,12 +80,14 @@ const publicacionesUsuarios = async (id) => {
 };
 
 const eliminarPublicacion = async (id) => {
+    console.log("ID de la publicación que se va a eliminar:", id); // Verifica el ID
     try {
         const response = await fetch(ENDPOINTS.eliminarPublicacion(id), {
             method: "DELETE",
         });
         if (!response.ok) {
             const errorData = await response.json();
+            console.error("Error del servidor:", errorData);
             throw new Error(
                 errorData?.error || `Error al eliminar la publicación: ${response.status}`
             );
