@@ -320,3 +320,8 @@ ul {
   flex-direction: column;
   justify-content: space-between; 
 }
+
+.tarjeta-detalle {
+  background-color: #ffffff;
+  width: 75%;
+}
