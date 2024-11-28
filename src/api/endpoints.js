@@ -7,6 +7,7 @@ const ENDPOINTS = {
   detallePublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
   publicacionesUsuarios: (id) => `${BASE_URL}/usuarios/perfil/${id}`,
   eliminarPublicacion: (id) => `${BASE_URL}/publicaciones/${id}`,
+  filtroGaleria: (id) => `${BASE_URL}/galeria/${id}`,
 
   // Carrito
   obtenerProductos: (id) => `${BASE_URL}/carrito/${id}`,

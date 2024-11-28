@@ -104,6 +104,19 @@ const eliminarPublicacion = async (id) => {
     }
 };
 
+const filtroGaleria = async (filtro) => {
+    try {
+        const response = await fetch(ENDPOINTS.filtroGaleria(filtro));
+        if (!response.ok) {
+            throw new Error(`Error al obtener la galería: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error al obtener la galería:", error.message);
+        throw error;
+    }
+};
 export const apiPublicaciones = {
     getProductos,
     readGaleria,
@@ -111,5 +124,6 @@ export const apiPublicaciones = {
     detallePublicacion,
     publicacionesUsuarios,
     eliminarPublicacion,
+    filtroGaleria
 }
 

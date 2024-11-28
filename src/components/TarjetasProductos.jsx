@@ -22,23 +22,39 @@ const TarjetasProductos = () => {
     usuario,
     setUpdate,
     update,
+    filtro,
   } = useContext(MarketContext);
 
   const navigate = useNavigate();
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
   useEffect(() => {
-    apiPublicaciones
-      .getProductos()
-      .then((data) => {
-        setProductos(data.results);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        window.alert(`${error.message} 🙁.`);
-      });
-  }, [setProductos, loading]);
+    if (filtro !== "") {
+      console.log("probandoooo")
+      apiPublicaciones
+        .filtroGaleria(filtro)
+        .then((data) => {
+          setProductos(data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          window.alert(`${error.message} 🙁.`);
+        });
+
+    } else {
+      apiPublicaciones
+        .getProductos()
+        .then((data) => {
+          setProductos(data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          window.alert(`${error.message} 🙁.`);
+        })
+    };
+  }, [setProductos, loading, filtro]);
 
   function primeraMayuscula(str) {
     return str

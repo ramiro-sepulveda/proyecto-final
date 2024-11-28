@@ -17,6 +17,7 @@ const MarketProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [categorias, setCategorias] = useState([]);
   const [update, setUpdate] = useState(true);
+  const [filtro, setFiltro] = useState([])
 
   const login = (newToken) => {
     localStorage.setItem("token", "Bearer " + newToken);
@@ -100,6 +101,8 @@ const MarketProvider = ({ children }) => {
         categorias,
         setUpdate,
         update,
+        filtro,
+        setFiltro,
       }}
     >
       {children}

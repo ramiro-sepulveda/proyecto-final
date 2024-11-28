@@ -334,12 +334,12 @@ const Perfil = () => {
                             </div>
                           </Col>
                           <Col
-                            xs={8}
+                            xs={10}
                             className="d-flex justify-content-between"
                           >
-                            <p className="mb-0">{publicacion.titulo}</p>
+                            <p className="mb-0 w-50">{publicacion.titulo}</p>
                             <strong>
-                              <p className="mb-0">${publicacion.precio}</p>
+                              <p className="mb-0"> {"$ " + publicacion.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p> 
                             </strong>
                             <Button
                               variant="danger"
