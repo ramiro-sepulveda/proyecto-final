@@ -18,8 +18,6 @@ const TarjetasProductos = () => {
     loading,
     carrito,
     setCarrito,
-    favoritos,
-    setFavoritos,
     setProductos,
     usuario,
   } = useContext(MarketContext);

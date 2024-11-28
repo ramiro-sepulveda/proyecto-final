@@ -5,6 +5,8 @@ import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { MarketContext } from "../context/ContextMarket";
 import Emoji from "react-emojis";
+import { apiCarrito } from "../api/apiCarrito";
+
 
 const ProductoDetails = () => {
   const { id } = useParams();
@@ -38,33 +40,90 @@ const ProductoDetails = () => {
     fetchDetalle();
   }, [id]);
 
-    const handleAñadirFavorito = (publicacionid) => {
-      console.log(favoritos);
-      console.log(publicacionid);
-      console.log(usuario.id);
-  
-    
-      // if (existe) {
-      //   console.log("El producto ya está en favoritos");
-      // } else {
-        // setFavoritos([...favoritos, producto]);
-        apiFavoritos.agregarFavorito( usuario.id, publicacionid);
-        console.log("Producto añadido a favoritos:");
-      };
+  const handleAñadirFavorito = (publicacionid) => {
+    console.log(favoritos);
+    console.log(publicacionid);
+    console.log(usuario.id);
 
-  const handleAñadir = (tipo, precio, img) => {
-    const existe = carrito.some((el) => el.tipo === tipo);
-    if (existe) {
-      setCarrito(
-        carrito.map((el) =>
-          el.tipo === tipo ? { ...el, cant: el.cant + 1 } : el
-        )
-      );
-    } else {
-      setCarrito([...carrito, { tipo, precio, cant: 1, img }]);
-    }
+
+    // if (existe) {
+    //   console.log("El producto ya está en favoritos");
+    // } else {
+    // setFavoritos([...favoritos, producto]);
+    apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    console.log("Producto añadido a favoritos:");
   };
 
+  const handleAñadir = (titulo, precio, img, publicacionId) => {
+    if (!usuario) {
+      if (carrito.find((el) => el.publicacion_id === publicacionId)) {
+        setCarrito(
+          carrito.map((producto) =>
+            producto.publicacion_id === publicacionId
+              ? { ...producto, cantidad: producto.cantidad + 1 }
+              : producto
+          ))
+        console.log(carrito)
+      }
+      else {
+        setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
+        return;
+      }
+    }
+
+    else {
+      const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+      if (existe) {
+        const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+
+        if (!cantProducto) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        }
+
+        const cantidadActualizada = {
+          usuario_id: usuario.id,
+          publicacion_id: cantProducto.publicacion_id,
+          cantidad: cantProducto.cantidad + 1,
+        };
+
+        apiCarrito
+          .actualizarCantidad(cantidadActualizada)
+          .then((data) => {
+            const nuevoCarrito = carrito.map((producto) =>
+              producto.publicacion_id === cantProducto.publicacion_id
+                ? { ...producto, cantidad: data.cantidad }
+                : producto
+            );
+            setCarrito(nuevoCarrito);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de actualizar
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al actualizar la cantidad:", error);
+          });
+      } else {
+        apiCarrito
+          .agregarProducto(usuario.id, publicacionId)
+          .then((data) => {
+            setCarrito([...carrito, { ...data, precio }]);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de agregar un producto
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al añadir el producto al carrito:", error);
+          });
+      }
+    }
+  };
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -121,7 +180,7 @@ const ProductoDetails = () => {
 
         </Carousel>
 
-      
+
         <Card.Body className="py-0 w-50">
           <Card.Header className="fs-1 pb-4 border-light">
             {primeraMayuscula(producto.titulo)}
@@ -149,7 +208,8 @@ const ProductoDetails = () => {
                   handleAñadir(
                     producto.titulo,
                     producto.precio,
-                    producto.img1_portada
+                    producto.img1_portada,
+                    producto.publicacion_id
                   )
                 }
               >

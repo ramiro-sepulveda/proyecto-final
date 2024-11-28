@@ -7,6 +7,7 @@ import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
 
 
+
 const TarjetasFavoritos = () => {
   const {
     usuario,
@@ -107,6 +108,7 @@ const TarjetasFavoritos = () => {
       setFavoritos((prevFavoritos) =>
         prevFavoritos.filter((fav) => fav.id !== id)
       ); // Actualizar el estado de publicaciones
+      setLoading(true)
     } catch (error) {
       alert("Error al eliminar la publicación. Inténtalo nuevamente.");
       console.error("Error al eliminar la publicación:", error.message);
