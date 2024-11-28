@@ -168,7 +168,7 @@ const ProductoDetails = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src={producto.img3}
+                src={producto.img4}
                 alt={`Producto ${primeraMayuscula(producto.titulo)}`}
               />
 
