@@ -72,6 +72,8 @@ const TarjetasFavoritos = () => {
     return <div>Cargando...</div>;
   }
 
+  console.log(favoritos)
+
   return (
     <div className="gallery d-grid row-gap-5 grid-columns">
       {favoritos && favoritos.length > 0 ? (

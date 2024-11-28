@@ -38,7 +38,13 @@ const Navigation = () => {
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              MarketPlace
+            <img
+              src="solotecno.png"
+              alt="MarketPlace Logo"
+              style={{
+                height: "40px",
+              }}
+            />
             </Navbar.Brand>
 
             <Nav className="ml-auto">
@@ -70,7 +76,13 @@ const Navigation = () => {
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              MarketPlace
+            <img
+              src="solotecno.png"
+              alt="MarketPlace Logo"
+              style={{
+                height: "40px",
+              }}
+            />
             </Navbar.Brand>
 
             <Nav className="ml-auto">

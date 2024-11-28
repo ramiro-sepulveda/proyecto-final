@@ -277,6 +277,7 @@ ul {
 
 }
 
+
 .contenedor_perfil {
 height: 300px;
 overflow: auto;
@@ -299,5 +300,53 @@ overflow: auto;
 /* Firefox */
 .contenedor_perfil {
   scrollbar-width: thin;  /* Barra delgada */
-  scrollbar-color: #052c65 transparent; /* Color de la barra y la pista */
+  scrollbar-color: #052c65 transparent; /* Color de la barra y la pista */}
+
+/* TarjetasProductos */
+.tarjeta {
+  width: 300px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff; /* Asegúrate de que el fondo sea blanco */
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.tarjeta img {
+  width: 100%; 
+  height: auto; 
+  aspect-ratio: 16 / 9; 
+  object-fit: cover; 
+  border-radius: 8px 8px 0 0; 
+}
+
+.tarjeta .card-header {
+  font-size: 1.2rem; 
+  font-weight: bold; 
+  text-align: center; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+}
+
+.tarjeta .card-body {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.tarjeta-detalle {
+  background-color: #ffffff;
+  width: 75%;
 }

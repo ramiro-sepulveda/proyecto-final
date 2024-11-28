@@ -79,7 +79,7 @@ const ProductoDetails = () => {
 
   return (
     <div className="pt-5">
-      <Card className="d-flex flex-lg-row m-auto tarjeta" text="black">
+      <Card className="d-flex flex-lg-row m-auto tarjeta-detalle" text="black">
         <Carousel>
           <Carousel.Item>
             <img
