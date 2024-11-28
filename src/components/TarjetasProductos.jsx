@@ -6,16 +6,30 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
- // Asegúrate de tener la API para las publicaciones
+// Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setProductos,usuario } = useContext(MarketContext);
+
+  const {
+    categorias,
+    productos,
+    setLoading,
+    loading,
+    carrito,
+    setCarrito,
+    favoritos,
+    setFavoritos,
+    setProductos,
+    usuario,
+  } = useContext(MarketContext);
+
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
-
+  console.log(productos);
   useEffect(() => {
-    apiPublicaciones.getProductos()
+    apiPublicaciones
+      .getProductos()
       .then((data) => {
         setProductos(data.results);
         setLoading(false);
@@ -42,7 +56,7 @@ const TarjetasProductos = () => {
         )
       );
     } else {
-      apiCarrito.agregarProducto(publicacionid,usuario.id);
+      apiCarrito.agregarProducto(publicacionid, usuario.id);
       setCarrito([
         ...carrito,
         { tipo: tipo, precio: precio, cant: 1, img: img },
@@ -54,15 +68,15 @@ const TarjetasProductos = () => {
     console.log(favoritos);
     console.log(publicacionid);
     console.log(usuario.id);
+    console.log(categorias);
 
-  
     // if (existe) {
     //   console.log("El producto ya está en favoritos");
     // } else {
-      // setFavoritos([...favoritos, producto]);
-      apiFavoritos.agregarFavorito( usuario.id, publicacionid);
-      console.log("Producto añadido a favoritos:");
-    };
+    // setFavoritos([...favoritos, producto]);
+    apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    console.log("Producto añadido a favoritos:");
+  };
 
   if (loading) {
     return <div>cargando</div>;
@@ -82,11 +96,19 @@ const TarjetasProductos = () => {
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría</Card.Title>
-
+              {/* <ul>
+                <li>
+                  {primeraMayuscula(
+                    categorias.find(
+                      (categoria) => categoria.id === el.categoria_id
+                    ).nombre
+                  )}
+                </li>
+              </ul> */}
               <div className="precio">
-                {"$ " + el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                {"$ " +
+                  el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </div>
-
 
               <div className="botones d-flex justify-content-around">
                 <Button
@@ -111,7 +133,7 @@ const TarjetasProductos = () => {
                   value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton"
-                  onClick={() => handleAñadirFavorito(el.publicacion_id)} 
+                  onClick={() => handleAñadirFavorito(el.publicacion_id)}
                 >
                   <Emoji emoji="red-heart" />
                 </Button>
@@ -120,7 +142,6 @@ const TarjetasProductos = () => {
           </Card>
         ))}
       </div>
-
     );
   }
 };

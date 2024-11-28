@@ -251,15 +251,28 @@ ul {
   font-size: 46px;
 }
 
-.white
-{color:white}
+.white {
+  color: white
+}
 
-.botones-detalles{
+.botones-detalles {
   display: flex;
   justify-content: space-around;
   gap: 3rem;
 }
 
-.botones-favoritos{
+.botones-favoritos {
   gap: 1rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgb(0, 0, 0);
+}
+
+.carousel {
+  width: 30%;
+  height: 400px;
+  object-fit: cover;
+
 }
