@@ -12,6 +12,7 @@ const Perfil = () => {
     const [editar, setEditar] = useState(false)
     const { usuario, setUsuario, logout } = useContext(MarketContext)
     const [formData, setFormData] = useState({})
+    const [producto, setProducto] = useState([]);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -67,8 +68,25 @@ const Perfil = () => {
                 console.error(error)
                 window.alert(`${error.message} 🙁.`)
             })
+    };
 
 
+    const handleEliminarPublicacion = async (id) => {
+        const confirmacion = window.confirm("¿Estás seguro de eliminar esta publicación?");
+        if (!confirmacion) return;
+    
+        try {
+            const mensaje = await apiPublicaciones.eliminarPublicacion(id); // Llamada a la API
+            alert(mensaje);
+    
+            // Usar función de actualización de estado para asegurar que se usa la versión más actual del estado
+            setPublicaciones((prevPublicaciones) => 
+                prevPublicaciones.filter((pub) => pub.publicacion_id !== id)
+            ); // Actualizar el estado de publicaciones
+        } catch (error) {
+            alert("Error al eliminar la publicación. Inténtalo nuevamente.");
+            console.error("Error al eliminar la publicación:", error.message);
+        }
     };
 
     useEffect(() => {
@@ -79,7 +97,7 @@ const Perfil = () => {
     }, [editar]);
 
     useEffect(() => {
-        console.log("id del usuario: ", id)
+        console.log("id del usuario: ", id);
         const obtenerPublicaciones = async () => {
             try {
                 const publicacionesData = await apiPublicaciones.publicacionesUsuarios(id); // Usamos el id desde la URL
@@ -90,12 +108,13 @@ const Perfil = () => {
                 setLoading(false);
             }
         };
-
+    
         if (id) {
+            setLoading(true); // Asegúrate de que el loading se activa cuando se hace la solicitud.
             obtenerPublicaciones();
         } else {
             console.log("No se ha proporcionado un id de usuario válido.");
-            setLoading(false);
+            setLoading(false); // En caso de no tener id válido, se desactiva el loading.
         }
     }, [id]);  // Dependemos de 'id' de la URL
 
@@ -103,6 +122,7 @@ const Perfil = () => {
     const handleRedireccionar = () => {
         navigate("/publicar"); // Redirige a la ruta /publicar
     };
+    console.log('publicaciones:', publicaciones);
 
     return (
         <Container fluid className="p-4">
@@ -233,24 +253,32 @@ const Perfil = () => {
 
                             <Col md={8}>
                                 <Card className="p-3" style={{ backgroundColor: "#ffffff", minHeight: "400px" }}>
-                                    <h5 className="text-dark">Mis publicaciones</h5>
-                                    <Button variant="link" className="text-secondary p-0 mb-3" style={{ fontSize: "0.9rem" }} onClick={handleRedireccionar}>
-                                        Añadir nuevo +
+                                    <h5 className="text-dark text-center">Mis publicaciones</h5>
+                                    <Button variant="link-opacity-10-hover" size="sm" className="text-secondary p-0 mb-3 ms-2 text-end" style={{ fontSize: "0.9rem" }} onClick={handleRedireccionar}>
+                                        Agregar publicacion
+                                        <Emoji emoji='plus-sign' />
                                     </Button>
 
-                                    {loading && <p>Cargando publicaciones...</p>}
-{!loading && error && <p>{error}</p>}
+{loading && <p>Cargando publicaciones...</p>}
+{!loading && error && !publicaciones.length && <p>No tienes publicaciones aún.</p>}
 {!loading && !error && publicaciones.length === 0 && <p>No tienes publicaciones aún.</p>}
+{!loading && error && <p>{error}</p>}
 {!loading && !error && publicaciones.map((publicacion, i) => (
     <Row key={i} className="mb-2 align-items-center">
         <Col xs={2} className="d-flex justify-content-center">
             <div className="bg-secondary" style={{ width: "40px", height: "40px" }}></div>
         </Col>
-        <Col xs={8}>
+        <Col xs={8} className="d-flex justify-content-between">
             <p className="mb-0">{publicacion.titulo}</p>
-        </Col>
-        <Col xs={2} className="text-end">
-            <p className="mb-0">${publicacion.precio}</p>
+            <strong><p className="mb-0">${publicacion.precio}</p></strong>
+            <Button 
+                variant="danger" 
+                size="sm" 
+                className="ms-2"
+                onClick={() => handleEliminarPublicacion(publicacion.publicacion_id)}
+            >
+                Eliminar
+            </Button>
         </Col>
     </Row>
 ))}
