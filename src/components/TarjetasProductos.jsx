@@ -20,6 +20,8 @@ const TarjetasProductos = () => {
     setCarrito,
     setProductos,
     usuario,
+    setUpdate,
+    update,
   } = useContext(MarketContext);
 
   const navigate = useNavigate();
@@ -118,6 +120,7 @@ const TarjetasProductos = () => {
 
   const handleAñadirFavorito = (publicacionid) => {
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    setUpdate(!update)
     console.log("Producto añadido a favoritos:");
   };
 

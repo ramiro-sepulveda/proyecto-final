@@ -10,7 +10,7 @@ import { apiCarrito } from "../api/apiCarrito";
 
 const ProductoDetails = () => {
   const { id } = useParams();
-  const { carrito, setCarrito, usuario, favoritos } = useContext(MarketContext);
+  const { carrito, setCarrito, usuario, favoritos, setUpdate, update, } = useContext(MarketContext);
 
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,12 +45,8 @@ const ProductoDetails = () => {
     console.log(publicacionid);
     console.log(usuario.id);
 
-
-    // if (existe) {
-    //   console.log("El producto ya está en favoritos");
-    // } else {
-    // setFavoritos([...favoritos, producto]);
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    setUpdate(!update)
     console.log("Producto añadido a favoritos:");
   };
 
