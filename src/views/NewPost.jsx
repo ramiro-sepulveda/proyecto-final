@@ -184,7 +184,7 @@ const NewPost = () => {
             </Col>
 
             <Col md={6} className="px-5">
-              <h3 className="white pb-4 text-center">Imágenes del producto</h3>
+              <h3 className="white pb-4 text-center">Agrega tus imágenes:</h3>
               <div className="d-flex justify-content-center gap-3">
                 {/* <Form.Group controlId="formFileMultiple" className="mb-3">
                   <Form.Label className="text-white">
