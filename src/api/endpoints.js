@@ -24,7 +24,7 @@ const ENDPOINTS = {
   // Favoritos
   obtenerFavoritos: (id) => `${BASE_URL}/favoritos/${id}`,
   agregarFavorito: `${BASE_URL}/favoritos`,
-  eliminarFavorito: `${BASE_URL}/favoritos`,
+  eliminarFavorito: (id) =>  `${BASE_URL}/favoritos/${id}`,
 
   // Categorias
   getCategorias: `${BASE_URL}/categorias`,

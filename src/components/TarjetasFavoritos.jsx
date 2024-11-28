@@ -1,13 +1,21 @@
 import { Button, Card } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
-
+import { apiFavoritos } from "../api/apiFavoritos";
 
 const TarjetasFavoritos = () => {
-  const { favoritos, loading, carrito, setCarrito } = useContext(MarketContext);
-
+  const {
+    setFavoritos,
+    favoritos,
+    loading,
+    carrito,
+    setCarrito,
+    setLoading,
+    categorias,
+  } = useContext(MarketContext);
+  console.log(favoritos);
   const navigate = useNavigate();
   const irAProducto = (e) => navigate(`/producto/${e}`);
 
@@ -33,11 +41,32 @@ const TarjetasFavoritos = () => {
           tipo: tipo,
           precio: precio,
           cant: 1,
-          img: img
+          img: img,
         },
       ]);
     }
   };
+
+  const handleEliminarFavorito = async (id) => {
+    try {
+      const mensaje = await apiFavoritos.eliminarFavorito(id); // Llamada a la API
+
+      setFavoritos((prevFavoritos) =>
+        prevFavoritos.filter((fav) => fav.id !== id)
+      ); // Actualizar el estado de publicaciones
+    } catch (error) {
+      alert("Error al eliminar la publicación. Inténtalo nuevamente.");
+      console.error("Error al eliminar la publicación:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (!favoritos || favoritos.length === 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [setLoading, loading, favoritos]);
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -50,20 +79,39 @@ const TarjetasFavoritos = () => {
           <Card
             className="d-flex m-auto tarjeta"
             text="black"
-            key={el.id}
+            key={el.favorito_id}
             style={{ width: "100%" }}
           >
-            {el.img1_portada && <Card.Img variant="top" src={el.img1_portada} alt={`Producto ${el.titulo}`} />}
-            <Card.Header className="fs-2 border-light">
+            {el.img1_portada && (
+              <Card.Img
+                variant="top"
+                src={el.img1_portada}
+                alt={`Producto ${el.titulo}`}
+                style={{ height: "300px", objectFit: "contain" }}
+              />
+            )}
+            <Card.Header
+              style={{ height: "80px" }}
+              className="fs-4 border-light"
+            >
               {primeraMayuscula(el.titulo || "Producto desconocido")}
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría:</Card.Title>
               <ul>
-                <li>{primeraMayuscula(el.categoria_id || "Sin categoría")}</li>
+                <li>
+                  {primeraMayuscula(
+                    categorias.find(
+                      (categoria) => categoria.id === el.categoria_id
+                    ).nombre || "Sin categoría"
+                  )}
+                </li>
               </ul>
               <div className="precio">
-                {"$ " + (el.precio ? el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : "Precio no disponible")}
+                {"$ " +
+                  (el.precio
+                    ? el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    : "Precio no disponible")}
               </div>
               <div className="botones-favoritos d-flex justify-content-around">
                 <Button
@@ -89,8 +137,10 @@ const TarjetasFavoritos = () => {
                   value={el.titulo}
                   style={{ width: "45%" }}
                   className="cardButton bg-danger"
-                  // Aquí podrías implementar la funcionalidad de eliminar de favoritos
-                  onClick={() => console.log(`Eliminar favorito: ${el.titulo}`)}
+                  onClick={() => {
+                    handleEliminarFavorito(el.favorito_id);
+                    console.log(`Eliminar favorito: ${el.titulo}`);
+                  }}
                 >
                   Eliminar <Emoji emoji="wastebasket" />
                 </Button>
