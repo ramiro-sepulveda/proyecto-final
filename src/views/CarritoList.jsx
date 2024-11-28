@@ -23,7 +23,7 @@ const CarritoList = () => {
     }
 
     const cantidadActualizada = {
-        usuario_id: usuario.id, // Ahora 'usuario' está definido
+        usuario_id: usuario.id, 
         publicacion_id: cantProducto.publicacion_id,
         cantidad: cantProducto.cantidad + 1,
     };
@@ -40,7 +40,6 @@ const CarritoList = () => {
             setCarrito(nuevoCarrito);
         })
         .then(() => {
-            // Sincronizar con el servidor después de aumentar la cantidad
             return apiCarrito.obtenerProductos(usuario.id);
         })
         .then((data) => {
@@ -52,47 +51,37 @@ const CarritoList = () => {
   };
 
   const handleDisminuir = async (producto) => {
-    try {
-      // Evitar múltiples clics
-      if (producto.cantidad <= 0) return; // Si la cantidad es 0 o menos, no hacer nada
-  
-      const existe = carrito.some((el) => el.publicacion_id === producto.publicacion_id);
-  
-      if (!existe) {
-        console.error("Producto no encontrado en el carrito");
-        return;
-      }
-  
+    try {  
       if (producto.cantidad === 1) {
-        // Eliminar producto del carrito
-        await apiCarrito.eliminarProducto({
-          usuario_id: usuario.id, // Asegúrate de usar el ID del usuario
-          publicacion_id: producto.publicacion_id,
-        });
-  
-        // Actualizar el carrito en el estado
+        await apiCarrito.eliminarProducto(producto.publicacion_id, usuario.id);
         setCarrito(carrito.filter((el) => el.publicacion_id !== producto.publicacion_id));
+      
+  
+        if (response.success) {
+          const nuevoCarrito = carrito.filter((el) => el.publicacion_id !== producto.publicacion_id);
+          setCarrito(nuevoCarrito);
+          console.log("Producto eliminado del carrito");
+        }
       } else {
-        // Actualizar cantidad del producto
-        const actualizado = await apiCarrito.actualizarCantidad({
-          usuario_id: usuario.id, // Asegúrate de usar el ID del usuario
+        const cantidadActualizada = {
+          usuario_id: usuario.id,
           publicacion_id: producto.publicacion_id,
           cantidad: producto.cantidad - 1,
-        });
-  
-        // Actualizar el carrito en el estado
-        setCarrito(
-          carrito.map((el) =>
-            el.publicacion_id === producto.publicacion_id
-              ? { ...el, cantidad: actualizado.cantidad }
-              : el
-          )
+        };
+        const response = await apiCarrito.actualizarCantidad(cantidadActualizada);
+        const nuevoCarrito = carrito.map((el) =>
+          el.publicacion_id === producto.publicacion_id ? { ...el, cantidad: response.cantidad } : el
         );
-      }
+        setCarrito(nuevoCarrito);
+        console.log("Cantidad actualizada en el carrito");
+      } 
     } catch (error) {
       console.error("Error al disminuir cantidad:", error);
     }
   };
+  
+  
+  
   return (
     <Container fluid className="p-4">
       <Row className="justify-content-center">

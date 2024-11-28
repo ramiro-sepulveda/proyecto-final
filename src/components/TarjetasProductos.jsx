@@ -8,8 +8,7 @@ import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
 
 const TarjetasProductos = () => {
-
-  const { productos, setLoading, loading, carrito, setCarrito, favoritos, setProductos,usuario } = useContext(MarketContext);
+    const { productos, setLoading, loading, carrito, setCarrito, favoritos, setProductos,usuario } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);

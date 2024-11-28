@@ -60,7 +60,7 @@ const actualizarCantidad = async ({ usuario_id, publicacion_id, cantidad }) => {
   }
 };
 
-const eliminarProducto = async (productoId, usuarioId) => {
+const eliminarProducto = async (publicacion_id, usuario_id) => {
   try {
     const response = await fetch(ENDPOINTS.eliminarProducto, {
       method: "DELETE",
@@ -68,8 +68,8 @@ const eliminarProducto = async (productoId, usuarioId) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        publicacion_id: productoId,
-        usuario_id: usuarioId,
+        publicacion_id: publicacion_id, // Usar los parámetros directamente
+        usuario_id: usuario_id,
       }),
     });
 
@@ -85,6 +85,7 @@ const eliminarProducto = async (productoId, usuarioId) => {
     throw error;
   }
 };
+
 
 
 export const apiCarrito = {
