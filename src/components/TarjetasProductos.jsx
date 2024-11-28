@@ -25,10 +25,8 @@ const TarjetasProductos = () => {
   } = useContext(MarketContext);
 
   const navigate = useNavigate();
-  console.log(categorias);
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
-  console.log(productos);
-  
+
   useEffect(() => {
     apiPublicaciones
       .getProductos()
@@ -51,62 +49,75 @@ const TarjetasProductos = () => {
 
   const handleAñadir = (titulo, precio, img, publicacionId) => {
     if (!usuario) {
-      console.error("Usuario no autenticado");
-      return;
-    }
-    const existe = carrito.some((el) => el.publicacion_id === publicacionId);
-  
-    if (existe) {
-      const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
-  
-      if (!cantProducto) {
-        console.error("Producto no encontrado en el carrito");
+      if (carrito.find((el) => el.publicacion_id === publicacionId)) {
+        setCarrito(
+          carrito.map((producto) =>
+            producto.publicacion_id === publicacionId
+              ? { ...producto, cantidad: producto.cantidad + 1 }
+              : producto
+          ))
+        console.log(carrito)
+      }
+      else {
+        setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
         return;
       }
-  
-      const cantidadActualizada = {
-        usuario_id: usuario.id,
-        publicacion_id: cantProducto.publicacion_id,
-        cantidad: cantProducto.cantidad + 1,
-      };
-  
-      apiCarrito
-        .actualizarCantidad(cantidadActualizada)
-        .then((data) => {
-          const nuevoCarrito = carrito.map((producto) =>
-            producto.publicacion_id === cantProducto.publicacion_id
-              ? { ...producto, cantidad: data.cantidad }
-              : producto
-          );
-          setCarrito(nuevoCarrito);
-        })
-        .then(() => {
-          // Sincronizar con el servidor después de actualizar
-          apiCarrito.obtenerProductos(usuario.id).then((data) => {
-            setCarrito(Array.isArray(data) ? data : []);
+    }
+
+    else {
+      const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+      if (existe) {
+        const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+
+        if (!cantProducto) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        }
+
+        const cantidadActualizada = {
+          usuario_id: usuario.id,
+          publicacion_id: cantProducto.publicacion_id,
+          cantidad: cantProducto.cantidad + 1,
+        };
+
+        apiCarrito
+          .actualizarCantidad(cantidadActualizada)
+          .then((data) => {
+            const nuevoCarrito = carrito.map((producto) =>
+              producto.publicacion_id === cantProducto.publicacion_id
+                ? { ...producto, cantidad: data.cantidad }
+                : producto
+            );
+            setCarrito(nuevoCarrito);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de actualizar
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al actualizar la cantidad:", error);
           });
-        })
-        .catch((error) => {
-          console.error("Error al actualizar la cantidad:", error);
-        });
-    } else {
-      apiCarrito
-        .agregarProducto(usuario.id, publicacionId)
-        .then((data) => {
-          setCarrito([...carrito, { ...data, precio }]);
-        })
-        .then(() => {
-          // Sincronizar con el servidor después de agregar un producto
-          apiCarrito.obtenerProductos(usuario.id).then((data) => {
-            setCarrito(Array.isArray(data) ? data : []);
+      } else {
+        apiCarrito
+          .agregarProducto(usuario.id, publicacionId)
+          .then((data) => {
+            setCarrito([...carrito, { ...data, precio }]);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de agregar un producto
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al añadir el producto al carrito:", error);
           });
-        })
-        .catch((error) => {
-          console.error("Error al añadir el producto al carrito:", error);
-        });
+      }
     }
   };
-  
+
   const handleAñadirFavorito = (publicacionid) => {
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
     console.log("Producto añadido a favoritos:");
@@ -124,7 +135,7 @@ const TarjetasProductos = () => {
             key={el.publicacion_id}
             style={{ width: "100%" }}
           >
-            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo}  style={{ height: "300px", objectFit:"contain" }}/>
+            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} style={{ height: "300px", objectFit: "contain" }} />
             <Card.Header style={{ height: "80px" }} className="fs-4 border-light">
               {primeraMayuscula(el.titulo)}
             </Card.Header>

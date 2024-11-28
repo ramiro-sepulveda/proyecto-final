@@ -27,6 +27,7 @@ const MarketProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUsuario("")
     navigate("/");
   };
 

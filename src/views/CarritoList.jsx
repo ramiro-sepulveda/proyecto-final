@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { MarketContext } from "../context/ContextMarket";
 import { apiCarrito } from "../api/apiCarrito";
@@ -7,92 +7,127 @@ import Carrito2 from "../components/Carrito2";
 const CarritoList = () => {
   const { carrito, setCarrito, usuario } = useContext(MarketContext); // Asegúrate de obtener usuario
 
-  const handleAumentar = (producto) => {
-    const existe = carrito.some(
-      (el) => el.publicacion_id === producto.publicacion_id
-    );
-
-    if (!existe) {
-      console.error("Producto no encontrado en el carrito");
-      return;
-    }
-
-    const cantProducto = carrito.find(
-      (el) => el.publicacion_id === producto.publicacion_id
-    );
-
-    if (!cantProducto) {
-      console.error("Producto no encontrado en el carrito");
-      return;
-    }
-
-    const cantidadActualizada = {
-      usuario_id: usuario.id,
-      publicacion_id: cantProducto.publicacion_id,
-      cantidad: cantProducto.cantidad + 1,
-    };
-
-    apiCarrito
-      .actualizarCantidad(cantidadActualizada)
-      .then((data) => {
-        console.log("Cantidad aumentada:", data);
-        const nuevoCarrito = carrito.map((el) =>
-          el.publicacion_id === cantProducto.publicacion_id
-            ? { ...el, cantidad: data.cantidad }
-            : el
+  const handleAumentar = async (producto) => {
+    if (!usuario) {
+      if (carrito.find((el) => el.publicacion_id === producto.publicacion_id)) {
+        setCarrito(
+          carrito.map((el) =>
+            el.publicacion_id === producto.publicacion_id
+              ? { ...el, cantidad: el.cantidad + 1 }
+              : el
+          ))
+        console.log(carrito)
+      }
+      else {
+        setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
+        return;
+      }
+    } else {
+      try {
+        const existe = carrito.some(
+          (el) => el.publicacion_id === producto.publicacion_id
         );
-        setCarrito(nuevoCarrito);
-      })
-      .then(() => {
-        return apiCarrito.obtenerProductos(usuario.id);
-      })
-      .then((data) => {
-        setCarrito(Array.isArray(data) ? data : []);
-      })
-      .catch((error) => {
-        console.error("Error al aumentar cantidad:", error);
-      });
-  };
+
+        if (!existe) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        }
+
+        const cantProducto = carrito.find(
+          (el) => el.publicacion_id === producto.publicacion_id
+        );
+
+        if (!cantProducto) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        } else {
+          const cantidadActualizada = {
+            usuario_id: usuario.id,
+            publicacion_id: producto.publicacion_id,
+            cantidad: producto.cantidad + 1,
+          };
+          const response = await apiCarrito.actualizarCantidad(
+            cantidadActualizada
+          );
+          const nuevoCarrito = carrito.map((el) =>
+            el.publicacion_id === producto.publicacion_id
+              ? { ...el, cantidad: response.producto.cantidad }
+              : el
+          );
+          console.log(response.producto.cantidad);
+          setCarrito(nuevoCarrito);
+          console.log("Cantidad actualizada en el carrito");
+        }
+      } catch (error) {
+        console.error("Error al disminuir cantidad:", error);
+      }
+    };
+  }
+
 
   const handleDisminuir = async (producto) => {
-    try {
+    if (!usuario) {
+      console.log("")
       if (producto.cantidad === 1) {
-        await apiCarrito.eliminarProducto(producto.publicacion_id, usuario.id);
+        console.log(carrito[0].publicacion_id)
+        console.log(producto.publicacion_id)
         setCarrito(
-          carrito.filter((el) => el.publicacion_id !== producto.publicacion_id)
-        );
-
-        if (response.success) {
-          const nuevoCarrito = carrito.filter(
-            (el) => el.publicacion_id !== producto.publicacion_id
-          );
-          setCarrito(nuevoCarrito);
-          console.log("Producto eliminado del carrito");
-        }
-      } else {
-        const cantidadActualizada = {
-          usuario_id: usuario.id,
-          publicacion_id: producto.publicacion_id,
-          cantidad: producto.cantidad - 1,
-        };
-        const response = await apiCarrito.actualizarCantidad(
-          cantidadActualizada
-        );
-        const nuevoCarrito = carrito.map((el) =>
-          el.publicacion_id === producto.publicacion_id
-            ? { ...el, cantidad: response.producto.cantidad }
-            : el
-        );
-        console.log(response.producto.cantidad);
-        setCarrito(nuevoCarrito);
-        console.log("Cantidad actualizada en el carrito");
+          carrito.filter((el) =>
+            el.publicacion_id !== producto.publicacion_id
+          ))
+        console.log(carrito)
       }
-    } catch (error) {
-      console.error("Error al disminuir cantidad:", error);
+      else {
+        setCarrito(
+          carrito.map((el) =>
+            el.publicacion_id === producto.publicacion_id
+              ? { ...el, cantidad: el.cantidad - 1 }
+              : el
+          ))
+        console.log(carrito)
+
+      }
+    }
+    else {
+      try {
+        if (producto.cantidad === 1) {
+          await apiCarrito.eliminarProducto(producto.publicacion_id, usuario.id);
+          setCarrito(
+            carrito.filter((el) => el.publicacion_id !== producto.publicacion_id)
+          );
+
+          if (response.success) {
+            const nuevoCarrito = carrito.filter(
+              (el) => el.publicacion_id !== producto.publicacion_id
+            );
+            setCarrito(nuevoCarrito);
+            console.log("Producto eliminado del carrito");
+          }
+        } else {
+          const cantidadActualizada = {
+            usuario_id: usuario.id,
+            publicacion_id: producto.publicacion_id,
+            cantidad: producto.cantidad - 1,
+          };
+          const response = await apiCarrito.actualizarCantidad(
+            cantidadActualizada
+          );
+          const nuevoCarrito = carrito.map((el) =>
+            el.publicacion_id === producto.publicacion_id
+              ? { ...el, cantidad: response.producto.cantidad }
+              : el
+          );
+          console.log(response.producto.cantidad);
+          setCarrito(nuevoCarrito);
+          console.log("Cantidad actualizada en el carrito");
+        }
+      } catch (error) {
+        console.error("Error al disminuir cantidad:", error);
+      }
     }
   };
+  useEffect(() => { console.log(carrito); }, [carrito])
 
-  console.log(carrito);
 
   return (
     <Container fluid className="p-4">
@@ -136,8 +171,8 @@ const CarritoList = () => {
                       />
                     </Col>
                     <Col xs={4}>
-                      <p className="mb-0 font-weight-bold">{producto.tipo}</p>
-                      <p className="mb-0 text-muted">${producto.precio}</p>
+                     
+                      <p className="mb-0 text-muted">{"$ " + producto.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                     </Col>
                     <Col
                       xs={3}
@@ -160,9 +195,7 @@ const CarritoList = () => {
                       </Button>
                     </Col>
                     <Col xs={2}>
-                      <p className="mb-0 font-weight-bold">{`$ ${
-                        producto.precio * producto.cantidad
-                      }`}</p>
+                      <p className="mb-0">{"$ " + (producto.precio * producto.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                     </Col>
                   </Row>
                 ))
