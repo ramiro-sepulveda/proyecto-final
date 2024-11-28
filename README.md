@@ -1,8 +1,8 @@
 Grupo 1:
 
-Ignacio Duarte
-Cristian Rozas
-Ramiro Sepúlveda
+- Ignacio Duarte
+- Cristian Rozas
+- Ramiro Sepúlveda
 
 # Frontend para E-commerce de Productos Tecnológicos
 
