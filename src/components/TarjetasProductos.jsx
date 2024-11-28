@@ -6,6 +6,7 @@ import Emoji from "react-emojis";
 import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
+
 // Asegúrate de tener la API para las publicaciones
 
 const TarjetasProductos = () => {
@@ -27,6 +28,7 @@ const TarjetasProductos = () => {
   console.log(categorias);
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
   console.log(productos);
+  
   useEffect(() => {
     apiPublicaciones
       .getProductos()
@@ -38,7 +40,7 @@ const TarjetasProductos = () => {
         console.error(error);
         window.alert(`${error.message} 🙁.`);
       });
-  }, [setProductos, setLoading]);
+  }, [setProductos, loading]);
 
   function primeraMayuscula(str) {
     return str
@@ -47,33 +49,65 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (tipo, precio, img, publicacionid) => {
-    const existe = carrito.some((el) => el.tipo === tipo);
+  const handleAñadir = (titulo, precio, img, publicacionId) => {
+    if (!usuario) {
+      console.error("Usuario no autenticado");
+      return;
+    }
+    const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+  
     if (existe) {
-      setCarrito(
-        carrito.map((el) =>
-          el.tipo === tipo ? { ...el, cant: el.cant + 1 } : el
-        )
-      );
+      const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+  
+      if (!cantProducto) {
+        console.error("Producto no encontrado en el carrito");
+        return;
+      }
+  
+      const cantidadActualizada = {
+        usuario_id: usuario.id,
+        publicacion_id: cantProducto.publicacion_id,
+        cantidad: cantProducto.cantidad + 1,
+      };
+  
+      apiCarrito
+        .actualizarCantidad(cantidadActualizada)
+        .then((data) => {
+          const nuevoCarrito = carrito.map((producto) =>
+            producto.publicacion_id === cantProducto.publicacion_id
+              ? { ...producto, cantidad: data.cantidad }
+              : producto
+          );
+          setCarrito(nuevoCarrito);
+        })
+        .then(() => {
+          // Sincronizar con el servidor después de actualizar
+          apiCarrito.obtenerProductos(usuario.id).then((data) => {
+            setCarrito(Array.isArray(data) ? data : []);
+          });
+        })
+        .catch((error) => {
+          console.error("Error al actualizar la cantidad:", error);
+        });
     } else {
-      apiCarrito.agregarProducto(publicacionid, usuario.id);
-      setCarrito([
-        ...carrito,
-        { tipo: tipo, precio: precio, cant: 1, img: img },
-      ]);
+      apiCarrito
+        .agregarProducto(usuario.id, publicacionId)
+        .then((data) => {
+          setCarrito([...carrito, { ...data, precio }]);
+        })
+        .then(() => {
+          // Sincronizar con el servidor después de agregar un producto
+          apiCarrito.obtenerProductos(usuario.id).then((data) => {
+            setCarrito(Array.isArray(data) ? data : []);
+          });
+        })
+        .catch((error) => {
+          console.error("Error al añadir el producto al carrito:", error);
+        });
     }
   };
-
+  
   const handleAñadirFavorito = (publicacionid) => {
-    console.log(favoritos);
-    console.log(publicacionid);
-    console.log(usuario.id);
-   
-
-    // if (existe) {
-    //   console.log("El producto ya está en favoritos");
-    // } else {
-    // setFavoritos([...favoritos, producto]);
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
     console.log("Producto añadido a favoritos:");
   };
@@ -124,7 +158,12 @@ const TarjetasProductos = () => {
                   style={{ width: "45%" }}
                   className="cardButton"
                   onClick={() => {
-                    handleAñadir(el.titulo, el.precio, el.img1_portada);
+                    handleAñadir(
+                      el.titulo,
+                      el.precio,
+                      el.img1_portada,
+                      el.publicacion_id
+                    );
                   }}
                 >
                   Añadir <Emoji emoji="shopping-cart" />
