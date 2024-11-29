@@ -30,7 +30,6 @@ const TarjetasProductos = () => {
 
   useEffect(() => {
     if (filtro !== "") {
-      console.log("probandoooo")
       apiPublicaciones
         .filtroGaleria(filtro)
         .then((data) => {
