@@ -3,9 +3,14 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { MarketContext } from "../context/ContextMarket";
 import { apiCarrito } from "../api/apiCarrito";
 import Carrito2 from "../components/Carrito2";
+import { useNavigate } from "react-router-dom";
 
 const CarritoList = () => {
   const { carrito, setCarrito, usuario } = useContext(MarketContext); // Asegúrate de obtener usuario
+
+  const navigate = useNavigate()
+
+  const irAPedidos = () => navigate('/pedidos');
 
   const handleAumentar = async (producto) => {
     if (!usuario) {
@@ -242,6 +247,7 @@ const CarritoList = () => {
                 <Button
                   variant="warning"
                   style={{ borderRadius: "20px", padding: "5px 20px" }}
+                  onClick={irAPedidos}
                 >
                   Comprar
                 </Button>

@@ -125,6 +125,12 @@ const Perfil = () => {
   const handleRedireccionar = () => {
     navigate("/publicar"); // Redirige a la ruta /publicar
   };
+
+  const irAPedidos = () => {
+    console.log("ID del usuario al navegar:", usuario.id); // Verifica si este ID es válido
+    navigate(`/pedidos/${usuario.id}`);
+  };
+  
   console.log("publicaciones:", publicaciones);
 
   return (
@@ -298,7 +304,18 @@ const Perfil = () => {
                   style={{ backgroundColor: "#ffffff", minHeight: "400px" }}
                 >
                   <h5 className="text-dark text-center">Mis publicaciones</h5>
+                  <div className="d-flex justify-content-end">
                   <Button
+                    variant="link-opacity-10-hover"
+                    size="sm"
+                    className="text-secondary p-0 mb-3 ms-2 text-end hover-black"
+                    style={{ fontSize: "0.9rem" }}
+                    onClick={irAPedidos}
+                  >
+                    Mis Pedidos
+                    <Emoji emoji="package" />
+                  </Button>
+                    <Button
                     variant="link-opacity-10-hover"
                     size="sm"
                     className="text-secondary p-0 mb-3 ms-2 text-end"
@@ -308,6 +325,9 @@ const Perfil = () => {
                     Agregar publicacion
                     <Emoji emoji="plus-sign" />
                   </Button>
+                  </div>
+                  
+                  
 
                   {loading && <p>Cargando publicaciones...</p>}
                   {!loading && error && !publicaciones.length && (
