@@ -34,6 +34,10 @@ const ENDPOINTS = {
   agregarImagenes: `${BASE_URL}/publicaciones/imagenes`,
   actualizarImagenes: (id) => `${BASE_URL}/publicaciones/imagenes/${id}`,
   borrarImagenes: (id) => `${BASE_URL}/publicaciones/borrar_imagenes/${id}`,
+
+  //Pedidos
+  agregarPedido: `${BASE_URL}/pedidos`,
+  obtenerPedidos: (id) =>`${BASE_URL}/pedidos/${id}`,
 };
 
 export default ENDPOINTS;

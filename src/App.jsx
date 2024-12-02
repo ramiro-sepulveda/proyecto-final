@@ -14,6 +14,8 @@ import Favoritos from "./views/Favoritos";
 import RutasProtegidas from "./views/RutasProtegidas";
 import RutasObsoletas from "./views/RutasObsoletas";
 import VerificadorToken from "./components/VerificadorToken";
+import NuevoPedido from "./views/NuevoPedido";
+import MisPedidos from "./views/MisPedidos";
 
 function App() {
   VerificadorToken();
@@ -35,6 +37,8 @@ function App() {
               <Route path="/usuarios/perfil/:id" element={<PerfilUsuario />} />
               <Route path="/publicar" element={<NewPost />} />
               <Route path="/favoritos" element={<Favoritos />} />
+              <Route path="/pedidos" element={<NuevoPedido />} />
+              <Route path="/pedidos/:comprador_id" element={<MisPedidos />} />
             </Route>
 
             {/* Rutas públicas obsoletas con token */}
