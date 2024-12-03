@@ -225,9 +225,9 @@ const TarjetasProductos = ({ searchTerm }) => {
             </Card.Body>
           </Card>
         ))
-      ) : (
-        <p className="text-center">No se encontraron resultados.</p>
-      )}
+        ) : (
+          <p className="text-center">No se encontraron resultados.</p>
+        )}
       </div>
     );
   }
