@@ -1,16 +1,17 @@
 import ENDPOINTS from "./endpoints";
 
-const obtenerProductos = async (usuarioId) => {
-  try {
-    const response = await fetch(ENDPOINTS.obtenerProductos(usuarioId));
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al obtener el carrito:", error);
+const obtenerProductos = async (publicacionId) => {
+  const response = await fetch(ENDPOINTS.obtenerProductos(publicacionId));
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`Error HTTP: ${response.status}, Response: ${errorText}`);
+    throw new Error(`Error HTTP: ${response.status}`);
   }
+  const data = await response.json();
+  console.log("Datos obtenidos:", data); // Ver los datos aquí
+  return data;
 };
-
-const agregarProducto = async (usuarioId, publicacionId) => {
+const agregarProducto = async (usuarioId, publicacionId, img1_portada) => {
   try {
     const response = await fetch(ENDPOINTS.agregarProducto, {
       method: "POST",
@@ -30,6 +31,7 @@ const agregarProducto = async (usuarioId, publicacionId) => {
     }
 
     const data = await response.json();
+
     console.log("Producto añadido al carrito:", data);
     return data;
   } catch (error) {
@@ -37,6 +39,7 @@ const agregarProducto = async (usuarioId, publicacionId) => {
     throw error;
   }
 };
+
 
 const actualizarCantidad = async ({ usuario_id, publicacion_id, cantidad }) => {
   try {

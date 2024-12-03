@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
@@ -9,7 +9,7 @@ import { apiCarrito } from "../api/apiCarrito";
 
 // Asegúrate de tener la API para las publicaciones
 
-const TarjetasProductos = () => {
+const TarjetasProductos = ({ searchTerm }) => {
 
   const {
     categorias,
@@ -24,7 +24,7 @@ const TarjetasProductos = () => {
     update,
     filtro,
   } = useContext(MarketContext);
-
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
   const navigate = useNavigate();
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
@@ -55,6 +55,18 @@ const TarjetasProductos = () => {
     };
   }, [setProductos, loading, filtro]);
 
+  useEffect(() => {
+    if (searchTerm) {
+      setProductosFiltrados(
+        productos.filter((producto) =>
+          producto.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else {
+      setProductosFiltrados(productos);
+    }
+  }, [searchTerm, productos]);
+
   function primeraMayuscula(str) {
     return str
       .split(" ")
@@ -62,7 +74,9 @@ const TarjetasProductos = () => {
       .join(" ");
   }
 
-  const handleAñadir = (titulo, precio, img, publicacionId) => {
+  const handleAñadir = (titulo, precio, img1_portada, publicacionId) => {
+    console.log("Imagen del producto:", img1_portada);
+  
     if (!usuario) {
       if (carrito.find((el) => el.publicacion_id === publicacionId)) {
         setCarrito(
@@ -77,6 +91,7 @@ const TarjetasProductos = () => {
         setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
         return;
       }
+
     }
 
     else {
@@ -128,10 +143,12 @@ const TarjetasProductos = () => {
           })
           .catch((error) => {
             console.error("Error al añadir el producto al carrito:", error);
+
           });
       }
     }
   };
+
 
   const handleAñadirFavorito = (publicacionid) => {
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
@@ -144,7 +161,8 @@ const TarjetasProductos = () => {
   } else {
     return (
       <div className="gallery d-grid row-gap-5 grid-columns">
-        {productos.map((el) => (
+        {productosFiltrados.length > 0 ? (
+          productosFiltrados.map((el) => (
           <Card
             className="d-flex m-auto tarjeta"
             text="black"
@@ -206,7 +224,10 @@ const TarjetasProductos = () => {
               </div>
             </Card.Body>
           </Card>
-        ))}
+        ))
+      ) : (
+        <p className="text-center">No se encontraron resultados.</p>
+      )}
       </div>
     );
   }

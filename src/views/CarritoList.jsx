@@ -171,93 +171,106 @@ const CarritoList = () => {
 
 
   return (
-    <Container fluid className="p-4">
-      <Row className="justify-content-center">
-        <Col md={8}>
-          <Card
-            className="p-4"
-            style={{ backgroundColor: "#2c3e50", borderRadius: "10px" }}
-          >
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <h3 className="text-light">Carrito</h3>
-              <Carrito2 clase="total-amount text-light" />
-            </div>
+      <Container fluid className="p-4">
+        <Row className="justify-content-center">
+          <Col md={8}>
             <Card
-              className="p-3 mb-3"
-              style={{ backgroundColor: "#34495e", borderRadius: "10px" }}
+              className="p-4"
+              style={{ backgroundColor: "#2c3e50", borderRadius: "10px" }}
             >
-              {Array.isArray(carrito) && carrito.length === 0 ? (
-                <p className="text-light text-center">Tu carrito está vacío</p>
-              ) : (
-                Array.isArray(carrito) &&
-                carrito.map((producto, index) => (
-                  <Row
-                    key={index}
-                    className="align-items-center mb-3"
-                    style={{
-                      backgroundColor: "#ecf0f1",
-                      borderRadius: "8px",
-                      padding: "10px 5px",
-                    }}
-                  >
-                    <Col xs={2} className="d-flex justify-content-center">
-                      <img
-                        src={producto.img1_portada}
-                        alt={producto.tipo}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "5px",
-                        }}
-                      />
-                    </Col>
-                    <Col xs={4}>
-
-                      <p className="mb-0 text-muted">{"$ " + producto.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
-                    </Col>
-                    <Col
-                      xs={3}
-                      className="d-flex justify-content-end align-items-center"
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h3 className="text-light">Carrito</h3>
+                <Carrito2 clase="total-amount text-light" />
+              </div>
+    
+              {/* Aquí no es necesario un segundo Card */}
+              <div
+                className="p-3 mb-3"
+                style={{ backgroundColor: "#34495e", borderRadius: "10px" }}
+              >
+                {Array.isArray(carrito) && carrito.length === 0 ? (
+                  <p className="text-light text-center">Tu carrito está vacío</p>
+                ) : (
+                  Array.isArray(carrito) &&
+                  carrito.map((producto, index) => (
+                    <Row
+                      key={index}
+                      className="align-items-center mb-3"
+                      style={{
+                        backgroundColor: "#ecf0f1",
+                        borderRadius: "8px",
+                        padding: "10px 5px",
+                      }}
                     >
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => handleDisminuir(producto)}
+                      <Col xs={2} className="d-flex justify-content-center">
+                        <img
+                          src={producto.img1_portada}
+                          alt={producto.tipo}
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "5px",
+                          }}
+                        />
+                      </Col>
+                      <Col xs={4}>
+                        <p className="mb-0 text-muted">
+                          {"$ " +
+                            producto.precio
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                        </p>
+                      </Col>
+                      <Col
+                        xs={3}
+                        className="d-flex justify-content-end align-items-center"
                       >
-                        -
-                      </Button>
-                      <span className="mx-3">{producto.cantidad}</span>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => handleAumentar(producto)}
-                      >
-                        +
-                      </Button>
-                    </Col>
-                    <Col xs={2}>
-                      <p className="mb-0">{"$ " + (producto.precio * producto.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
-                    </Col>
-                  </Row>
-                ))
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleDisminuir(producto)}
+                        >
+                          -
+                        </Button>
+                        <span className="mx-3">{producto.cantidad}</span>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleAumentar(producto)}
+                        >
+                          +
+                        </Button>
+                      </Col>
+                      <Col xs={2}>
+                        <p className="mb-0">
+                          {"$ " +
+                            (producto.precio * producto.cantidad)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                        </p>
+                      </Col>
+                    </Row>
+                  ))
+                )}
+              </div>
+    
+              {/* Botón para ir a pedidos */}
+              {Array.isArray(carrito) && carrito.length > 0 && (
+                <div className="d-flex justify-content-end">
+                  <Button
+                    variant="warning"
+                    style={{ borderRadius: "20px", padding: "5px 20px" }}
+                    onClick={irAPedidos}
+                  >
+                    Comprar
+                  </Button>
+                </div>
               )}
             </Card>
-            {Array.isArray(carrito) && carrito.length > 0 && (
-              <div className="d-flex justify-content-end">
-                <Button
-                  variant="warning"
-                  style={{ borderRadius: "20px", padding: "5px 20px" }}
-                  onClick={irAPedidos}
-                >
-                  Comprar
-                </Button>
-              </div>
-            )}
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+          </Col>
+        </Row>
+      </Container>
+    );
+  };
 
 export default CarritoList;
