@@ -7,24 +7,53 @@ import { apiPublicaciones } from "../api/apiPublicaciones";
 import { apiFavoritos } from "../api/apiFavoritos";
 import { apiCarrito } from "../api/apiCarrito";
 
-const TarjetasProductos = () => {
-    const { productos, setLoading, loading, carrito, setCarrito, favoritos, setProductos,usuario } = useContext(MarketContext);
-  const navigate = useNavigate();
+// Asegúrate de tener la API para las publicaciones
 
+const TarjetasProductos = () => {
+
+  const {
+    categorias,
+    productos,
+    setLoading,
+    loading,
+    carrito,
+    setCarrito,
+    setProductos,
+    usuario,
+    setUpdate,
+    update,
+    filtro,
+  } = useContext(MarketContext);
+
+  const navigate = useNavigate();
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
   useEffect(() => {
-    apiPublicaciones
-      .getProductos()
-      .then((data) => {
-        setProductos(data.results);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        window.alert(`${error.message} 🙁.`);
-      });
-  }, [setProductos, setLoading]);
+    if (filtro !== "") {
+      apiPublicaciones
+        .filtroGaleria(filtro)
+        .then((data) => {
+          setProductos(data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          window.alert(`${error.message} 🙁.`);
+        });
+
+    } else {
+      apiPublicaciones
+        .getProductos()
+        .then((data) => {
+          setProductos(data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          window.alert(`${error.message} 🙁.`);
+        })
+    };
+  }, [setProductos, loading, filtro]);
 
   function primeraMayuscula(str) {
     return str
@@ -37,65 +66,81 @@ const TarjetasProductos = () => {
     console.log("Imagen del producto:", img1_portada);
   
     if (!usuario) {
-      console.error("Usuario no autenticado");
-      return;
-    }
-  
-    const existe = carrito.some((el) => el.publicacion_id === publicacionId);
-  
-    if (existe) {
-      const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
-  
-      if (!cantProducto) {
-        console.error("Producto no encontrado en el carrito");
+      if (carrito.find((el) => el.publicacion_id === publicacionId)) {
+        setCarrito(
+          carrito.map((producto) =>
+            producto.publicacion_id === publicacionId
+              ? { ...producto, cantidad: producto.cantidad + 1 }
+              : producto
+          ))
+        console.log(carrito)
+      }
+      else {
+        setCarrito([...carrito, { publicacion_id: publicacionId, img1_portada: img, precio: precio, cantidad: 1, }])
         return;
       }
-  
-      const cantidadActualizada = {
-        usuario_id: usuario.id,
-        publicacion_id: cantProducto.publicacion_id,
-        cantidad: cantProducto.cantidad + 1,
-      };
-  
-      apiCarrito
-        .actualizarCantidad(cantidadActualizada)
-        .then((data) => {
-          const nuevoCarrito = carrito.map((producto) =>
-            producto.publicacion_id === cantProducto.publicacion_id
-              ? { ...producto, cantidad: data.cantidad }
-              : producto
-          );
-          setCarrito(nuevoCarrito);
-        })
-        .then(() => {
-          apiCarrito.obtenerProductos(usuario.id).then((data) => {
-            setCarrito(Array.isArray(data) ? data : []);
+
+    }
+
+    else {
+      const existe = carrito.some((el) => el.publicacion_id === publicacionId);
+      if (existe) {
+        const cantProducto = carrito.find((el) => el.publicacion_id === publicacionId);
+
+        if (!cantProducto) {
+          console.error("Producto no encontrado en el carrito");
+          return;
+        }
+
+        const cantidadActualizada = {
+          usuario_id: usuario.id,
+          publicacion_id: cantProducto.publicacion_id,
+          cantidad: cantProducto.cantidad + 1,
+        };
+
+        apiCarrito
+          .actualizarCantidad(cantidadActualizada)
+          .then((data) => {
+            const nuevoCarrito = carrito.map((producto) =>
+              producto.publicacion_id === cantProducto.publicacion_id
+                ? { ...producto, cantidad: data.cantidad }
+                : producto
+            );
+            setCarrito(nuevoCarrito);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de actualizar
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al actualizar la cantidad:", error);
           });
-        })
-        .catch((error) => {
-          console.error("Error al actualizar la cantidad:", error);
-        });
-    } else {
-      apiCarrito
-        .agregarProducto(usuario.id, publicacionId)
-        .then((data) => {
-          setCarrito([...carrito, { ...data, img1_portada, precio }]); // Asegúrate de incluir img1_portada
-        })
-        .then(() => {
-          apiCarrito.obtenerProductos(usuario.id).then((data) => {
-            setCarrito(Array.isArray(data) ? data : []);
+      } else {
+        apiCarrito
+          .agregarProducto(usuario.id, publicacionId)
+          .then((data) => {
+            setCarrito([...carrito, { ...data, precio }]);
+          })
+          .then(() => {
+            // Sincronizar con el servidor después de agregar un producto
+            apiCarrito.obtenerProductos(usuario.id).then((data) => {
+              setCarrito(Array.isArray(data) ? data : []);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al añadir el producto al carrito:", error);
+
           });
-        })
-        .catch((error) => {
-          console.error("Error al añadir el producto al carrito:", error);
-        });
+      }
     }
   };
-  
-  
-  
+
+
   const handleAñadirFavorito = (publicacionid) => {
     apiFavoritos.agregarFavorito(usuario.id, publicacionid);
+    setUpdate(!update)
     console.log("Producto añadido a favoritos:");
   };
 
@@ -111,13 +156,21 @@ const TarjetasProductos = () => {
             key={el.publicacion_id}
             style={{ width: "100%" }}
           >
-            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} />
-            <Card.Header className="fs-2 border-light">
+            <Card.Img variant="top" src={el.img1_portada} alt={el.titulo} style={{ height: "300px", objectFit: "contain" }} />
+            <Card.Header style={{ height: "80px" }} className="fs-4 border-light">
               {primeraMayuscula(el.titulo)}
             </Card.Header>
             <Card.Body>
               <Card.Title>Categoría</Card.Title>
-
+              <ul>
+                <li>
+                  {primeraMayuscula(
+                    categorias.find(
+                      (categoria) => categoria.id === el.categoria_id
+                    ).nombre
+                  )}
+                </li>
+              </ul>
               <div className="precio">
                 {"$ " +
                   el.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}

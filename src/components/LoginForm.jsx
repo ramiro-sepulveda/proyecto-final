@@ -37,8 +37,8 @@ const LoginForm = () => {
         window.alert('login realizado con éxito 😀.')
         login(data.token)
         setUsuario(data.user)
-
-        navigate('/perfil')
+        console.log(data)
+        navigate(`/usuarios/perfil/${data.user.id}`)
       })
       .catch((error) => {
         console.error(error)

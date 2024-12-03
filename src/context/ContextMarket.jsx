@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFavoritos } from "../api/apiFavoritos"; // Ajusta la ruta según la ubicación de tu archivo apiFavoritos.jsx
+import ENDPOINTS from "../api/endpoints";
 
 export const MarketContext = createContext();
 
@@ -14,6 +15,9 @@ const MarketProvider = ({ children }) => {
   const [registro, setRegistro] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [categorias, setCategorias] = useState([]);
+  const [update, setUpdate] = useState(true);
+  const [filtro, setFiltro] = useState([])
 
   const login = (newToken) => {
     localStorage.setItem("token", "Bearer " + newToken);
@@ -25,32 +29,53 @@ const MarketProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUsuario("")
     navigate("/");
+    console.log("Logout")
   };
 
-  useEffect(() => {
-    const fetchFavoritos = async () => {
-      try {
-        if (usuario?.id) {
-          // Verifica si el usuario tiene un ID válido
-          const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
-          if (favoritos2) {
-            setFavoritos(favoritos2);
-          } else {
-            console.log("hola"); // Pasa el usuarioId correcto
-          }
+  const fetchFavoritos = async () => {
+    try {
+      console.log(usuario)
+      if (usuario) {
+        // Verifica si el usuario tiene un ID válido
+        const favoritos2 = await apiFavoritos.obtenerFavoritos(usuario.id);
+        if (favoritos !== favoritos2) {
+          setFavoritos(favoritos2);
+          console.log("Favoritos actualizados:", favoritos);
+        } else {
+          console.log("Favoritos esta al dia"); // Pasa el usuarioId correcto
         }
+      }
+      else {
+        console.log("No hay ningun usuario logeado");
+      }
+    } catch (error) {
+      console.error("Error al obtener los favoritos:", error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchFavoritos()
+  }, [usuario, update]);
+
+  useEffect(() => {
+    const dataCategorias = async () => {
+      try {
+        const response = await fetch(ENDPOINTS.getCategorias);
+        const data = await response.json();
+        console.log(data);
+        return data;
       } catch (error) {
-        console.error("Error al obtener los favoritos:", error);
+        console.log("error fetch JSON");
       }
     };
-
-    fetchFavoritos(); // Llamamos a la función para obtener los favoritos
-  }, [usuario]); // El `useEffect` se disparará cuando `usuario` cambie
-
-  useEffect(() => {
-    console.log("Favoritos actualizados:", favoritos);
-  }, [favoritos]);
+    dataCategorias().then((data) => {
+      setCategorias(data);
+    });
+    console.log(categorias);
+  }, [usuario]);
 
   return (
     <MarketContext.Provider
@@ -73,6 +98,11 @@ const MarketProvider = ({ children }) => {
         usuario,
         setUsuario,
         setLoading,
+        categorias,
+        setUpdate,
+        update,
+        filtro,
+        setFiltro,
       }}
     >
       {children}

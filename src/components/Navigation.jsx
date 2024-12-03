@@ -1,31 +1,35 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Emoji from "react-emojis";
 import { useContext, useEffect } from "react";
-import { MarketContext } from '../context/ContextMarket';
-import Carrito2 from './Carrito2';
-import { apiUsuarios } from '../api/apiUsuarios';
-
+import { MarketContext } from "../context/ContextMarket";
+import Carrito2 from "./Carrito2";
+import { apiUsuarios } from "../api/apiUsuarios";
 
 const Navigation = () => {
-  const { usuario, setUsuario, token, setToken, setIsAuthenticated, isAuthenticated, logout } = useContext(MarketContext);
+  const {
+    usuario,
+    setUsuario,
+    token,
+    setToken,
+    setIsAuthenticated,
+    isAuthenticated,
+    logout,
+  } = useContext(MarketContext);
 
   useEffect(() => {
     if (token) {
-      apiUsuarios.tokenUsuario(token)
+      apiUsuarios
+        .tokenUsuario(token)
         .then((data) => {
-          setIsAuthenticated(true),
-            setUsuario(data[0])
-        }
-        )
-        .catch((error) => {
-          setIsAuthenticated(false)
-          localStorage.removeItem('token')
+          setIsAuthenticated(true), setUsuario(data[0]);
         })
+        .catch((error) => {
+          setIsAuthenticated(false);
+          localStorage.removeItem("token");
+        });
     }
-  }
-    , [token, isAuthenticated]);
-
+  }, [token, isAuthenticated]);
 
   if (!isAuthenticated) {
     return (
@@ -33,40 +37,82 @@ const Navigation = () => {
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+            <img
+              src="solotecno.png"
+              alt="MarketPlace Logo"
+              style={{
+                height: "40px",
+              }}
+            />
+            </Navbar.Brand>
 
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/login">Inicia sesión</Nav.Link>
-              <Nav.Link as={Link} to="/registro">Regístrate</Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/galeria"
+                className=" border-end pe-4 me-4"
+              >
+                Ver catálogo
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                Inicia sesión
+              </Nav.Link>
+              <Nav.Link as={Link} to="/registro">
+                Regístrate
+              </Nav.Link>
+              <Nav.Link as={Link} to="/carrito">
+                <Emoji emoji="shopping-cart" /> <Carrito2 />
+              </Nav.Link>
             </Nav>
           </Container>
         </Navbar>
       </>
-    )
-  }
-  else {
+    );
+  } else {
     return (
       // VISUALIZACION EN MODO PRIVADO
       <>
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand as={Link} to="/">MarketPlace</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+            <img
+              src="solotecno.png"
+              alt="MarketPlace Logo"
+              style={{
+                height: "40px",
+              }}
+            />
+            </Navbar.Brand>
 
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/galeria" className=' border-end pe-4 me-4'>Ver catálogo</Nav.Link>
-              <Nav.Link as={Link} to="/publicar">Publicar</Nav.Link>
-              <Nav.Link as={Link} to={`/usuarios/perfil/${usuario.id}`}>Perfil</Nav.Link>
-              <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
-              <Nav.Link as={Link} to="/carrito">
-                <Emoji emoji="shopping-cart" /> {/* ponercarrito2 si hace falta pero no funciona */}
+              <Nav.Link
+                as={Link}
+                to="/galeria"
+                className=" border-end pe-4 me-4"
+              >
+                Ver catálogo
               </Nav.Link>
-              <Nav.Link as={Link} to="/" onClick={logout}>LogOut</Nav.Link>
+              <Nav.Link as={Link} to="/publicar">
+                Publicar
+              </Nav.Link>
+              <Nav.Link as={Link} to={`/usuarios/perfil/${usuario.id}`}>
+                Perfil
+              </Nav.Link>
+              <Nav.Link as={Link} to="/favoritos">
+                Favoritos
+              </Nav.Link>
+              <Nav.Link as={Link} to="/carrito">
+                <Emoji emoji="shopping-cart" /> <Carrito2 />
+              </Nav.Link>
+              <Nav.Link as={Link} to="/" onClick={logout}>
+                LogOut
+              </Nav.Link>
             </Nav>
           </Container>
         </Navbar>
       </>
-    )
+    );
   }
 };
 

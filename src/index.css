@@ -251,15 +251,118 @@ ul {
   font-size: 46px;
 }
 
-.white
-{color:white}
+.white {
+  color: white
+}
 
-.botones-detalles{
+.botones-detalles {
   display: flex;
   justify-content: space-around;
   gap: 3rem;
 }
 
-.botones-favoritos{
+.botones-favoritos {
   gap: 1rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgb(0, 0, 0);
+}
+
+.carousel {
+  width: 30%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+
+.contenedor_perfil {
+height: 300px;
+overflow: auto;
+}
+
+/* * Para Webkit (Chrome, Safari, Edge) */ */
+.contenedor_perfil::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.contenedor_perfil::-webkit-scrollbar-thumb {
+  background-color: white; /* Color de la barra de desplazamiento */
+  border-radius: 4px; /* Esquinas redondeadas */
+}
+
+.contenedor_perfil::-webkit-scrollbar-track {
+  background: transparent; /* Fondo transparente para la pista */
+}
+
+/* Firefox */
+.contenedor_perfil {
+  scrollbar-width: thin;  /* Barra delgada */
+  scrollbar-color: #052c65 transparent; /* Color de la barra y la pista */}
+
+/* TarjetasProductos */
+.tarjeta {
+  width: 300px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff; /* Asegúrate de que el fondo sea blanco */
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.tarjeta img {
+  width: 100%; 
+  height: auto; 
+  aspect-ratio: 16 / 9; 
+  object-fit: cover; 
+  border-radius: 8px 8px 0 0; 
+}
+
+.tarjeta .card-header {
+  font-size: 1.2rem; 
+  font-weight: bold; 
+  text-align: center; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+}
+
+.tarjeta .card-body {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.tarjeta-detalle {
+  background-color: #ffffff;
+  width: 75%;
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px); /* Mueve el contenedor hacia abajo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Devuelve a la posición original */
+  }
+}
+
+.animacion {
+  animation: fadeInUp 0.6s ease-in-out; /* Duración de 0.6 segundos y efecto suave */
 }

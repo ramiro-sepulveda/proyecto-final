@@ -3,23 +3,24 @@ import ENDPOINTS from "./endpoints";
 
 const obtenerFavoritos = async (usuarioId) => {
     try {
-      const response = await fetch(ENDPOINTS.obtenerFavoritos(usuarioId));
-      const data = await response.json();
-      console.log(data); // Verifica aquí si los datos están bien estructurados
-      return data;
+        const response = await fetch(ENDPOINTS.obtenerFavoritos(usuarioId));
+        const data = await response.json();
+        console.log(data); // Verifica aquí si los datos están bien estructurados
+        return data;
     } catch (error) {
-      console.error("Error al obtener los favoritos:", error);
+        console.error("Error al obtener los favoritos:", error);
     }
-  };
+};
 // Agregar un producto a favoritos
 const agregarFavorito = async (usuarioId, productoId) => {
     try {
         const response = await fetch(ENDPOINTS.agregarFavorito, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
             },
-            body: JSON.stringify({ usuario_id: usuarioId , publicacion_id: productoId})
+            body: JSON.stringify({ usuario_id: usuarioId, publicacion_id: productoId })
         });
         console.log(response);
         const data = await response.json();
@@ -31,15 +32,18 @@ const agregarFavorito = async (usuarioId, productoId) => {
 };
 
 // Eliminar un producto de favoritos
-const eliminarFavorito = async (productoId, usuarioId) => {
+const eliminarFavorito = async (favId) => {
     try {
-        const response = await fetch(ENDPOINTS.eliminarFavorito, {
+        console.log(favId);
+        const response = await fetch(ENDPOINTS.eliminarFavorito(favId), {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
             },
-            body: JSON.stringify({ producto_id: productoId, usuario_id: usuarioId })
+            body: JSON.stringify({ id: favId })
         });
+        console.log(response)
         const data = await response.json();
         console.log("Producto eliminado de favoritos:", data);
         return data;

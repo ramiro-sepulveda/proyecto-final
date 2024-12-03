@@ -17,6 +17,7 @@ const agregarProducto = async (usuarioId, publicacionId, img1_portada) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
       },
       body: JSON.stringify({
         usuario_id: usuarioId,
@@ -31,11 +32,8 @@ const agregarProducto = async (usuarioId, publicacionId, img1_portada) => {
 
     const data = await response.json();
 
-    // Añadir la imagen directamente si fue pasada como argumento
-    const productoConImagen = { ...data, img1_portada };
-
-    console.log("Producto añadido al carrito:", productoConImagen);
-    return productoConImagen;
+    console.log("Producto añadido al carrito:", data);
+    return data;
   } catch (error) {
     console.error("Error al añadir el producto al carrito:", error.message);
     throw error;
@@ -49,6 +47,7 @@ const actualizarCantidad = async ({ usuario_id, publicacion_id, cantidad }) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
       },
       body: JSON.stringify({ usuario_id, publicacion_id, cantidad }),
     });
@@ -72,6 +71,7 @@ const eliminarProducto = async (publicacion_id, usuario_id) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `${localStorage.getItem('token')}`, // Incluye el token en el header
       },
       body: JSON.stringify({
         publicacion_id: publicacion_id, // Usar los parámetros directamente
