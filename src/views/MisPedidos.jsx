@@ -10,23 +10,24 @@ const MisPedidos = () => {
   const [error, setError] = useState(null); // Estado para manejar errores
   const { comprador_id } = useParams(); // Debe coincidir con el nombre en la ruta
 
+
   useEffect(() => {
     const obtenerMisPedidos = async () => {
       console.log("Obteniendo pedidos...");
       console.log("comprador_id desde los parámetros:", comprador_id);
 
       const id = parseInt(comprador_id, 10); // Convierte comprador_id en un número
-      console.log("ID convertido:", id);
 
       if (isNaN(id)) {
-        console.error("El compradorId no es un número válido:", comprador_id);
         setError("El ID del comprador no es válido."); // Establecer error
         return;
       }
 
       try {
         const pedidosObtenidos = await apiPedidos.obtenerPedidos(id);
+        console.log("Pedidos obtenidos:", pedidosObtenidos);
         if (Array.isArray(pedidosObtenidos)) {
+          setPedidos([]); // Limpia el estado de pedidos antes de la nueva llamada
           setPedidos(pedidosObtenidos); // Guardar los pedidos en el estado
         } else {
           setError("No se obtuvieron pedidos válidos."); // Manejar caso donde no se reciben pedidos
@@ -39,6 +40,8 @@ const MisPedidos = () => {
 
     obtenerMisPedidos(); // Llamar a la función cuando se monta el componente
   }, [comprador_id]);
+
+  console.log("Pedidos: ", pedidos)
 
   return (
     <Container fluid className="p-4">
@@ -84,11 +87,11 @@ const MisPedidos = () => {
     </Col>
     <Col xs={4}>
       <p className="mb-0 text-muted">
-        {"Estado: " + (pedido.estado)}
+        {(pedido.titulo)}
       </p>
     </Col>
     <Col xs={3} className="d-flex justify-content-end align-items-center">
-      <span className="mx-3">{pedido.titulo}</span>
+      <span className="mx-3">{"Estado: " + pedido.estado}</span>
     </Col>
     <Col xs={3} className="d-flex justify-content-end align-items-center">
       <span className="mx-3">{"Cantidad: " + (pedido.cantidad)}</span>
