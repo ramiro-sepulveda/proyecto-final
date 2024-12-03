@@ -4,8 +4,12 @@ import Form from "react-bootstrap/Form";
 import { MarketContext } from "../context/ContextMarket";
 
 const SearchBar = ({ handleSearch }) => {
-  const { categorias, setFiltro, filtro } = useContext(MarketContext);
+
+
+  const { categorias, setFiltro, filtro } = useContext(MarketContext)
   const [searchInput, setSearchInput] = useState("");
+  const handleFiltro = (e) => { setFiltro(e.target.value) }
+
 
   // Maneja cambios en el término de búsqueda
   const onSearchChange = (e) => {
@@ -55,6 +59,7 @@ const SearchBar = ({ handleSearch }) => {
               {el.nombre}
             </option>
           ))}
+
         </Form.Select>
       </div>
     </header>
