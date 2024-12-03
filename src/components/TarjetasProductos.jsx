@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MarketContext } from "../context/ContextMarket";
 import { useNavigate } from "react-router-dom";
 import Emoji from "react-emojis";
@@ -9,7 +9,7 @@ import { apiCarrito } from "../api/apiCarrito";
 
 // Asegúrate de tener la API para las publicaciones
 
-const TarjetasProductos = () => {
+const TarjetasProductos = ({ searchTerm }) => {
 
   const {
     categorias,
@@ -24,7 +24,7 @@ const TarjetasProductos = () => {
     update,
     filtro,
   } = useContext(MarketContext);
-
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
   const navigate = useNavigate();
   const irAProducto = (id) => navigate(`/publicaciones/${id}`);
 
@@ -54,6 +54,18 @@ const TarjetasProductos = () => {
         })
     };
   }, [setProductos, loading, filtro]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      setProductosFiltrados(
+        productos.filter((producto) =>
+          producto.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else {
+      setProductosFiltrados(productos);
+    }
+  }, [searchTerm, productos]);
 
   function primeraMayuscula(str) {
     return str
@@ -149,7 +161,8 @@ const TarjetasProductos = () => {
   } else {
     return (
       <div className="gallery d-grid row-gap-5 grid-columns">
-        {productos.map((el) => (
+        {productosFiltrados.length > 0 ? (
+          productosFiltrados.map((el) => (
           <Card
             className="d-flex m-auto tarjeta"
             text="black"
@@ -211,7 +224,10 @@ const TarjetasProductos = () => {
               </div>
             </Card.Body>
           </Card>
-        ))}
+        ))
+      ) : (
+        <p className="text-center">No se encontraron resultados.</p>
+      )}
       </div>
     );
   }
