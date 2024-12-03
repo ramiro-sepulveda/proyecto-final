@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { MarketContext } from "../context/ContextMarket";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 
 const SearchBar = ({ handleSearch }) => {
+
+  const { categorias, setFiltro, filtro } = useContext(MarketContext)
   const [searchInput, setSearchInput] = useState("");
+  
+  const handleFiltro = (e) => { setFiltro(e.target.value) }
+
 
   const onSearchChange = (e) => {
     const value = e.target.value;
@@ -32,6 +38,13 @@ const SearchBar = ({ handleSearch }) => {
             />
           </FloatingLabel>
         </div>
+      </div>
+      <div>
+        <Form.Select aria-label="Default select example" onChange={handleFiltro} value={filtro}>
+          <option value="">Filtrar por:</option>{
+            categorias.map((el) => (<option key={el.id} value={el.id}>{el.nombre}</option>))}
+
+        </Form.Select>
       </div>
     </header>
   );
