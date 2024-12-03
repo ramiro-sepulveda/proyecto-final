@@ -61,7 +61,9 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/registro">
                 Regístrate
               </Nav.Link>
-              
+              <Nav.Link as={Link} to="/carrito">
+                <Emoji emoji="shopping-cart" /> <Carrito2 />
+              </Nav.Link>
             </Nav>
           </Container>
         </Navbar>
