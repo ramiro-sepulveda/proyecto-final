@@ -27,6 +27,7 @@ const agregarPedido = async (pedido) => {
 
 // Función para obtener pedidos de un comprador
 const obtenerPedidos = async (comprador_id) => {
+    console.log("Llamando a obtenerPedidos con comprador_id:", comprador_id);
     try {
         const response = await fetch(ENDPOINTS.obtenerPedidos(comprador_id), {
             headers: {
@@ -37,6 +38,7 @@ const obtenerPedidos = async (comprador_id) => {
             throw new Error(`Error al obtener los pedidos: ${response.status}`);
         }
         const data = await response.json();
+        console.log("info obtenida: ", data)
         return data;
     } catch (error) {
         console.error("Error al obtener los pedidos:", error.message);
