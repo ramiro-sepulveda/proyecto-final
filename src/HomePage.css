@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: calc(100vh - 56px);
-    background-image: url('/img-principal.png');
+    background-image: url('public/Gadgets Store Presentation(4).png');
     background-size: cover;
     color: white;
     text-align: center;
@@ -20,5 +20,43 @@
     border-radius: 50px;
     background-color: #ffd700;
     color: black;
+  }
+
+  .main-container {
+    position: relative;
+    height: 100vh; /* Para ocupar toda la ventana */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+  }
+  
+  .hero-section {
+    position: relative;
+    background-size: cover; /* Asegura que cubra todo el contenedor */
+    background-position: center;
+    height: 100%; /* Asegúrate de que tome el 100% del contenedor */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white; /* Asegúrate de que el texto sea legible */
+  }
+  
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cubre todo el ancho del contenedor */
+    height: 100%; /* Cubre todo el alto del contenedor */
+    background: rgba(0, 0, 0, 0.3); /* Filtro negro semi-transparente */
+    z-index: 1; /* El filtro estará debajo del texto */
+  }
+  
+  .hero-section h1,
+  .hero-section h4,
+  .hero-section .search-button {
+    position: relative; /* Asegura que estén encima del filtro */
+    z-index: 2; /* Coloca el texto y botones encima del filtro */
   }
   
