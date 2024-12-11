@@ -4,6 +4,8 @@ Grupo 1:
 - Cristian Rozas
 - Ramiro Sepúlveda
 
+## [Link al deploy](https://solotecno.netlify.app/)
+
 # Frontend para E-commerce de Productos Tecnológicos
 
 Este proyecto corresponde al desarrollo del frontend de un sitio web de e-commerce especializado en productos tecnológicos. Está construido con React utilizando Vite como entorno de desarrollo para optimizar la velocidad y eficiencia. Este frontend se conecta a una API REST creada previamente en el backend, implementando todas las funcionalidades necesarias para la experiencia del usuario final.
